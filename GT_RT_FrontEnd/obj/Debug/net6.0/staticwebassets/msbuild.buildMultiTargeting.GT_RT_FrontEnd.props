@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\GT_RT_FrontEnd.props" />
+</Project>
