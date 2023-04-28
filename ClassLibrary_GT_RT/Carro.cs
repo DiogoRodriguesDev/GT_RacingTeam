@@ -8,20 +8,16 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary_GT_RT
 {
-    public class Circuito
+    public class Carro
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key] // Define a propriedade Id como chave primária
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Define a propriedade Id como gerada pelo banco de dados
         public int Id { get; set; }
 
         public string Nome { get; set; }
 
-        #region ctor
-        public Circuito() { }
-        public Circuito(string nome)
-        {
-            Nome = nome;
-        }
-        #endregion
+        public string Marca { get; set; }
+
+        public string Categoria { get; set; }
     }
 }

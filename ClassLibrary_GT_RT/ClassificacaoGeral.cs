@@ -8,20 +8,19 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary_GT_RT
 {
-    public class Circuito
+    public class ClassificacaoGeral
     {
+        #region prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id_Pontuacao { get; set; }
+        public int Classificacao { get; set; }
 
-        public string Nome { get; set; }
+        public List<Resultado> Resultados { get; set; }
+        #endregion
 
         #region ctor
-        public Circuito() { }
-        public Circuito(string nome)
-        {
-            Nome = nome;
-        }
+        public ClassificacaoGeral() { }
         #endregion
     }
 }

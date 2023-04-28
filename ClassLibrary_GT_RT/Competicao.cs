@@ -8,17 +8,21 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary_GT_RT
 {
-    public class Circuito
+    public class Competicao
     {
+        #region Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Nome { get; set; }
 
-        #region ctor
-        public Circuito() { }
-        public Circuito(string nome)
+        public string Descricao { get; set; }
+        #endregion
+
+        #region Ctor
+        public Competicao() { }
+        public Competicao(string nome)
         {
             Nome = nome;
         }
