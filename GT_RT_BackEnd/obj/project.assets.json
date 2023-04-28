@@ -1242,6 +1242,19 @@
             "rid": "win"
           }
         }
+      },
+      "ClassLibrary_GT_RT/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
+        },
+        "compile": {
+          "bin/placeholder/ClassLibrary_GT_RT.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClassLibrary_GT_RT.dll": {}
+        }
       }
     }
   },
@@ -3712,10 +3725,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ClassLibrary_GT_RT/1.0.0": {
+      "type": "project",
+      "path": "../ClassLibrary_GT_RT/ClassLibrary_GT_RT.csproj",
+      "msbuildProject": "../ClassLibrary_GT_RT/ClassLibrary_GT_RT.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "ClassLibrary_GT_RT >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.5",
@@ -3758,7 +3777,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\ClassLibrary_GT_RT\\ClassLibrary_GT_RT.csproj": {
+              "projectPath": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\ClassLibrary_GT_RT\\ClassLibrary_GT_RT.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
