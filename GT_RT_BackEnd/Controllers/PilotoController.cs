@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ClassLibrary_GT_RT.Requests;
 using GT_RT_BackEnd.Queries;
 using ClassLibrary_GT_RT;
+using GT_RT_BackEnd.Commands;
 
 namespace GT_RT_BackEnd.Controllers
 {
@@ -47,22 +48,22 @@ namespace GT_RT_BackEnd.Controllers
         //    return Ok(result);
         //}
         [HttpPost("Pilotos")]
-        public async Task<IActionResult> AddProduct([FromBody] Piloto product)
+        public async Task<IActionResult> AddPiloto([FromBody] Piloto piloto)
         {
-            var result = await Mediator.Send(new AddProductCommand(product));
+            var result = await Mediator.Send(new AddPilotoCommand(piloto));
             return Ok(result);
         }
 
-        [HttpDelete("products/{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        [HttpDelete("pilotos/{id}")]
+        public async Task<IActionResult> DeletePiloto(int id)
         {
             await Mediator.Send(new DeletePilotoCommand(id));
             return Ok();
         }
-        [HttpPut("product-edit/{id}")]
-        public async Task<IActionResult> UpdateProduct([FromBody] Piloto product, int id)
+        [HttpPut("piloto-edit/{id}")]
+        public async Task<IActionResult> UpdatePiloto([FromBody] Piloto piloto, int id)
         {
-            var result = await Mediator.Send(new UpdatePilotoCommand(product, id));
+            var result = await Mediator.Send(new UpdatePilotoCommand(piloto, id));
 
             return Ok(result);
         }
