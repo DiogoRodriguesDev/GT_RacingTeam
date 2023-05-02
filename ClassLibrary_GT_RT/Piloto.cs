@@ -17,23 +17,23 @@ namespace ClassLibrary_GT_RT
 
         public bool IsDeleted { get; set; }
         public string Nome { get; set; }
-        public string Nickname { get; set; }
-        public string Descricao { get; set; }
-        public int Id_Equipa { get; set; }
-        public string PaisRegiao { get; set; }
-        public double Valor { get; set; }
+        public string? Nickname { get; set; }
+        public string? Descricao { get; set; }
+        public int? Id_Equipa { get; set; }
+        public string? PaisRegiao { get; set; }
+        public double? Valor { get; set; }
 
-        public List<Resultado> Resultados { get; set; }
+        public List<Resultado>? Resultados { get; set; }
         #endregion
 
         #region ctor
-        public Piloto() { }
+        //public Piloto() { }
 
-        public Piloto(string nome, string nickname)
-        {
-            Nome = nome;
-            Nickname = nickname;
-        }
+        //public Piloto(string nome, string nickname)
+        //{
+        //    Nome = nome;
+        //    Nickname = nickname;
+        //}
         #endregion
     }
 }

@@ -1,11 +1,23 @@
-﻿@page "/"
+﻿@*@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+*@
+
+
+@page "/"
 @using ClassLibrary_GT_RT;
 @using Interfaces;
 @using System.Diagnostics;
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
-<h2>Lista de Produtos</h2>
+<h2>Lista de Pilotos</h2>
 
 @if (Pilotos is not null && Pilotos.Any())
 {

@@ -14,7 +14,7 @@ namespace ClassLibrary_GT_RT
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         #region ctor
         public Circuito() { }

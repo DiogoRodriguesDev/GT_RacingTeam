@@ -29,6 +29,7 @@ namespace GT_RT_BackEnd.Handlers
             {
                 Id_piloto = x.Id_piloto,
                 Nome = x.Nome,
+                Nickname = x.Nickname,
                 Descricao = x.Descricao,
                 IsDeleted = x.IsDeleted,
             }).ToList();
@@ -36,6 +37,7 @@ namespace GT_RT_BackEnd.Handlers
             var autoMapped = _mapper.Map<List<Piloto>>(query);
 
             return Task.FromResult(autoMapped);
+            //return Task.FromResult(handMapped);
         }
     }
 }
