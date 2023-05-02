@@ -10,13 +10,13 @@ namespace GT_RT_FrontEnd.Interfaces
         public Task<List<Piloto>> GetPilotos();
 
         [Get("/piloto-details/{id}")]
-        public Task<Piloto> GetProduct(int id);
+        public Task<Piloto> GetPiloto(int id);
 
         [Post("/pilotos")]
-        public Task<Piloto> CreateProduct([Body] Piloto newPiloto);
+        public Task<Piloto> CreatePiloto([Body] Piloto newPiloto);
 
         [Put("/piloto-edit/{id}")]
-        public Task<Piloto> UpdateProduct([FromBody] Piloto updatedPiloto, int id);
+        public Task<Piloto> UpdatePiloto([FromBody] Piloto updatedPiloto, int id);
 
 
         [Delete("/pilotos/{id}")]
