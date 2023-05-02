@@ -1,9 +1,68 @@
 ﻿@page "/"
+@using ClassLibrary_GT_RT;
+@using Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
 
-<PageTitle>Index</PageTitle>
+<h2>Lista de Produtos</h2>
 
-<h1>Hello, world!</h1>
+@if (Pilotos is not null && Pilotos.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var piloto in Pilotos)
+            {
+                <tr>
+                    <td style="padding: 20px;">@piloto.Nome</td>
+@*                    <td style="padding: 20px;">@product.Category</td>
+                    <td style="padding: 20px;">@product.Price €</td>*@
+                    <td style="padding: 20px;">@piloto.Descricao</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
-Welcome to your new app.
+@code {
+    List<Piloto> Pilotos { get; set; } = new();
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetPilotos();
+            Pilotos = response.Where(p => !p.IsDeleted).ToList();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task DeleteProduct(int id)
+    {
+        try
+        {
+            await WebServiceAPI.DeletePiloto(id);
+            Pilotos.RemoveAll(p => p.Id_piloto == id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+    private void EditProduct(int id)
+    {
+        NavigationManager.NavigateTo($"/EditarPiloto/{id}");
+    }
+}
