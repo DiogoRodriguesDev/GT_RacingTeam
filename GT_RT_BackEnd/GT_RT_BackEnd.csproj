@@ -27,8 +27,4 @@
     <ProjectReference Include="..\ClassLibrary_GT_RT\ClassLibrary_GT_RT.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
 </Project>

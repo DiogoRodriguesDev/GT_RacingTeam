@@ -86,3 +86,9 @@ C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\obj\D
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\obj\Debug\net6.0\GT_RT_FrontEnd.pdb
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\obj\Debug\net6.0\GT_RT_FrontEnd.genruntimeconfig.cache
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\obj\Debug\net6.0\ref\GT_RT_FrontEnd.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\bin\Debug\net6.0\MediatR.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\bin\Debug\net6.0\MediatR.Contracts.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_FrontEnd\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
