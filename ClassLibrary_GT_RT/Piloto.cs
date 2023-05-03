@@ -16,7 +16,7 @@ namespace ClassLibrary_GT_RT
         public int Id_piloto { get; set; }
 
         public bool IsDeleted { get; set; }
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
         public string? Nickname { get; set; }
         public string? Descricao { get; set; }
         public int? Id_Equipa { get; set; }

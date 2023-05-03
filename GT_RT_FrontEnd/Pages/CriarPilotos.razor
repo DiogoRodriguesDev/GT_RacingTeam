@@ -1,0 +1,112 @@
+﻿@page "/CriarPilotos"
+@using ClassLibrary_GT_RT;
+@using Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+<h2>Criar novo piloto</h2>
+
+<EditForm Model="@NewPiloto" OnValidSubmit="CreateNewPiloto">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Nome:</label>
+        <InputText id="name" class="form-control" @bind-Value="@NewPiloto.Nome" />
+    </div>
+
+
+    <div class="form-group">
+        <label for="description">Descrição:</label>
+        <InputTextArea id="description" class="form-control" @bind-Value="@NewPiloto.Descricao" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Criar</button>
+</EditForm>
+
+<hr>
+
+<h2>Pilotos</h2>
+
+@if (PilotosData is not null && PilotosData.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var piloto in PilotosData)
+            {
+                <tr>
+                    <td style="padding: 20px;">@piloto.Nome</td>
+                    <td style="padding: 20px;">@piloto.Descricao</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeletePiloto(piloto.Id_piloto)">Deletar</button>
+                        <button class="btn btn-primary" @onclick="() => EditPiloto(piloto.Id_piloto)">Editar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+
+@code {
+    List<Piloto> PilotosData { get; set; } = new();
+    Piloto NewPiloto { get; set; } = new Piloto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetPilotos();
+            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task CreateNewPiloto()
+    {
+        try
+        {
+            var response = await WebServiceAPI.CreatePiloto(NewPiloto);
+            PilotosData.Add(response);
+            NewPiloto = new Piloto();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task DeletePiloto(int id)
+    {
+        try
+        {
+            await WebServiceAPI.DeletePiloto(id);
+            PilotosData.RemoveAll(p => p.Id_piloto == id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+    private void EditPiloto(int id)
+    {
+        NavigationManager.NavigateTo($"/EditarPiloto/{id}");
+    }
+}

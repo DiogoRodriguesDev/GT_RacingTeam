@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ClassLibrary_GT_RT.Requests;
 using GT_RT_BackEnd.Queries;
 using ClassLibrary_GT_RT;
-using GT_RT_BackEnd.Commands;
+using GT_RT_BackEnd.Commands.PilotoCommands;
 
 namespace GT_RT_BackEnd.Controllers
 {

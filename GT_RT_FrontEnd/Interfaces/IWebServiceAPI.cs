@@ -18,7 +18,6 @@ namespace GT_RT_FrontEnd.Interfaces
         [Put("/piloto-edit/{id}")]
         public Task<Piloto> UpdatePiloto([FromBody] Piloto updatedPiloto, int id);
 
-
         [Delete("/pilotos/{id}")]
         public Task DeletePiloto(int id);
     }
