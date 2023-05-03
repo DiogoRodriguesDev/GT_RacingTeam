@@ -34,8 +34,8 @@ Welcome to your new app.
             {
                 <tr>
                     <td style="padding: 20px;">@piloto.Nome</td>
-@*                    <td style="padding: 20px;">@product.Category</td>
-                    <td style="padding: 20px;">@product.Price €</td>*@
+@*                    <td style="padding: 20px;">@piloto.Category</td>
+                    <td style="padding: 20px;">@piloto.Price €</td>*@
                     <td style="padding: 20px;">@piloto.Descricao</td>
                 </tr>
             }
@@ -60,7 +60,7 @@ Welcome to your new app.
         }
     }
 
-    private async Task DeleteProduct(int id)
+    private async Task Deletepiloto(int id)
     {
         try
         {
@@ -73,7 +73,7 @@ Welcome to your new app.
             throw;
         }
     }
-    private void EditProduct(int id)
+    private void Editpiloto(int id)
     {
         NavigationManager.NavigateTo($"/EditarPiloto/{id}");
     }

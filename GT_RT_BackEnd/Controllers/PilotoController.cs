@@ -39,9 +39,9 @@ namespace GT_RT_BackEnd.Controllers
         }
 
         [HttpGet("pilotos/{search}")]
-        //public async Task<IActionResult> GetProduct(string search)
+        //public async Task<IActionResult> Getpiloto(string search)
         //{
-        //    var result = await Mediator.Send(new GetProductQuery(new Models.ProductRequest
+        //    var result = await Mediator.Send(new GetpilotoQuery(new Models.pilotoRequest
         //    {
         //        Search = search
         //    }));

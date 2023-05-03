@@ -21,7 +21,7 @@ namespace ClassLibrary_GT_RT
         public string? Descricao { get; set; }
         public int? Id_Equipa { get; set; }
         public string? PaisRegiao { get; set; }
-        public double? Valor { get; set; }
+        public double Valor { get; set; } = 300;
 
         public List<Resultado>? Resultados { get; set; }
         #endregion
