@@ -1,0 +1,44 @@
+﻿@page "/piloto-details/{id:int}"
+
+@using ClassLibrary_GT_RT
+@using Interfaces
+@using System.Diagnostics
+@inject IWebServiceAPI WebServiceAPI
+
+<h2>Detalhes do Piloto</h2>
+
+@if (Piloto != null)
+{
+    <h3>@Piloto.Nome</h3>
+    <p><strong>ID do Piloto:</strong> @Piloto.Id_piloto</p>
+    <p><strong>Apelido:</strong> @Piloto.Nickname</p>
+    <p><strong>Descrição:</strong> @Piloto.Descricao</p>
+    <p><strong>Equipe:</strong> @Piloto.Id_Equipa</p>
+    <p><strong>País/Região:</strong> @Piloto.PaisRegiao</p>
+    <p><strong>Valor:</strong> @Piloto.Valor €</p>
+}
+else
+{
+    <p>O piloto não foi encontrado.</p>
+}
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Piloto Piloto { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Piloto = await WebServiceAPI.GetPiloto(Id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+}

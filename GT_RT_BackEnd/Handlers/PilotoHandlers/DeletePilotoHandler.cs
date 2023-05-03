@@ -3,7 +3,7 @@ using GT_RT_BackEnd.Data;
 using ClassLibrary_GT_RT;
 using MediatR;
 
-namespace DotNet001API.Handlers
+namespace GT_RT_BackEnd.Handlers.PilotoHandlers
 {
     public class DeletepilotoHandler : IRequestHandler<DeletePilotoCommand>
     {
@@ -24,7 +24,6 @@ namespace DotNet001API.Handlers
                 piloto.IsDeleted = true;
                 await _dataContext.SaveChangesAsync();
             }
-
         }
     }
 }
