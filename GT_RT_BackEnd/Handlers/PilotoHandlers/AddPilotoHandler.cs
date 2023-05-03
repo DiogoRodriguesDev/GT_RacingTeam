@@ -3,7 +3,7 @@ using GT_RT_BackEnd.Data;
 using ClassLibrary_GT_RT;
 using MediatR;
 
-namespace DotNet001API.Handlers
+namespace GT_RT_BackEnd.Handlers.PilotoHandlers
 {
     public class AddpilotoHandler : IRequestHandler<AddPilotoCommand, Piloto>
     {

@@ -4,7 +4,7 @@ using GT_RT_BackEnd.Data;
 using GT_RT_BackEnd.Queries;
 using MediatR;
 
-namespace GT_RT_BackEnd.Handlers
+namespace GT_RT_BackEnd.Handlers.PilotoHandlers
 {
     public class GetPilotosHandler : IRequestHandler<GetPilotosQuery, List<Piloto>>
     {
