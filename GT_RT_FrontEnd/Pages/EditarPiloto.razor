@@ -1,0 +1,86 @@
+﻿@page "/EditarPiloto/{id:int}"
+@using ClassLibrary_GT_RT;
+@using Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+
+<h2>Editar Piloto</h2>
+
+@if (PilotoData is not null)
+{
+    <EditForm Model="@PilotoData" OnValidSubmit="UpdatePiloto">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <InputText id="name" class="form-control" @bind-Value="@PilotoData.Nome" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <InputTextArea id="description" class="form-control" @bind-Value="@PilotoData.Descricao" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </EditForm>
+
+    @if (showAlert)
+    {
+        <div class="alert alert-primary" role="alert">
+            Produto atualizado com sucesso!
+        </div>
+        showAlert = false;
+    }
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Piloto PilotoData { get; set; } = new();
+
+    bool showAlert = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            PilotoData = await WebServiceAPI.GetPiloto(Id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            Console.WriteLine($"Erro na chamada da API: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async void UpdatePiloto()
+    {
+        try
+        {
+            var newPiloto = new Piloto
+                {
+                    Nome = PilotoData.Nome,
+                    Descricao = PilotoData.Descricao,
+                    IsDeleted = PilotoData.IsDeleted
+                };
+
+            var response = await WebServiceAPI.UpdatePiloto(newPiloto, Id);
+
+            if (response is not null)
+            {
+                showAlert = true;
+                StateHasChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+}

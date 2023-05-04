@@ -29,6 +29,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJQaWxvdG9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/EditarPiloto.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdGFyUGlsb3RvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
