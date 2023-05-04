@@ -2,6 +2,7 @@
 using GT_RT_BackEnd.Data;
 using ClassLibrary_GT_RT;
 using MediatR;
+using System.Drawing;
 
 
 namespace GT_RT_BackEnd.Handlers.PilotoHandlers
@@ -23,7 +24,11 @@ namespace GT_RT_BackEnd.Handlers.PilotoHandlers
             else
             {
                 piloto.Nome = request.Piloto.Nome;
+                piloto.Nickname = request.Piloto.Nickname;
                 piloto.Descricao = request.Piloto.Descricao;
+                piloto.Id_Equipa = request.Piloto.Id_Equipa;
+                piloto.PaisRegiao = request.Piloto.PaisRegiao;
+                piloto.Valor = request.Piloto.Valor;
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
             }

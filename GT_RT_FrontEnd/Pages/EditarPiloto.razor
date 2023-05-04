@@ -82,7 +82,16 @@
     {
         try
         {
-            var response = await WebServiceAPI.UpdatePiloto(PilotoData, Id);
+            var newPiloto = new Piloto
+                {
+                    Nome = PilotoData.Nome,
+                    Nickname = PilotoData.Nickname,
+                    Descricao = PilotoData.Descricao,
+                    Id_Equipa = PilotoData.Id_Equipa,
+                    PaisRegiao = PilotoData.PaisRegiao,
+                    Valor = PilotoData.Valor
+                };
+            var response = await WebServiceAPI.UpdatePiloto(newPiloto, Id);
 
             if (response is not null)
             {
