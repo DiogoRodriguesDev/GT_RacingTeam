@@ -49,7 +49,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasIndex("CorridaId_corrida");
 
-                    b.ToTable("Carros");
+                    b.ToTable("Carros", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Circuito", b =>
@@ -66,7 +66,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Circuitos");
+                    b.ToTable("Circuitos", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.ClassificacaoGeral", b =>
@@ -82,7 +82,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasKey("Id_Pontuacao");
 
-                    b.ToTable("Classificacoes");
+                    b.ToTable("Classificacoes", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Competicao", b =>
@@ -103,7 +103,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Competicoes");
+                    b.ToTable("Competicoes", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Corrida", b =>
@@ -142,7 +142,7 @@ namespace GT_RT_BackEnd.Migrations
                     b.HasIndex("Id_Resultado")
                         .IsUnique();
 
-                    b.ToTable("Corridas");
+                    b.ToTable("Corridas", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Equipa", b =>
@@ -163,7 +163,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipas");
+                    b.ToTable("Equipas", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Piloto", b =>
@@ -201,7 +201,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasKey("Id_piloto");
 
-                    b.ToTable("Pilotos");
+                    b.ToTable("Pilotos", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Resultado", b =>
@@ -237,7 +237,7 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasIndex("PilotoId_piloto");
 
-                    b.ToTable("Resultados");
+                    b.ToTable("Resultados", (string)null);
                 });
 
             modelBuilder.Entity("ClassLibrary_GT_RT.Carro", b =>

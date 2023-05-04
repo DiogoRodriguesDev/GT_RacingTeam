@@ -21,5 +21,14 @@ namespace GT_RT_BackEnd.Data
 
             optionsBuilder.UseSqlServer(@"Data Source=DIO-PC\MSSQL_SERVER_DIO;Initial Catalog=GT_RacingTeam; Trusted_Connection=True; TrustServerCertificate=True;");
         }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Piloto>()
+        //        .Property(p => p.Categoria)
+        //        .HasConversion<int>(); // Armazena o enum como inteiro no banco de dados
+
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

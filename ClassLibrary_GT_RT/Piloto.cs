@@ -23,7 +23,7 @@ namespace ClassLibrary_GT_RT
         public int? Id_Equipa { get; set; } = 2; //ID 2 na DataBase é "Sem Equipa"
         public string? PaisRegiao { get; set; } = string.Empty;
         public double Valor { get; set; } = 300;
-        public string? Categoria { get; set; } = string.Empty;
+        //public Categoria_Piloto Categoria { get; set; }
 
         #endregion
     }

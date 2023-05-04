@@ -29,7 +29,7 @@ namespace GT_RT_BackEnd.Handlers.PilotoHandlers
                 piloto.Id_Equipa = request.Piloto.Id_Equipa;
                 piloto.PaisRegiao = request.Piloto.PaisRegiao;
                 piloto.Valor = request.Piloto.Valor;
-                piloto.Categoria = request.Piloto.Categoria; 
+                //piloto.Categoria = request.Piloto.Categoria; 
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
             }

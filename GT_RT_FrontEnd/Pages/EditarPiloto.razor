@@ -1,5 +1,6 @@
 ﻿@page "/EditarPiloto/{id:int}"
 @using ClassLibrary_GT_RT;
+@using GT_RT_FrontEnd.Services;
 @using Interfaces;
 @using System.Diagnostics;
 @inject IWebServiceAPI WebServiceAPI
@@ -44,9 +45,16 @@
         </div>
 
         <div class="form-group">
-            <label for="categoria">Categoria:</label>
-            <InputText id="categoria" class="form-control" @bind-Value="@PilotoData.Categoria" />
+            <label for="category">Category:</label>
+            <br>
+            <select bind="categoria_Piloto">
+                @foreach (var o in Options)
+                {
+                    <option value="@o.Value">@o.Value</option>
+                }
+            </select>
         </div>
+
 
 
         <button type="submit" class="btn btn-primary">Atualizar</button>
@@ -67,10 +75,17 @@
 
     Piloto PilotoData { get; set; } = new();
 
+    public Categoria_Piloto categoria_Piloto { get; set; }
+
+    public IList<SelectOption> Options { get; set; }
+
     bool showAlert = false;
 
     protected override async Task OnInitializedAsync()
     {
+        Options = EnumService.GetOptions<Categoria_Piloto>();
+        base.OnInitialized();
+
         try
         {
             PilotoData = await WebServiceAPI.GetPiloto(Id);
@@ -95,7 +110,7 @@
                     Id_Equipa = PilotoData.Id_Equipa,
                     PaisRegiao = PilotoData.PaisRegiao,
                     Valor = PilotoData.Valor,
-                    Categoria = PilotoData.Categoria
+                    //Categoria = PilotoData.Categoria
                 };
             var response = await WebServiceAPI.UpdatePiloto(newPiloto, Id);
 
