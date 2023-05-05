@@ -5,9 +5,13 @@ C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\De
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\GT_RT_BackEnd.runtimeconfig.json
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\GT_RT_BackEnd.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\GT_RT_BackEnd.pdb
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Azure.Identity.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Humanizer.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\MediatR.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\MediatR.Contracts.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
@@ -87,7 +91,3 @@ C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\De
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.pdb
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.genruntimeconfig.cache
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\ref\GT_RT_BackEnd.dll
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\AutoMapper.dll
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\MediatR.dll
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\MediatR.Contracts.dll

@@ -12,6 +12,9 @@ namespace GT_RT_FrontEnd.Interfaces
         [Get("/piloto-details/{id}")]
         public Task<Piloto> GetPiloto(int id);
 
+        [Get("/Piloto_Categorias")]
+        public Task<List<Piloto_Categorias>> GetCategorias();
+
         [Post("/pilotos")]
         public Task<Piloto> CreatePiloto([Body] Piloto newPiloto);
 

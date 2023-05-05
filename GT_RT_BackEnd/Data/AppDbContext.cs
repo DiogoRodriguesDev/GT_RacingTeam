@@ -14,6 +14,7 @@ namespace GT_RT_BackEnd.Data
         public DbSet<Equipa> Equipas { get; set; }
         public DbSet<Piloto> Pilotos { get; set; }
         public DbSet<Resultado> Resultados { get; set; }
+        public DbSet<Piloto_Categorias> Piloto_Categorias { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

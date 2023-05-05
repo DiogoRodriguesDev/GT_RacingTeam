@@ -34,18 +34,29 @@
 
 @code {
     List<Piloto> Pilotos { get; set; } = new();
+    bool dataFetched = false;
 
     protected override async Task OnInitializedAsync()
     {
-        try
+        // Removida a chamada da API daqui
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || !dataFetched)
         {
-            var response = await WebServiceAPI.GetPilotos();
-            Pilotos = response.Where(p => !p.IsDeleted).ToList();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
+            try
+            {
+                var response = await WebServiceAPI.GetPilotos();
+                Pilotos = response.Where(p => !p.IsDeleted).ToList();
+                dataFetched = true;
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
     }
 
@@ -55,6 +66,7 @@
         {
             await WebServiceAPI.DeletePiloto(id);
             Pilotos.RemoveAll(p => p.Id_piloto == id);
+            dataFetched = false; // Adiciona esta linha para garantir que a lista seja atualizada após excluir um piloto.
         }
         catch (Exception ex)
         {

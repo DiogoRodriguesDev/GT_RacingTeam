@@ -18,12 +18,13 @@ namespace ClassLibrary_GT_RT
 
         public bool IsDeleted { get; set; }
         public string Nome { get; set; } = string.Empty;
-        public string? Nickname { get; set; } = string.Empty;
-        public string? Descricao { get; set; } = string.Empty;
-        public int? Id_Equipa { get; set; } = 2; //ID 2 na DataBase é "Sem Equipa"
-        public string? PaisRegiao { get; set; } = string.Empty;
+        public string Nickname { get; set; } = string.Empty;
+        public string Descricao { get; set; } = string.Empty;
+        public int Id_Equipa { get; set; } = 2; //ID 2 na DataBase é "Sem Equipa"
+        public string PaisRegiao { get; set; } = string.Empty;
         public double Valor { get; set; } = 300;
-        //public Categoria_Piloto Categoria { get; set; }
+        public  int Id_Piloto_Categoria { get; set; }
+        public Piloto_Categorias Piloto_Categoria { get; set; }
 
         #endregion
     }

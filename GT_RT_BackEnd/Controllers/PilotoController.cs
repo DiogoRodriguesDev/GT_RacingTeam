@@ -4,6 +4,7 @@ using ClassLibrary_GT_RT.Requests;
 using GT_RT_BackEnd.Queries;
 using ClassLibrary_GT_RT;
 using GT_RT_BackEnd.Commands.PilotoCommands;
+using GT_RT_BackEnd.Handlers.PilotoHandlers;
 
 namespace GT_RT_BackEnd.Controllers
 {
@@ -27,6 +28,17 @@ namespace GT_RT_BackEnd.Controllers
             });
             return Ok(result);
         }
+
+        [HttpGet("/Piloto_Categorias")]
+        public async Task<IActionResult> GetCategorias([FromQuery] Piloto_CategoriasRequest request)
+        {
+            var result = await Mediator.Send(new GetPiloto_CategoriasQuery
+            {
+                Search = request.Search
+            });
+            return Ok(result);
+        }
+
 
         [HttpGet("Piloto-details/{id}")]
         public async Task<IActionResult> GetPiloto(int id)

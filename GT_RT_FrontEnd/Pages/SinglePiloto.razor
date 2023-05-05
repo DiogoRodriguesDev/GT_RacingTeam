@@ -11,11 +11,11 @@
 {
     <h3>@Piloto.Nome</h3>
     <p><strong>ID do Piloto:</strong> @Piloto.Id_piloto</p>
-    <p><strong>Apelido:</strong> @Piloto.Nickname</p>
+    <p><strong>Nickname:</strong> @Piloto.Nickname</p>
     <p><strong>Descrição:</strong> @Piloto.Descricao</p>
     <p><strong>Equipe:</strong> @Piloto.Id_Equipa</p>
     <p><strong>País/Região:</strong> @Piloto.PaisRegiao</p>
-    @*<p><strong>Categoria:</strong> @Piloto.Categoria</p>*@
+    <p><strong>Categoria:</strong> @Piloto.Piloto_Categoria.Nome_Piloto_Categoria</p>
     <p><strong>Valor:</strong> @Piloto.Valor €</p>
 }
 else
@@ -35,6 +35,9 @@ else
         try
         {
             Piloto = await WebServiceAPI.GetPiloto(Id);
+            List<Piloto_Categorias> categorias = await WebServiceAPI.GetCategorias();
+            Piloto.Piloto_Categoria = categorias.Find(c => c.Id_Piloto_Categorias == Piloto.Id_Piloto_Categoria);
+
         }
         catch (Exception ex)
         {

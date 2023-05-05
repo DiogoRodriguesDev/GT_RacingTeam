@@ -32,6 +32,7 @@ namespace GT_RT_BackEnd.Handlers.PilotoHandlers
                 Nickname = x.Nickname,
                 Descricao = x.Descricao,
                 IsDeleted = x.IsDeleted,
+                //Categoria = x.Categoria,
             }).ToList();
 
             var autoMapped = _mapper.Map<List<Piloto>>(query);
