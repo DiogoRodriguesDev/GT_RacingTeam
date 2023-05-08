@@ -49,6 +49,37 @@
     <button type="submit" class="btn btn-primary">Criar</button>
 </EditForm>
 
+<h2>Corridas</h2>
+
+@if (CorridasData is not null && CorridasData.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Localização</th>
+                <th>Circuito</th>
+                <th>Carros Permitidos</th>
+                <th>Tipo de Pneus</th>
+                <th>Número de Voltas</th>
+                <th>Número de Minutos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var corrida in CorridasData)
+            {
+                <tr>
+                    <td style="padding: 20px;">@corrida.Data</td>
+                    <td style="padding: 20px;">@corrida.Circuito</td>
+                    <td style="padding: 20px;">@corrida.CarrosPermitidos</td>
+                    <td style="padding: 20px;">@corrida.Tipo_Pneus</td>
+                    <td style="padding: 20px;">@corrida.NumeroVoltas</td>
+                    <td style="padding: 20px;">@corrida.NumeroMinutos</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 @code {
     List<Corrida> CorridasData { get; set; } = new();
     Corrida NewCorrida { get; set; } = new Corrida();

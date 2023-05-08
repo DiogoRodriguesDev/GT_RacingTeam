@@ -15,7 +15,6 @@ namespace ClassLibrary_GT_RT
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id_corrida { get; set; }
         public bool IsDeleted { get; set; }
-
         public string? Circuito { get; set; }
 
         public DateTime? Data { get; set; }
