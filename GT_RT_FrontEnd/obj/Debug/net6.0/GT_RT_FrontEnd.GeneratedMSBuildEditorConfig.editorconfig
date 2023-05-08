@@ -33,6 +33,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJfQ29ycmlkYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/EditarCorrida.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdGFyQ29ycmlkYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/EditarPiloto.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdGFyUGlsb3RvLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -43,6 +47,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/ListaDeCorridas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGlzdGFEZUNvcnJpZGFzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/SingleCorrida.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2luZ2xlQ29ycmlkYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/SinglePiloto.razor]

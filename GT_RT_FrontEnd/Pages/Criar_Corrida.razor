@@ -75,6 +75,10 @@
                     <td style="padding: 20px;">@corrida.Tipo_Pneus</td>
                     <td style="padding: 20px;">@corrida.NumeroVoltas</td>
                     <td style="padding: 20px;">@corrida.NumeroMinutos</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteCorrida(corrida.Id_corrida)">Deletar</button>
+                        <button class="btn btn-primary" @onclick="() => EditCorrida(corrida.Id_corrida)">Editar</button>
+                    </td>
                 </tr>
             }
         </tbody>

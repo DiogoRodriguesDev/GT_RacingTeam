@@ -1,0 +1,79 @@
+﻿@page "/ListaDeCorridas"
+@using ClassLibrary_GT_RT;
+@using Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+<h2>Lista de Corridas</h2>
+
+@if (Corridas is not null && Corridas.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Corrida in Corridas)
+            {
+                <tr>
+                    <td style="padding: 20px;"><a href="@($"/corrida-details/{Corrida.Id_corrida}")">@Corrida.Id_corrida</a></td>
+                    <td style="padding: 20px;">@Corrida.Data</td>
+                    <td style="padding: 20px;">@Corrida.Circuito</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Corrida> Corridas { get; set; } = new();
+    bool dataFetched = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Removida a chamada da API daqui
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || !dataFetched)
+        {
+            try
+            {
+                var response = await WebServiceAPI.GetCorridas();
+                Corridas = response.Where(p => !p.IsDeleted).ToList();
+                dataFetched = true;
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
+        }
+    }
+
+    private async Task DeleteCorrida(int id)
+    {
+        try
+        {
+            await WebServiceAPI.DeleteCorrida(id);
+            Corridas.RemoveAll(p => p.Id_corrida == id);
+            dataFetched = false; // Adiciona esta linha para garantir que a lista seja atualizada após excluir um Corrida.
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+    private void EditCorrida(int id)
+    {
+        NavigationManager.NavigateTo($"/EditarCorrida/{id}");
+    }
+}
