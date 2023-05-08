@@ -14,30 +14,20 @@ namespace ClassLibrary_GT_RT
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id_corrida { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public DateTime Data { get; set; }
-        public int Id_competicao { get; set; }
-        public int Id_circuito { get; set; }
+        public string? Circuito { get; set; }
 
-        public List<Carro> CarrosPermitidos { get; set; }
-
-        [NotMapped]
-        public List<TipoPneu> PneusPermitidos { get; set; }
-        public int NumeroVoltas { get; set; }
-        public int NumeroMinutos { get; set; }
+        public DateTime? Data { get; set; }
+        public int? Id_competicao { get; set; }
+        public string? CarrosPermitidos { get; set; }
+        public string? Tipo_Pneus { get; set; }
+        public int? NumeroVoltas { get; set; }
+        public int? NumeroMinutos { get; set; }
+        public int? Id_Resultado { get; set; } 
         [ForeignKey("Id_Resultado")]
-        public Resultado Resultado { get; set; }
-        public Circuito Circuito { get; set; }
-        #endregion
-
-        #region Ctor
-        public Corrida() { }
-        public Corrida(DateTime data, int id_competicao, int id_circuito)
-        {
-            Data = data;
-            Id_competicao = id_competicao;
-            Id_circuito = id_circuito;
-        }
+        public Resultado? Resultado { get; set; }
+        
         #endregion
     }
 }

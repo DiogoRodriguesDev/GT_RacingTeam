@@ -1,3 +1,10 @@
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.csproj.AssemblyReference.cache
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.AssemblyInfoInputs.cache
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.AssemblyInfo.cs
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.csproj.CoreCompileInputs.cache
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\appsettings.json
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\GT_RT_BackEnd.exe
@@ -70,13 +77,6 @@ C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\De
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\ClassLibrary_GT_RT.dll
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\ClassLibrary_GT_RT.pdb
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.csproj.AssemblyReference.cache
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.AssemblyInfoInputs.cache
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.AssemblyInfo.cs
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.csproj.CoreCompileInputs.cache
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\staticwebassets\msbuild.GT_RT_BackEnd.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\staticwebassets\msbuild.build.GT_RT_BackEnd.props
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.GT_RT_BackEnd.props

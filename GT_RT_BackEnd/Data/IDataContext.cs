@@ -5,8 +5,6 @@ namespace GT_RT_BackEnd.Data
 {
     public interface IDataContext
     {
-        DbSet<Carro> Carros { get; set; }
-        DbSet<Circuito> Circuitos { get; set; }
         DbSet<ClassificacaoGeral> Classificacoes { get; set; }
         DbSet<Competicao> Competicoes { get; set; }
         DbSet<Corrida> Corridas { get; set; }

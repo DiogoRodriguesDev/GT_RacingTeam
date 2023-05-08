@@ -1,0 +1,106 @@
+﻿@page "/CriarCorridas"
+@using ClassLibrary_GT_RT;
+@using Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+<h2>Criar nova corrida</h2>
+
+<EditForm Model="@NewCorrida" OnValidSubmit="CreateNewCorrida">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="data">Data:</label>
+        <InputDate id="data" class="form-control" @bind-Value="@NewCorrida.Data" />
+    </div>
+
+    <div class="form-group">
+        <label for="id_competicao">ID da Competição:</label>
+        <InputNumber id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao" />
+    </div>
+
+    <div class="form-group">
+        <label for="carrosPermitidos">Carros Permitidos:</label>
+        <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
+    </div>
+
+    <div class="form-group">
+        <label for="tipo_Pneus">Tipo de Pneus:</label>
+        <InputText id="tipo_Pneus" class="form-control" @bind-Value="@NewCorrida.Tipo_Pneus" />
+    </div>
+
+    <div class="form-group">
+        <label for="numeroVoltas">Número de Voltas:</label>
+        <InputNumber id="numeroVoltas" class="form-control" @bind-Value="@NewCorrida.NumeroVoltas" />
+    </div>
+
+    <div class="form-group">
+        <label for="numeroMinutos">Número de Minutos:</label>
+        <InputNumber id="numeroMinutos" class="form-control" @bind-Value="@NewCorrida.NumeroMinutos" />
+    </div>
+
+    <div class="form-group">
+        <label for="circuito">Circuito:</label>
+        <InputText id="circuito" class="form-control" @bind-Value="@NewCorrida.Circuito" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Criar</button>
+</EditForm>
+
+@code {
+    List<Corrida> CorridasData { get; set; } = new();
+    Corrida NewCorrida { get; set; } = new Corrida();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetCorridas();
+            CorridasData = response.Where(p => !p.IsDeleted).ToList();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task CreateNewCorrida()
+    {
+        try
+        {
+            var response = await WebServiceAPI.CreateCorrida(NewCorrida);
+            CorridasData.Add(response);
+            NewCorrida = new Corrida();
+
+            
+            
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task DeleteCorrida(int id)
+    {
+        try
+        {
+            await WebServiceAPI.DeleteCorrida(id);
+            CorridasData.RemoveAll(p => p.Id_corrida == id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+    private void EditCorrida(int id)
+    {
+        NavigationManager.NavigateTo($"/EditarCorrida/{id}");
+    }
+}

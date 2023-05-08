@@ -14,13 +14,10 @@ namespace ClassLibrary_GT_RT
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id_Pontuacao { get; set; }
-        public int Classificacao { get; set; }
+        public int? Classificacao { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public List<Resultado> Resultados { get; set; }
-        #endregion
-
-        #region ctor
-        public ClassificacaoGeral() { }
+        public List<Resultado>? Resultados { get; set; }
         #endregion
     }
 }

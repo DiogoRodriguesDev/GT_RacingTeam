@@ -13,18 +13,14 @@ namespace ClassLibrary_GT_RT
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id_Resultado { get; set; }
+        public bool IsDeleted { get; set; }
+        public int? Id_Corrida { get; set; }
+        public int? Id_Piloto { get; set; }
+        public int? Posicao { get; set; }
+        public string? VoltaMaisRapida { get; set; }
+        public ClassificacaoGeral? ClassificacaoGeral { get; set; }
+        public Piloto? Piloto { get; set; }
 
-        public int Id_Corrida { get; set; }
-        public int Id_Piloto { get; set; }
-        public int Posicao { get; set; }
-        public string VoltaMaisRapida { get; set; }
-        public ClassificacaoGeral ClassificacaoGeral { get; set; }
-        public Piloto Piloto { get; set; }
-
-        public Corrida Corrida { get; set; }
-
-        #region ctor
-        public Resultado() { }
-        #endregion
+        public Corrida? Corrida { get; set; }
     }
 }

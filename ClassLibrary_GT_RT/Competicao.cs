@@ -15,17 +15,10 @@ namespace ClassLibrary_GT_RT
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public string Descricao { get; set; }
-        #endregion
-
-        #region Ctor
-        public Competicao() { }
-        public Competicao(string nome)
-        {
-            Nome = nome;
-        }
+        public string? Descricao { get; set; }
         #endregion
     }
 }
