@@ -27,10 +27,10 @@ namespace GT_RT_BackEnd.Handlers.PilotoHandlers
             {
                 try
                 {
-                    await piloto.AddAsync(request.piloto);
+                    await piloto.AddAsync(request.Piloto);
                     await _dataContext.SaveChangesAsync(cancellationToken);
 
-                    return request.piloto;
+                    return request.Piloto;
                 }
                 catch (Exception e)
                 {

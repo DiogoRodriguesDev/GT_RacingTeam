@@ -16,12 +16,40 @@
         <InputText id="name" class="form-control" @bind-Value="@NewPiloto.Nome" />
     </div>
 
+    <div class="form-group">
+        <label for="nickname">Nickname:</label>
+        <InputText id="nickname" class="form-control" @bind-Value="@NewPiloto.Nickname" />
+    </div>
 
     <div class="form-group">
         <label for="description">Descrição:</label>
         <InputTextArea id="description" class="form-control" @bind-Value="@NewPiloto.Descricao" />
     </div>
 
+    <div class="form-group">
+        <label for="idEquipa">ID da Equipa:</label>
+        <InputNumber id="idEquipa" class="form-control" @bind-Value="@NewPiloto.Id_Equipa" />
+    </div>
+
+    <div class="form-group">
+        <label for="paisRegiao">País/Região:</label>
+        <InputText id="paisRegiao" class="form-control" @bind-Value="@NewPiloto.PaisRegiao" />
+    </div>
+
+    <div class="form-group">
+        <label for="valor">Valor:</label>
+        <InputNumber id="valor" class="form-control" @bind-Value="@NewPiloto.Valor" />
+    </div>
+
+    <div class="form-group">
+        <label for="categoriaId">Categoria:</label>
+        <select id="categoriaId" class="form-control" @bind="@NewPiloto.Id_Piloto_Categoria">
+            @foreach (var categoria in ListaCategoriasPiloto)
+            {
+                <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+            }
+        </select>
+    </div>
 
     <button type="submit" class="btn btn-primary">Criar</button>
 </EditForm>
@@ -36,7 +64,7 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Descrição</th>
+                <th>NickName</th>
                 <th></th>
             </tr>
         </thead>
@@ -45,7 +73,7 @@
             {
                 <tr>
                     <td style="padding: 20px;">@piloto.Nome</td>
-                    <td style="padding: 20px;">@piloto.Descricao</td>
+                    <td style="padding: 20px;">@piloto.Nickname</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeletePiloto(piloto.Id_piloto)">Deletar</button>
                         <button class="btn btn-primary" @onclick="() => EditPiloto(piloto.Id_piloto)">Editar</button>
@@ -63,6 +91,8 @@
 @code {
     List<Piloto> PilotosData { get; set; } = new();
     Piloto NewPiloto { get; set; } = new Piloto();
+    public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,6 +100,7 @@
         {
             var response = await WebServiceAPI.GetPilotos();
             PilotosData = response.Where(p => !p.IsDeleted).ToList();
+            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
         }
         catch (Exception ex)
         {
