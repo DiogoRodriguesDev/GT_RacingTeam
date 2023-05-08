@@ -13,7 +13,7 @@
     <p><strong>ID do Piloto:</strong> @Piloto.Id_piloto</p>
     <p><strong>Nickname:</strong> @Piloto.Nickname</p>
     <p><strong>Descrição:</strong> @Piloto.Descricao</p>
-    <p><strong>Equipe:</strong> @Piloto.Id_Equipa</p>
+    <p><strong>Equipa:</strong> @Piloto.Piloto_Equipa.Nome</p>
     <p><strong>País/Região:</strong> @Piloto.PaisRegiao</p>
     <p><strong>Categoria:</strong> @Piloto.Piloto_Categoria.Nome_Piloto_Categoria</p>
     <p><strong>Valor:</strong> @Piloto.Valor €</p>
@@ -36,8 +36,9 @@ else
         {
             Piloto = await WebServiceAPI.GetPiloto(Id);
             List<Piloto_Categorias> categorias = await WebServiceAPI.GetCategorias();
+            List<Equipa> equipas = await WebServiceAPI.GetEquipas();
             Piloto.Piloto_Categoria = categorias.Find(c => c.Id_Piloto_Categorias == Piloto.Id_Piloto_Categoria);
-
+            Piloto.Piloto_Equipa = equipas.Find(c => c.Id == Piloto.Id_Equipa);
         }
         catch (Exception ex)
         {
