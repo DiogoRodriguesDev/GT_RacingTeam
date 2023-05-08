@@ -15,6 +15,9 @@ namespace GT_RT_FrontEnd.Interfaces
         [Get("/Piloto_Categorias")]
         public Task<List<Piloto_Categorias>> GetCategorias();
 
+        [Get("/Piloto_Equipas")]
+        public Task<List<Equipa>> GetEquipas();
+
         [Post("/pilotos")]
         public Task<Piloto> CreatePiloto([Body] Piloto newPiloto);
 

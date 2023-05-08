@@ -38,6 +38,16 @@ namespace GT_RT_BackEnd.Controllers
             });
             return Ok(result);
         }
+        
+        [HttpGet("/Piloto_Equipas")]
+        public async Task<IActionResult> GetEquipas([FromQuery] Piloto_EquipasRequest request)
+        {
+            var result = await Mediator.Send(new GetEquipasQuery
+            {
+                Search = request.Search
+            });
+            return Ok(result);
+        }
 
 
         [HttpGet("Piloto-details/{id}")]

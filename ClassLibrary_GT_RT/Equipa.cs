@@ -19,13 +19,5 @@ namespace ClassLibrary_GT_RT
 
         public string Descricao { get; set; }
         #endregion
-
-        #region ctor
-        public Equipa() { }
-        public Equipa(string nome)
-        {
-            Nome = nome;
-        }
-        #endregion
     }
 }
