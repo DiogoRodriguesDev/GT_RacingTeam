@@ -30,6 +30,7 @@ namespace ClassLibrary_GT_RT
 
         public int? PosicaoFinal { get; set; }
 
-        public List<ResultadoCorridaPosicao> PosicoesPilotos { get; set; }
+
+        public int? Id_Posicao { get; set; }
     }
 }

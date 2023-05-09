@@ -1,5 +1,6 @@
 ﻿using ClassLibrary_GT_RT;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GT_RT_BackEnd.Data
 {
@@ -13,6 +14,7 @@ namespace GT_RT_BackEnd.Data
         DbSet<Resultado> Resultados { get; set; }
         DbSet<Piloto_Categorias> Piloto_Categorias { get; set; }
         DbSet<ResultadoCorrida> ResultadoCorrida { get; set; }
+        DbSet<Posicao> Posicao { get; set; }
 
 
         int SaveChanges();

@@ -15,6 +15,7 @@ namespace GT_RT_BackEnd.Data
         public DbSet<Resultado> Resultados { get; set; }
         public DbSet<Piloto_Categorias> Piloto_Categorias { get; set; }
         public DbSet<ResultadoCorrida> ResultadoCorrida { get; set; }
+        public DbSet<Posicao> Posicao { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,14 +32,7 @@ namespace GT_RT_BackEnd.Data
 
         //    base.OnModelCreating(modelBuilder);
         //}
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ResultadoCorrida>()
-                .Property(rc => rc.PosicoesPilotos)
-                .HasConversion(
-                    v => JsonConvert.SerializeObject(v),
-                    v => JsonConvert.DeserializeObject<List<ResultadoCorridaPosicao>>(v)
-                );
-        }
+
+
     }
 }

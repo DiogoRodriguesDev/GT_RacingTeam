@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ldiJ4Wj08giISMkXxIFlG9yf5zVJh4DtHCEDuWEzm/d5LW02LdfIs/c0I3YT0+TsiEbgr4biBILYchZDerEE+g==",
+  "dgSpecHash": "gI3YD4UA9I4arY/Rw73QHFNwhGHoygGI6NJHUtmk24R81eqojQcHYMN9furA+hoWsP6FDdOo6rzd+IuSaEsRFA==",
   "success": true,
   "projectFilePath": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\ClassLibrary_GT_RT\\ClassLibrary_GT_RT.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\DiogoRodrigues\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",

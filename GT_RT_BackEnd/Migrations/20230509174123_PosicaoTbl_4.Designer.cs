@@ -4,6 +4,7 @@ using GT_RT_BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GT_RT_BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230509174123_PosicaoTbl_4")]
+    partial class PosicaoTbl_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,9 +214,6 @@ namespace GT_RT_BackEnd.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("Numero_Posicao")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pontos_Da_Posicao")
                         .HasColumnType("int");
 
                     b.HasKey("Id_Posicao");

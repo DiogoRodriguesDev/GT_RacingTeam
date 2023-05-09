@@ -12,24 +12,26 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <div class="form-group">
-        <label for="id_corrida">ID da Corrida:</label>
-        <InputNumber id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida" />
-    </div>
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label for="id_corrida">ID da Corrida:</label>
+            <InputNumber id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida" />
+        </div>
 
-    <div class="form-group">
-        <label for="id_piloto">ID do Piloto:</label>
-        <InputNumber id="id_piloto" class="form-control" @bind-Value="@NewResultadoCorrida.Id_piloto" />
-    </div>
+        <div class="col-sm-4">
+            <label for="posicaoFinal">Posição Final:</label>
+            <InputNumber id="posicaoFinal" class="form-control" @bind-Value="@NewResultadoCorrida.PosicaoFinal" />
+        </div>
 
-    <div class="form-group">
-        <label for="posicaoFinal">Posição Final:</label>
-        <InputNumber id="posicaoFinal" class="form-control" @bind-Value="@NewResultadoCorrida.PosicaoFinal" />
-    </div>
-
-    <div class="form-group">
-        <label for="pontos">Pontos:</label>
-        <InputNumber id="pontos" class="form-control" @bind-Value="@NewResultadoCorrida.Pontos" />
+        <div class="col-sm-4">
+            <label for="pilotoId">Piloto:</label>
+            <select id="pilotoId" class="form-control" @bind="NewResultadoCorrida.Id_piloto">
+                @foreach (var piloto in PilotosData)
+                {
+                    <option value="@piloto.Id_piloto">@piloto.Nome</option>
+                }
+            </select>
+        </div>
     </div>
 
     <button type="submit" class="btn btn-primary">Criar</button>
@@ -74,16 +76,21 @@ else
     List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
     ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
     List<Corrida> Corridas { get; set; } = new();
-    List<Piloto> Pilotos { get; set; } = new();
+
+    List<Piloto> PilotosData { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var response = await WebServiceAPI.GetResultadoCorrida();
-            ResultadosCorridaData = response.Where(p => !p.IsDeleted).ToList();
+            var response = await WebServiceAPI.GetPilotos();
+            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+            var response1 = await WebServiceAPI.GetResultadoCorrida();
+            ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
+
             Corridas = await WebServiceAPI.GetCorridas();
-            Pilotos = await WebServiceAPI.GetPilotos();
+
         }
         catch (Exception ex)
         {
