@@ -12,6 +12,9 @@ namespace GT_RT_BackEnd.Data
         DbSet<Piloto> Pilotos { get; set; }
         DbSet<Resultado> Resultados { get; set; }
         DbSet<Piloto_Categorias> Piloto_Categorias { get; set; }
+        DbSet<ResultadoCorrida> ResultadoCorrida { get; set; }
+
+
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellation = default);
     }

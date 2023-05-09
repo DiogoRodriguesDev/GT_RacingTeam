@@ -4,6 +4,7 @@
 @using Interfaces
 @using System.Diagnostics
 @inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
 
 <h2>Detalhes do Corrida</h2>
 
@@ -19,6 +20,8 @@
 <p><strong>Número de Minutos:</strong> @Corrida.NumeroMinutos</p>
 <p><strong>ID do Resultado:</strong> @Corrida.Id_Resultado</p>
 <p><strong>Resultado:</strong> @Corrida.Resultado</p>
+
+
 }
 else
 {

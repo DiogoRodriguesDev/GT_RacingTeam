@@ -234,6 +234,37 @@ namespace GT_RT_BackEnd.Migrations
                     b.ToTable("Resultados");
                 });
 
+            modelBuilder.Entity("ClassLibrary_GT_RT.ResultadoCorrida", b =>
+                {
+                    b.Property<int>("Id_ResultadoCorrida")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_ResultadoCorrida"));
+
+                    b.Property<int?>("Id_corrida")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Id_piloto")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Pontos")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PosicaoFinal")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan?>("Tempo_total")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id_ResultadoCorrida");
+
+                    b.ToTable("ResultadoCorrida");
+                });
+
             modelBuilder.Entity("ClassLibrary_GT_RT.Corrida", b =>
                 {
                     b.HasOne("ClassLibrary_GT_RT.Resultado", "Resultado")

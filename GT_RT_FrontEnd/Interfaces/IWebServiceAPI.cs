@@ -44,5 +44,22 @@ namespace GT_RT_FrontEnd.Interfaces
 
         [Delete("/Corridas/{id}")]
         public Task DeleteCorrida(int id);
+
+
+
+        [Get("/ResultadoCorrida")]
+        public Task<List<ResultadoCorrida>> GetResultadoCorrida();
+
+        [Get("/ResultadoCorrida-details/{id}")]
+        public Task<ResultadoCorrida> GetResultadoCorrida(int id);
+
+        [Post("/ResultadoCorrida")]
+        public Task<ResultadoCorrida> CreateResultadoCorrida([Body] ResultadoCorrida newResultadoCorrida);
+
+        [Put("/ResultadoCorrida-edit/{id}")]
+        public Task<ResultadoCorrida> UpdateResultadoCorrida([FromBody] Corrida updatedResultadoCorrida, int id);
+
+        [Delete("/ResultadoCorrida/{id}")]
+        public Task DeleteResultadoCorrida(int id);
     }
 }
