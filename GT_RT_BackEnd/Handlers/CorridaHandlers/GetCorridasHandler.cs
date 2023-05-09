@@ -28,6 +28,7 @@ namespace GT_RT_BackEnd.Handlers.CorridaHandlers
             var handMapped = query.Select(x => new Corrida
             {
                 Id_corrida = x.Id_corrida,
+                Nome_Corrida = x.Nome_Corrida,
                 Circuito = x.Circuito,
                 Data = x.Data,
                 CarrosPermitidos = x.CarrosPermitidos,

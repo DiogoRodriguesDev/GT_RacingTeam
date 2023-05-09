@@ -56,8 +56,8 @@
     <table>
         <thead>
             <tr>
+                <th>Nome</th>
                 <th>Data</th>
-                <th>Localização</th>
                 <th>Circuito</th>
                 <th>Carros Permitidos</th>
                 <th>Tipo de Pneus</th>
@@ -69,6 +69,7 @@
             @foreach (var corrida in CorridasData)
             {
                 <tr>
+                    <td style="padding: 20px;">@corrida.Nome_Corrida</td>
                     <td style="padding: 20px;">@corrida.Data</td>
                     <td style="padding: 20px;">@corrida.Circuito</td>
                     <td style="padding: 20px;">@corrida.CarrosPermitidos</td>

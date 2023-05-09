@@ -23,13 +23,15 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
             }
             else
             {
-                ResultadoCorrida.Id_ResultadoCorrida = request.ResultadoCorrida.Id_ResultadoCorrida;
                 ResultadoCorrida.IsDeleted = request.ResultadoCorrida.IsDeleted;
+
+                ResultadoCorrida.Id_ResultadoCorrida = request.ResultadoCorrida.Id_ResultadoCorrida;
                 ResultadoCorrida.Id_piloto = request.ResultadoCorrida.Id_piloto;
                 ResultadoCorrida.Id_corrida = request.ResultadoCorrida.Id_corrida;
                 ResultadoCorrida.Tempo_total = request.ResultadoCorrida.Tempo_total;
                 ResultadoCorrida.Pontos = request.ResultadoCorrida.Pontos;
                 ResultadoCorrida.PosicaoFinal = request.ResultadoCorrida.PosicaoFinal;
+
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
             }

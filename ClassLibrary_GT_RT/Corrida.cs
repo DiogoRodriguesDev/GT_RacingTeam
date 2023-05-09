@@ -14,6 +14,8 @@ namespace ClassLibrary_GT_RT
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id_corrida { get; set; }
+
+        public string? Nome_Corrida { get; set; }
         public bool IsDeleted { get; set; }
         public string? Circuito { get; set; }
 

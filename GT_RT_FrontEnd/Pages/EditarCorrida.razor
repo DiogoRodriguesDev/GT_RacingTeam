@@ -20,9 +20,10 @@
             <InputText id="circuito" class="form-control" @bind-Value="@CorridaData.Circuito" />
         </div>
 
+
         <div class="form-group">
-            <label for="data">Data:</label>
-            <InputDate id="data" class="form-control" @bind-Value="@CorridaData.Data" />
+            <label for="Nome_Corrida">Nome_Corrida:</label>
+            <InputText id="data" class="form-control" @bind-Value="@CorridaData.Nome_Corrida" />
         </div>
 
         <div class="form-group">
@@ -101,6 +102,7 @@ else
             var updatedCorrida = new Corrida
                 {
                     Circuito = CorridaData.Circuito,
+                    Nome_Corrida = CorridaData.Nome_Corrida,
                     Data = CorridaData.Data,
                     Id_competicao = CorridaData.Id_competicao,
                     CarrosPermitidos = CorridaData.CarrosPermitidos,

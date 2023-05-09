@@ -4,6 +4,7 @@ using GT_RT_BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GT_RT_BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230509150342_modificar_RESULTADOScorrida3")]
+    partial class modificar_RESULTADOScorrida3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,6 +268,10 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.HasKey("Id_ResultadoCorrida");
 
+                    b.HasIndex("Id_corrida");
+
+                    b.HasIndex("Id_piloto");
+
                     b.ToTable("ResultadoCorrida");
                 });
 
@@ -303,6 +310,21 @@ namespace GT_RT_BackEnd.Migrations
                         .HasForeignKey("PilotoId_piloto");
 
                     b.Navigation("ClassificacaoGeral");
+
+                    b.Navigation("Piloto");
+                });
+
+            modelBuilder.Entity("ClassLibrary_GT_RT.ResultadoCorrida", b =>
+                {
+                    b.HasOne("ClassLibrary_GT_RT.Corrida", "Corrida")
+                        .WithMany()
+                        .HasForeignKey("Id_corrida");
+
+                    b.HasOne("ClassLibrary_GT_RT.Piloto", "Piloto")
+                        .WithMany()
+                        .HasForeignKey("Id_piloto");
+
+                    b.Navigation("Corrida");
 
                     b.Navigation("Piloto");
                 });

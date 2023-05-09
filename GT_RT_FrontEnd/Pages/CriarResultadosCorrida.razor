@@ -58,7 +58,7 @@
                     <td style="padding: 20px;">@resultadoCorrida.Pontos</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
-                        <button class="btn btn-primary" @onclick="() => EditResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Editar</button>
+                        <button class="btn btn-primary" @onclick="() => EditarResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Editar</button>
                     </td>
                 </tr>
             }
@@ -73,12 +73,17 @@ else
 @code {
     List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
     ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
+    List<Corrida> Corridas { get; set; } = new();
+    List<Piloto> Pilotos { get; set; } = new();
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var response = await WebServiceAPI.GetResultadoCorrida();
             ResultadosCorridaData = response.Where(p => !p.IsDeleted).ToList();
+            Corridas = await WebServiceAPI.GetCorridas();
+            Pilotos = await WebServiceAPI.GetPilotos();
         }
         catch (Exception ex)
         {
@@ -116,7 +121,7 @@ else
         }
     }
 
-    private void EditResultadoCorrida(int id)
+    private void EditarResultadoCorrida(int id)
     {
         NavigationManager.NavigateTo($"/EditarResultadoCorrida/{id}");
     }

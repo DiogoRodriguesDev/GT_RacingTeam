@@ -25,6 +25,7 @@ namespace GT_RT_BackEnd.Handlers.CorridaHandlers
             else
             {
                 Corrida.Circuito = request.Corrida.Circuito;
+                Corrida.Nome_Corrida = request.Corrida.Nome_Corrida;
                 Corrida.Data = request.Corrida.Data;
                 Corrida.Id_competicao = request.Corrida.Id_competicao;
                 Corrida.CarrosPermitidos = request.Corrida.CarrosPermitidos;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.EntityFrameworkCore;
 using ClassLibrary_GT_RT;
+using Newtonsoft.Json;
 
 namespace GT_RT_BackEnd.Data
 {
@@ -30,5 +31,14 @@ namespace GT_RT_BackEnd.Data
 
         //    base.OnModelCreating(modelBuilder);
         //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ResultadoCorrida>()
+                .Property(rc => rc.PosicoesPilotos)
+                .HasConversion(
+                    v => JsonConvert.SerializeObject(v),
+                    v => JsonConvert.DeserializeObject<List<ResultadoCorridaPosicao>>(v)
+                );
+        }
     }
 }
