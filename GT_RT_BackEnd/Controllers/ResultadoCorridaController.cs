@@ -43,7 +43,7 @@ namespace GT_RT_BackEnd.Controllers
             return Ok(result);
         }
 
-        [HttpGet("ResultadoCorridas/{search}")]
+        [HttpGet("ResultadoCorrida/{search}")]
         //public async Task<IActionResult> GetResultadoCorrida(string search)
         //{
         //    var result = await Mediator.Send(new GetResultadoCorridaQuery(new Models.ResultadoCorridaRequest
@@ -52,14 +52,14 @@ namespace GT_RT_BackEnd.Controllers
         //    }));
         //    return Ok(result);
         //}
-        [HttpPost("ResultadoCorridas")]
+        [HttpPost("ResultadoCorrida-Add")]
         public async Task<IActionResult> AddResultadoCorrida([FromBody] ResultadoCorrida ResultadoCorrida)
         {
             var result = await Mediator.Send(new AddResultadoCorridaCommand(ResultadoCorrida));
             return Ok(result);
         }
 
-        [HttpDelete("ResultadoCorridas/{id}")]
+        [HttpDelete("ResultadoCorrida/{id}")]
         public async Task<IActionResult> DeleteResultadoCorrida(int id)
         {
             await Mediator.Send(new DeleteResultadoCorridaCommand(id));

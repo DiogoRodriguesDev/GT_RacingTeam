@@ -53,7 +53,7 @@ namespace GT_RT_FrontEnd.Interfaces
         [Get("/ResultadoCorrida-details/{id}")]
         public Task<ResultadoCorrida> GetResultadoCorrida(int id);
 
-        [Post("/ResultadoCorrida")]
+        [Post("/ResultadoCorrida-Add")]
         public Task<ResultadoCorrida> CreateResultadoCorrida([Body] ResultadoCorrida newResultadoCorrida);
 
         [Put("/ResultadoCorrida-edit/{id}")]

@@ -19,7 +19,6 @@ namespace ClassLibrary_GT_RT
 
         public bool IsDeleted { get; set; }
 
-
         public int? Id_piloto { get; set; }
 
         public int? Id_corrida { get; set; }
@@ -29,7 +28,6 @@ namespace ClassLibrary_GT_RT
         public int? Pontos { get; set; }
 
         public int? PosicaoFinal { get; set; }
-
 
         public int? Id_Posicao { get; set; }
     }
