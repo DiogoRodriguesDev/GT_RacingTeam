@@ -1,9 +1,9 @@
 ﻿@page "/ResultadoCorrida-details/{id:int}"
 
-@using ClassLibrary_GT_RT
-@using Interfaces
-@using System.Diagnostics
-@inject IWebServiceAPI WebServiceAPI
+@using ClassLibrary_GT_RT;
+@using GT_RT_FrontEnd Interfaces;
+@using System.Diagnostics;
+@inject GT_RT_FrontEnd.Interfaces.IWebServiceAPI WebServiceAPI;
 
 <h2>Detalhes do Resultado de Corrida</h2>
 
@@ -12,7 +12,6 @@
     <p><strong>ID do Resultado de Corrida:</strong> @ResultadoCorrida.Id_ResultadoCorrida</p>
     <p><strong>Tempo Total:</strong> @ResultadoCorrida.Tempo_total</p>
     <p><strong>Pontos:</strong> @ResultadoCorrida.Pontos</p>
-    @*<p><strong>Corrida:</strong> @Corrida.Circuito</p>*@
 }
 else
 {
@@ -25,14 +24,12 @@ else
     public int Id { get; set; }
 
     private ResultadoCorrida ResultadoCorrida { get; set; }
-    //private Corrida Corrida { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             ResultadoCorrida = await WebServiceAPI.GetResultadoCorrida(Id);
-            //Corrida = await WebServiceAPI.GetCorrida(ResultadoCorrida.Id_corrida);
         }
         catch (Exception ex)
         {

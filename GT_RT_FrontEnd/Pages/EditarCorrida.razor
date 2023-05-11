@@ -1,9 +1,13 @@
 ﻿@page "/EditarCorrida/{id:int}"
 @using ClassLibrary_GT_RT;
-@using Interfaces;
+@using GT_RT_FrontEnd.Interfaces;
 @using System.Diagnostics;
-@inject IWebServiceAPI WebServiceAPI
-@inject NavigationManager NavigationManager
+@using GT_RT_FrontEnd.Components;
+@inject IWebServiceAPI WebServiceAPI;
+@inject NavigationManager NavigationManager;
+
+
+<Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida atualizada com sucesso!" />
 
 <h2>Editar Corrida</h2>
 
@@ -15,10 +19,6 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        <div class="form-group">
-            <label for="circuito">Circuito:</label>
-            <InputText id="circuito" class="form-control" @bind-Value="@CorridaData.Circuito" />
-        </div>
 
 
         <div class="form-group">
@@ -27,8 +27,8 @@
         </div>
 
         <div class="form-group">
-            <label for="id_competicao">ID da Competição:</label>
-            <InputNumber id="id_competicao" class="form-control" @bind-Value="@CorridaData.Id_competicao" />
+            <label for="circuito">Circuito:</label>
+            <InputText id="circuito" class="form-control" @bind-Value="@CorridaData.Circuito" />
         </div>
 
         <div class="form-group">
@@ -39,6 +39,10 @@
         <div class="form-group">
             <label for="tipo_Pneus">Tipo de Pneus:</label>
             <InputText id="tipo_Pneus" class="form-control" @bind-Value="@CorridaData.Tipo_Pneus" />
+        </div>
+        <div class="form-group">
+            <label for="data">Data:</label>
+            <InputDate id="data" class="form-control" @bind-Value="@CorridaData.Data" />
         </div>
 
         <div class="form-group">
@@ -51,6 +55,11 @@
             <InputNumber id="numeroMinutos" class="form-control" @bind-Value="@CorridaData.NumeroMinutos" />
         </div>
 
+        <div class="form-group">
+            <label for="id_competicao">ID da Competição:</label>
+            <InputNumber id="id_competicao" class="form-control" @bind-Value="@CorridaData.Id_competicao" />
+        </div>
+
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </EditForm>
 }
@@ -60,22 +69,13 @@ else
 }
 
 
-    @if (showAlert)
-    {
-        <div class="alert alert-primary" role="alert">
-            Corrida atualizado com sucesso!
-        </div>
-        showAlert = false;
-}
-
 @code {
     [Parameter]
     public int Id { get; set; }
 
     Corrida CorridaData { get; set; } = new();
+    Modal SuccessModal { get; set; }
 
-
-    bool showAlert = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -116,8 +116,7 @@ else
 
             if (response != null)
             {
-                showAlert = true;
-                StateHasChanged();
+                SuccessModal.OpenModal();
             }
         }
         catch (Exception ex)

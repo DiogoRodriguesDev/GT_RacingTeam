@@ -1,9 +1,11 @@
 ﻿@page "/EditarPiloto/{id:int}"
 @using ClassLibrary_GT_RT;
-@using Interfaces;
+@using GT_RT_FrontEnd.Interfaces;
 @using System.Diagnostics;
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Forms
+
 
 <h2>Editar Piloto</h2>
 
@@ -53,6 +55,10 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="foto">Foto:</label>
+            <InputFile id="foto" class="form-control" OnChange="HandleFileChange" />
+        </div>
 
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </EditForm>
@@ -107,6 +113,7 @@
                     Id_Equipa = PilotoData.Id_Equipa,
                     PaisRegiao = PilotoData.PaisRegiao,
                     Valor = PilotoData.Valor,
+                    Foto = PilotoData.Foto,
                     Id_Piloto_Categoria = PilotoData.Id_Piloto_Categoria
                 };
             var response = await WebServiceAPI.UpdatePiloto(newPiloto, Id);
@@ -121,6 +128,19 @@
         {
             Debug.WriteLine(ex);
             throw;
+        }
+    }
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        using (var stream = file.OpenReadStream())
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+                PilotoData.Foto = memoryStream.ToArray();
+            }
         }
     }
 

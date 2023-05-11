@@ -1,31 +1,29 @@
 ﻿@page "/"
 @using ClassLibrary_GT_RT;
-@using Interfaces;
+@using GT_RT_FrontEnd.Interfaces;
 @using System.Diagnostics;
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
-<h2>Lista de Pilotos</h2>
+<h2>Pilotos</h2>
 
 @if (Pilotos is not null && Pilotos.Any())
 {
     <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th></th>
-            </tr>
-        </thead>
         <tbody>
             @foreach (var piloto in Pilotos)
             {
                 <tr>
-                    <td style="padding: 20px;"><a href="@($"/piloto-details/{piloto.Id_piloto}")">@piloto.Nome</a></td>
-                    @*<td style="padding: 20px;">@piloto.Nome</td>*@
-@*                    <td style="padding: 20px;">@piloto.Category</td>
-                    <td style="padding: 20px;">@piloto.Price €</td>*@
-                    <td style="padding: 20px;">@piloto.Descricao</td>
+                    <td style="position: relative; padding: 20px;">
+                        @if (piloto.Foto != null)
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(piloto.Foto)" alt="Foto do Piloto" style="width: 100px; height: 100px; position: absolute; top: -10px; left: -10px; border-radius: 50%;" />
+                        }
+                        <div style="padding-left: 120px;">
+                            <a href="@($"/piloto-details/{piloto.Id_piloto}")">@piloto.Nome</a><br />
+                            @piloto.Nickname
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -36,10 +34,6 @@
     List<Piloto> Pilotos { get; set; } = new();
     bool dataFetched = false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        // Removida a chamada da API daqui
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

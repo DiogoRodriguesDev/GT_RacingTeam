@@ -21,6 +21,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Components/Modal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -29,16 +33,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJQaWxvdG9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/CriarResultadosComLOOPS.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJSZXN1bHRhZG9zQ29tTE9PUFMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/CriarResultadosCorrida.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJSZXN1bHRhZG9zQ29ycmlkYS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/Criarresultados_afuncionar.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJyZXN1bHRhZG9zX2FmdW5jaW9uYXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DiogoRodrigues/Desktop/GT_RacingTeam/GT_RacingTeam/GT_RT_FrontEnd/Pages/Criar_Corrida.razor]

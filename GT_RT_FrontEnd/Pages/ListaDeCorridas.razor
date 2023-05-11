@@ -1,6 +1,6 @@
 ﻿@page "/ListaDeCorridas"
 @using ClassLibrary_GT_RT;
-@using Interfaces;
+@using GT_RT_FrontEnd.Interfaces;
 @using System.Diagnostics;
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
@@ -34,10 +34,6 @@
     List<Corrida> Corridas { get; set; } = new();
     bool dataFetched = false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        // Removida a chamada da API daqui
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -64,7 +60,7 @@
         {
             await WebServiceAPI.DeleteCorrida(id);
             Corridas.RemoveAll(p => p.Id_corrida == id);
-            dataFetched = false; // Adiciona esta linha para garantir que a lista seja atualizada após excluir um Corrida.
+            dataFetched = false; // Adicionada esta linha para garantir que a lista seja atualizada após excluir um Corrida.
         }
         catch (Exception ex)
         {

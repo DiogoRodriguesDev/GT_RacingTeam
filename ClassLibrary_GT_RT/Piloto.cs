@@ -26,7 +26,7 @@ namespace ClassLibrary_GT_RT
         public double Valor { get; set; } = 300;
         public  int? Id_Piloto_Categoria { get; set; }
         public Piloto_Categorias? Piloto_Categoria { get; set; }
-
+        public byte[]? Foto { get; set; }
         #endregion
     }
 }

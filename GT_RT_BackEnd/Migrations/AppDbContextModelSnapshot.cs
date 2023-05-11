@@ -143,6 +143,9 @@ namespace GT_RT_BackEnd.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Foto")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<int>("Id_Equipa")
                         .HasColumnType("int");
 
