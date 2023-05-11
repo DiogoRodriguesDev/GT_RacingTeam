@@ -21,12 +21,14 @@ namespace ClassLibrary_GT_RT
         public string Nickname { get; set; } = string.Empty;
         public string Descricao { get; set; } = string.Empty;
         public int Id_Equipa { get; set; } = 2; //ID 2 na DataBase é "Sem Equipa"
-        public Equipa? Piloto_Equipa { get; set; }
         public string PaisRegiao { get; set; } = string.Empty;
         public double Valor { get; set; } = 300;
-        public  int? Id_Piloto_Categoria { get; set; }
-        public Piloto_Categorias? Piloto_Categoria { get; set; }
         public byte[]? Foto { get; set; }
+
+        public Equipa? Piloto_Equipa { get; set; } //VERIFICAR REMOÇÃO
+        public  int? Id_Piloto_Categoria { get; set; } //VERIFICAR REMOÇÃO
+        public Piloto_Categorias? Piloto_Categoria { get; set; } //VERIFICAR REMOÇÃO
+        
         #endregion
     }
 }

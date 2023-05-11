@@ -10,23 +10,51 @@
 
 @if (Corrida != null)
 {
-<h3>@Corrida.Circuito</h3>
-<p><strong>ID da Corrida:</strong> @Corrida.Id_corrida</p>
-<p><strong>Data:</strong> @Corrida.Data</p>
-<p><strong>ID da Competição:</strong> @Corrida.Id_competicao</p>
-<p><strong>Carros Permitidos:</strong> @Corrida.CarrosPermitidos</p>
-<p><strong>Tipo de Pneus:</strong> @Corrida.Tipo_Pneus</p>
-<p><strong>Número de Voltas:</strong> @Corrida.NumeroVoltas</p>
-<p><strong>Número de Minutos:</strong> @Corrida.NumeroMinutos</p>
-<p><strong>ID do Resultado:</strong> @Corrida.Id_Resultado</p>
-<p><strong>Resultado:</strong> @Corrida.Resultado</p>
+    <h3>@Corrida.Circuito</h3>
+    <p><strong>ID da Corrida:</strong> @Corrida.Id_corrida</p>
+    <p><strong>Data:</strong> @Corrida.Data</p>
+    <p><strong>ID da Competição:</strong> @Corrida.Id_competicao</p>
+    <p><strong>Carros Permitidos:</strong> @Corrida.CarrosPermitidos</p>
+    <p><strong>Tipo de Pneus:</strong> @Corrida.Tipo_Pneus</p>
+    <p><strong>Número de Voltas:</strong> @Corrida.NumeroVoltas</p>
+    <p><strong>Número de Minutos:</strong> @Corrida.NumeroMinutos</p>
+    <p><strong>ID do Resultado:</strong> @Corrida.Id_Resultado</p>
+    <p><strong>Resultado:</strong> @Corrida.Resultado</p>
 
+    <h2>Resultados da Corrida</h2>
+    @if (ResultadosCorrida != null && ResultadosCorrida.Any())
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>ID do Piloto</th>
+                    <th>Posição Final</th>
+                    <th>Pontos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var resultado in ResultadosCorrida)
+                {
+                    <tr>
+                        <td>@resultado.Id_piloto</td>
+                        <td>@resultado.PosicaoFinal</td>
+                        <td>@resultado.Pontos</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nenhum resultado de corrida para esta corrida.</p>
+    }
 
 }
 else
 {
-<p>A corrida não foi encontrada.</p>
+    <p>A corrida não foi encontrada.</p>
 }
+
 
 
 @code {
@@ -34,12 +62,14 @@ else
     public int Id { get; set; }
 
     private Corrida Corrida { get; set; }
+    private List<ResultadoCorrida> ResultadosCorrida { get; set; } // nova lista para os resultados da corrida
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             Corrida = await WebServiceAPI.GetCorrida(Id);
+            ResultadosCorrida = await WebServiceAPI.GetResultadoCorrida(); // obtenha os resultados da corrida para a corrida atual
         }
         catch (Exception ex)
         {
