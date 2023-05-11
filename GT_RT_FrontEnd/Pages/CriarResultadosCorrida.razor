@@ -1,21 +1,26 @@
 ﻿@page "/CriarResultadosCorrida"
 @using ClassLibrary_GT_RT;
-@using Interfaces;
+@using GT_RT_FrontEnd.Interfaces;
 @using System.Diagnostics;
 @using Microsoft.AspNetCore.Components.Forms;
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
 <h2>Criar novo resultado de corrida</h2>
-
+<hr style="border-top: 20px solid #000;">
 <EditForm Model="@NewResultadoCorrida" OnValidSubmit="CreateNewResultadoCorrida">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group row">
-        <div class="col-sm-4">
-            <label for="id_corrida">ID da Corrida:</label>
-            <InputNumber id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida" />
+        <div class="form-group">
+            <label for="id_corrida">Selecione a Corrida:</label>
+            <InputSelect id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida">
+                @foreach (var corrida in Corridas)
+                {
+                    <option value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
+                }
+            </InputSelect>
         </div>
 
         <div class="col-sm-4">
@@ -34,8 +39,10 @@
         </div>
     </div>
 
+
     <button type="submit" class="btn btn-primary">Criar</button>
 </EditForm>
+<hr style="border-top: 20px solid #000;">
 
 <h2>Resultados de Corrida</h2>
 
@@ -54,6 +61,16 @@
             @foreach (var resultadoCorrida in ResultadosCorridaData)
             {
                 <tr>
+                    <td style="padding: 20px;">
+                        @{
+                            var corrida = Corridas.FirstOrDefault(c => c.Id_corrida == resultadoCorrida.Id_corrida);
+                            if (corrida != null)
+                            {
+                                @corrida.Nome_Corrida
+                            }
+                        }
+                    </td>
+
                     <td style="padding: 20px;">@resultadoCorrida.Id_corrida</td>
                     <td style="padding: 20px;">@resultadoCorrida.Id_piloto</td>
                     <td style="padding: 20px;">@resultadoCorrida.PosicaoFinal</td>

@@ -1,0 +1,135 @@
+﻿@*@page "/CriarResultadosCorrida"
+@using ClassLibrary_GT_RT;
+@using Interfaces;
+@using System.Diagnostics;
+@using Microsoft.AspNetCore.Components.Forms;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+<h2>Criar novo resultado de corrida</h2>
+
+<EditForm Model="@NewResultadoCorrida" OnValidSubmit="CreateNewResultadoCorrida">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label for="id_corrida">ID da Corrida:</label>
+            <InputNumber id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida" />
+        </div>
+
+        <div class="col-sm-4">
+            <label for="posicaoFinal">Posição Final:</label>
+            <InputNumber id="posicaoFinal" class="form-control" @bind-Value="@NewResultadoCorrida.PosicaoFinal" />
+        </div>
+
+        <div class="col-sm-4">
+            <label for="pilotoId">Piloto:</label>
+            <select id="pilotoId" class="form-control" @bind="NewResultadoCorrida.Id_piloto">
+                @foreach (var piloto in PilotosData)
+                {
+                    <option value="@piloto.Id_piloto">@piloto.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Criar</button>
+</EditForm>
+
+<h2>Resultados de Corrida</h2>
+
+@if (ResultadosCorridaData is not null && ResultadosCorridaData.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID da Corrida</th>
+                <th>ID do Piloto</th>
+                <th>Posição Final</th>
+                <th>Pontos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var resultadoCorrida in ResultadosCorridaData)
+            {
+                <tr>
+                    <td style="padding: 20px;">@resultadoCorrida.Id_corrida</td>
+                    <td style="padding: 20px;">@resultadoCorrida.Id_piloto</td>
+                    <td style="padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
+                    <td style="padding: 20px;">@resultadoCorrida.Pontos</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
+                        <button class="btn btn-primary" @onclick="() => EditarResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Editar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum resultado de corrida encontrado.</p>
+}
+
+@code {
+    List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
+    ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
+    List<Corrida> Corridas { get; set; } = new();
+
+    List<Piloto> PilotosData { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetPilotos();
+            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+            var response1 = await WebServiceAPI.GetResultadoCorrida();
+            ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
+
+            Corridas = await WebServiceAPI.GetCorridas();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task CreateNewResultadoCorrida()
+    {
+        try
+        {
+            var response = await WebServiceAPI.CreateResultadoCorrida(NewResultadoCorrida);
+            ResultadosCorridaData.Add(response);
+            NewResultadoCorrida = new ResultadoCorrida();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private async Task DeleteResultadoCorrida(int id)
+    {
+        try
+        {
+            await WebServiceAPI.DeleteResultadoCorrida(id);
+            ResultadosCorridaData.RemoveAll(p => p.Id_ResultadoCorrida == id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private void EditarResultadoCorrida(int id)
+    {
+        NavigationManager.NavigateTo($"/EditarResultadoCorrida/{id}");
+    }
+}*@
