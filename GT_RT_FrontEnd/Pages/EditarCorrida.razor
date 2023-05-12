@@ -59,7 +59,10 @@
             <label for="id_competicao">ID da Competição:</label>
             <InputNumber id="id_competicao" class="form-control" @bind-Value="@CorridaData.Id_competicao" />
         </div>
-
+        <div class="form-group">
+            <label for="VideoYoutube">Link Video Youtube:</label>
+            <InputText id="VideoYoutube" class="form-control" @bind-Value="@CorridaData.VideoYoutube" />
+        </div>
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </EditForm>
 }
@@ -110,7 +113,8 @@ else
                     NumeroVoltas = CorridaData.NumeroVoltas,
                     NumeroMinutos = CorridaData.NumeroMinutos,
                     Id_Resultado = CorridaData.Id_Resultado,
-                    IsDeleted = CorridaData.IsDeleted
+                    IsDeleted = CorridaData.IsDeleted,
+                    VideoYoutube = CorridaData.VideoYoutube
                 };
             var response = await WebServiceAPI.UpdateCorrida(updatedCorrida, Id);
 

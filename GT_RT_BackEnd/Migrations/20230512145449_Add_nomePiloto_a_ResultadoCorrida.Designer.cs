@@ -4,6 +4,7 @@ using GT_RT_BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GT_RT_BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230512145449_Add_nomePiloto_a_ResultadoCorrida")]
+    partial class Add_nomePiloto_a_ResultadoCorrida
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,9 +102,6 @@ namespace GT_RT_BackEnd.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Tipo_Pneus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoYoutube")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id_corrida");
@@ -284,9 +284,6 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("NickName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome_Piloto")
                         .HasColumnType("nvarchar(max)");

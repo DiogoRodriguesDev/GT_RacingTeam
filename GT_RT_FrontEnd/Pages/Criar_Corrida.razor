@@ -28,10 +28,7 @@
         <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
     </div>
 
-    <div class="form-group">
-        <label for="tipo_Pneus">Tipo de Pneus:</label>
-        <InputText id="tipo_Pneus" class="form-control" @bind-Value="@NewCorrida.Tipo_Pneus" />
-    </div>
+
 
     <div class="form-group">
         <label for="data">Data:</label>
@@ -54,6 +51,11 @@
         <InputNumber id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao" />
     </div>
 
+    <div class="form-group">
+        <label for="VideoYoutube">Link Video Youtube:</label>
+        <InputText id="VideoYoutube" class="form-control" @bind-Value="@NewCorrida.VideoYoutube" />
+    </div>
+
     <button type="submit" class="btn btn-primary">Criar</button>
 </EditForm>
 
@@ -71,6 +73,7 @@
                 <th>Tipo de Pneus</th>
                 <th>Número de Voltas</th>
                 <th>Número de Minutos</th>
+                <th>Link Video Youtube</th>
             </tr>
         </thead>
         <tbody>
@@ -84,6 +87,7 @@
                     <td style="padding: 20px;">@corrida.Tipo_Pneus</td>
                     <td style="padding: 20px;">@corrida.NumeroVoltas</td>
                     <td style="padding: 20px;">@corrida.NumeroMinutos</td>
+                    <td style="padding: 20px;">@corrida.VideoYoutube</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteCorrida(corrida.Id_corrida)">Deletar</button>
                         <button class="btn btn-primary" @onclick="() => EditCorrida(corrida.Id_corrida)">Editar</button>

@@ -21,6 +21,10 @@ namespace ClassLibrary_GT_RT
 
         public int? Id_piloto { get; set; }
 
+        public string? Nome_Piloto { get; set; }
+
+        public string? NickName { get; set; }
+
         public int? Id_corrida { get; set; }
 
         public TimeSpan? Tempo_total { get; set; }

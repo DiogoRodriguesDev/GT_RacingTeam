@@ -28,7 +28,9 @@ namespace ClassLibrary_GT_RT
         public int? Id_Resultado { get; set; } 
         [ForeignKey("Id_Resultado")]
         public Resultado? Resultado { get; set; }
-        
+        public string? VideoYoutube { get; set; }
+
+
         #endregion
     }
 }

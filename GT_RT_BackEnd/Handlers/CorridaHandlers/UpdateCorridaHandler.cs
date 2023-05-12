@@ -34,6 +34,7 @@ namespace GT_RT_BackEnd.Handlers.CorridaHandlers
                 Corrida.NumeroMinutos = request.Corrida.NumeroMinutos;
                 Corrida.Id_Resultado = request.Corrida.Id_Resultado;
                 Corrida.IsDeleted = request.Corrida.IsDeleted;
+                Corrida.VideoYoutube = request.Corrida.VideoYoutube;
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
             }

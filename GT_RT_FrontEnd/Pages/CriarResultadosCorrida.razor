@@ -121,6 +121,8 @@ else
     {
         try
         {
+            NewResultadoCorrida.Nome_Piloto = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nome;
+            NewResultadoCorrida.NickName = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nickname;
             var response = await WebServiceAPI.CreateResultadoCorrida(NewResultadoCorrida);
             ResultadosCorridaData.Add(response);
             NewResultadoCorrida = new ResultadoCorrida();

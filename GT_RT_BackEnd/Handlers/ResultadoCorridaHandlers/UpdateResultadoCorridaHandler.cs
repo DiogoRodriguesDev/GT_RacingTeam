@@ -31,6 +31,8 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
                 ResultadoCorrida.Tempo_total = request.ResultadoCorrida.Tempo_total;
                 ResultadoCorrida.Pontos = request.ResultadoCorrida.Pontos;
                 ResultadoCorrida.PosicaoFinal = request.ResultadoCorrida.PosicaoFinal;
+                ResultadoCorrida.Nome_Piloto = request.ResultadoCorrida.Nome_Piloto;
+                ResultadoCorrida.NickName = request.ResultadoCorrida.NickName;
 
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
