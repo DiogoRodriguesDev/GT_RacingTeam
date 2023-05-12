@@ -20,19 +20,19 @@
     @if (!string.IsNullOrEmpty(Corrida.VideoYoutube))
     {
         <div class="video-container">
-            <iframe src="@Corrida.VideoYoutube" frameborder="0" allowfullscreen></iframe>
+            <iframe src="@Corrida.VideoYoutube" frameborder="0" allowfullscreen style="width: 50%; height: 500px;"></iframe>
         </div>
     }
 
     <h2>Resultados da Corrida</h2>
     @if (ResultadosCorrida != null && ResultadosCorrida.Any())
     {
-        <table class="table">
+        <table class="table" style="width: 50%;">
             <thead>
                 <tr>
+                    <th>Posição Final</th>
                     <th>Nome</th>
                     <th>NickName</th>
-                    <th>Posição Final</th>
                     <th>Pontos</th>
                 </tr>
             </thead>
@@ -40,9 +40,9 @@
                 @foreach (var resultado in ResultadosCorrida)
                 {
                     <tr>
+                        <td>@resultado.PosicaoFinal</td>
                         <td><a href="/piloto-details/@resultado.Id_piloto">@resultado.Nome_Piloto</a></td>
                         <td>@resultado.NickName</td>
-                        <td>@resultado.PosicaoFinal</td>
                         <td>@resultado.Pontos</td>
                     </tr>
                 }
