@@ -56,7 +56,7 @@
         <InputText id="VideoYoutube" class="form-control" @bind-Value="@NewCorrida.VideoYoutube" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Criar</button>
+    <button type="submit" class="btn btn-primary" @onclick="ModifyVideoLink">Criar</button>
 </EditForm>
 
 <h2>Corridas</h2>
@@ -115,6 +115,51 @@
             throw;
         }
     }
+    private void ModifyVideoLink()
+    {
+        if (!string.IsNullOrEmpty(NewCorrida.VideoYoutube))
+        {
+            NewCorrida.VideoYoutube = ModifyYouTubeLink(NewCorrida.VideoYoutube);
+        }
+    }
+
+    private string ModifyYouTubeLink(string youtubeLink)
+    //Mais tarde arranjar uma maneira geral de conseguir cuidar de
+    // vários inputs diferentes, pois pode haver maiores enganos no input
+    // (por exemplo o input pode ser utube.com/xxxxx)
+    {
+        const string embedBaseUrl = "https://www.youtube.com/embed/";
+        const string watchBaseUrl = "https://www.youtube.com/watch";
+        const string liveBaseUrl = "https://www.youtube.com/live/";
+
+        if (youtubeLink.StartsWith("www"))
+        {
+            youtubeLink = "https://" + youtubeLink;
+        }
+        else if (youtubeLink.StartsWith("youtube.com/"))
+        {
+            youtubeLink = "https://www." + youtubeLink;
+        }
+
+        if (youtubeLink.Contains(watchBaseUrl))
+        {
+            var uri = new Uri(youtubeLink);
+            var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+            string videoId = query.Get("v");
+
+            return embedBaseUrl + videoId;
+        }
+        else if (youtubeLink.Contains(liveBaseUrl))
+        {
+            string videoId = youtubeLink.Substring(liveBaseUrl.Length);
+
+            return embedBaseUrl + videoId;
+        }
+
+        return youtubeLink;
+    }
+
+
 
     private async Task CreateNewCorrida()
     {
@@ -128,7 +173,6 @@
             {
                 SuccessModal.OpenModal();
             }
-            
         }
         catch (Exception ex)
         {

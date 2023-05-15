@@ -78,7 +78,6 @@
                     <td style="padding: 20px;">@resultadoCorrida.Pontos</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
-                        <button class="btn btn-primary" @onclick="() => EditarResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Editar</button>
                     </td>
                 </tr>
             }
@@ -146,10 +145,5 @@ else
             Debug.WriteLine(ex);
             throw;
         }
-    }
-
-    private void EditarResultadoCorrida(int id)
-    {
-        NavigationManager.NavigateTo($"/EditarResultadoCorrida/{id}");
     }
 }
