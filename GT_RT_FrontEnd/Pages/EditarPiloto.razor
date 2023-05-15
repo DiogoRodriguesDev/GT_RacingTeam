@@ -5,8 +5,9 @@
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.Components.Forms
+@using GT_RT_FrontEnd.Components;
 
-
+<Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
 <h2>Editar Piloto</h2>
 
 @if (PilotoData is not null)
@@ -63,13 +64,7 @@
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </EditForm>
 
-    @if (showAlert)
-    {
-        <div class="alert alert-primary" role="alert">
-            Piloto atualizado com sucesso!
-        </div>
-        showAlert = false;
-    }
+
 }
 
 @code {
@@ -80,7 +75,8 @@
 
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
 
-    bool showAlert = false;
+
+    Modal SuccessModal { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -118,11 +114,12 @@
                 };
             var response = await WebServiceAPI.UpdatePiloto(newPiloto, Id);
 
-            if (response is not null)
+            if (response != null)
             {
-                showAlert = true;
-                StateHasChanged();
+                SuccessModal.OpenModal();
             }
+
+
         }
         catch (Exception ex)
         {

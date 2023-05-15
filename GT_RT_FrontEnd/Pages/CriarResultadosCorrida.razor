@@ -42,6 +42,17 @@
 
     <button type="submit" class="btn btn-primary">Criar</button>
 </EditForm>
+
+@if (showAlert)
+{
+    <div class="alert alert-primary" role="alert">
+        Resultado criado com sucesso!
+    </div>
+
+
+    showAlert = false;
+}
+
 <hr style="border-top: 20px solid #000;">
 
 <h2>Resultados de Corrida</h2>
@@ -89,12 +100,15 @@ else
     <p>Nenhum resultado de corrida encontrado.</p>
 }
 
+
 @code {
     List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
     ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
     List<Corrida> Corridas { get; set; } = new();
 
     List<Piloto> PilotosData { get; set; } = new();
+
+    bool showAlert = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -108,6 +122,7 @@ else
 
             Corridas = await WebServiceAPI.GetCorridas();
 
+            
         }
         catch (Exception ex)
         {
@@ -125,6 +140,15 @@ else
             var response = await WebServiceAPI.CreateResultadoCorrida(NewResultadoCorrida);
             ResultadosCorridaData.Add(response);
             NewResultadoCorrida = new ResultadoCorrida();
+
+            if (response is not null)
+            {
+                showAlert = true;
+                //Task.Delay(2000);
+                //StateHasChanged();
+            }
+
+         
         }
         catch (Exception ex)
         {

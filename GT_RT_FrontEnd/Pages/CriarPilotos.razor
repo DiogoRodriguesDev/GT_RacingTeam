@@ -5,7 +5,9 @@
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.Components.Forms
+@using GT_RT_FrontEnd.Components;
 
+<Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto criado com sucesso!" />
 <h2>Criar novo piloto</h2>
 
 <EditForm Model="@NewPiloto" OnValidSubmit="CreateNewPiloto">
@@ -102,8 +104,8 @@
     List<Piloto> PilotosData { get; set; } = new();
     Piloto NewPiloto { get; set; } = new Piloto();
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
-
     public List<Equipa> ListaEquipasPiloto { get; set; } = new();
+    Modal SuccessModal { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -128,6 +130,11 @@
             var response = await WebServiceAPI.CreatePiloto(NewPiloto);
             PilotosData.Add(response);
             NewPiloto = new Piloto();
+
+            if (response != null)
+            {
+                SuccessModal.OpenModal();
+            }
         }
         catch (Exception ex)
         {
