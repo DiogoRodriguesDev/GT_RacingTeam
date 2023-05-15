@@ -56,23 +56,39 @@
 <hr style="border-top: 20px solid #000;">
 
 <h2>Resultados de Corrida</h2>
+  
+
+<div class="form-group col-sm-4">
+    <label for="filtroCorrida">Filtrar por Corrida:</label>
+    <select id="filtroCorrida" class="form-control" @bind="@filtroCorridaId">
+        <option value="">Todos</option>
+        @foreach (var corrida in Corridas)
+        {
+            <option value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="FiltrarResultadosCorrida">Filtrar</button>
+</div>
 
 @if (ResultadosCorridaData is not null && ResultadosCorridaData.Any())
 {
     <table>
         <thead>
             <tr>
-                <th>ID da Corrida</th>
-                <th>ID do Piloto</th>
-                <th>Posição Final</th>
-                <th>Pontos</th>
+                <th style="width: 150px;">Nome da Corrida</th>
+                <th style="width: 150px;">ID da Corrida</th>
+                <th style="width: 150px;">ID do Piloto</th>
+                <th style="width: 200px;">Nome do Piloto</th>
+                <th style="width: 150px;">Posição Final</th>
+                <th style="width: 100px;">Pontos</th>
+                <th style="width: 100px;"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var resultadoCorrida in ResultadosCorridaData)
+            @foreach (var resultadoCorrida in ResultadosCorridaDataFiltrados)
             {
                 <tr>
-                    <td style="padding: 20px;">
+                    <td style="width: 150px; padding: 20px;">
                         @{
                             var corrida = Corridas.FirstOrDefault(c => c.Id_corrida == resultadoCorrida.Id_corrida);
                             if (corrida != null)
@@ -81,12 +97,11 @@
                             }
                         }
                     </td>
-                  
-                    
-                    <td style="padding: 20px;">@resultadoCorrida.Id_corrida</td>
-                    <td style="padding: 20px;">@resultadoCorrida.Id_piloto</td>
-                    <td style="padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
-                    <td style="padding: 20px;">@resultadoCorrida.Pontos</td>
+                    <td style="width: 150px; padding: 20px;">@resultadoCorrida.Id_corrida</td>
+                    <td style="width: 200px; padding: 20px;">@resultadoCorrida.Id_piloto</td>
+                    <td style="width: 150px; padding: 20px;">@resultadoCorrida.Nome_Piloto</td>
+                    <td style="width: 100px; padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
+                    <td style="width: 100px; padding: 20px;">@resultadoCorrida.Pontos</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
                     </td>
@@ -101,12 +116,17 @@ else
 }
 
 
+
 @code {
     List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
     ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
     List<Corrida> Corridas { get; set; } = new();
 
     List<Piloto> PilotosData { get; set; } = new();
+
+
+    List<ResultadoCorrida> ResultadosCorridaDataFiltrados { get; set; } = new();
+    public int filtroCorridaId { get; set; }
 
     bool showAlert = false;
 
@@ -121,8 +141,8 @@ else
             ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
 
             Corridas = await WebServiceAPI.GetCorridas();
+            FiltrarResultadosCorrida();
 
-            
         }
         catch (Exception ex)
         {
@@ -130,6 +150,7 @@ else
             throw;
         }
     }
+
 
     private async Task CreateNewResultadoCorrida()
     {
@@ -168,6 +189,20 @@ else
         {
             Debug.WriteLine(ex);
             throw;
+        }
+    }
+
+    private void FiltrarResultadosCorrida()
+    {
+        if (filtroCorridaId == 0)
+        {
+            // Exibir todos os resultados de corrida
+            ResultadosCorridaDataFiltrados = ResultadosCorridaData;
+        }
+        else
+        {
+            // Filtrar os resultados de corrida pela corrida selecionada
+            ResultadosCorridaDataFiltrados = ResultadosCorridaData.Where(r => r.Id_corrida == filtroCorridaId).ToList();
         }
     }
 }
