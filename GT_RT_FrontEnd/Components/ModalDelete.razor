@@ -33,12 +33,14 @@
     public EventCallback<int> OnConfirm { get; set; }
 
     bool Backdrop { get; set; }
+    [Parameter]
+    public bool ShowBackdrop { get; set; } = true;
 
     public void OpenModal(int id)
     {
         _id = id;
         ModalDisplay = "block";
-        Backdrop = true;
+        Backdrop = ShowBackdrop;
         StateHasChanged();
     }
 

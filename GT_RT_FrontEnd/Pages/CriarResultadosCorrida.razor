@@ -7,8 +7,11 @@
 @inject NavigationManager NavigationManager
 @using GT_RT_FrontEnd.Components;
 
-<ModalDelete @ref="DeleteModal" Title="Confirmação" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
 
+<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
+    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
+    <Modal @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
+</div>
 
 <h2>Criar novo resultado de corrida</h2>
 <hr style="border-top: 20px solid #000;">
@@ -106,9 +109,7 @@
                     <td style="width: 100px; padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
                     <td style="width: 100px; padding: 20px;">@resultadoCorrida.Pontos</td>
                     <td>
-                        @*<button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>*@
-                        @*<button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal()">Deletar</button>*@
-                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Eliminar</button>
                         
                     </td>
                 </tr>
@@ -132,6 +133,7 @@ else
     public int filtroCorridaId { get; set; }
     bool showAlert = false;
     public ModalDelete DeleteModal { get; set; }
+    Modal SuccessModal { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -183,18 +185,21 @@ else
 
     private async Task DeleteResultadoCorrida(int id)
     {
-        DeleteModal.CloseModal();
         try
         {
+            DeleteModal.CloseModal();
             await WebServiceAPI.DeleteResultadoCorrida(id);
             ResultadosCorridaData.RemoveAll(p => p.Id_ResultadoCorrida == id);
+            FiltrarResultadosCorrida();
+            SuccessModal.OpenModal();
+            
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
             throw;
         }
-        FiltrarResultadosCorrida();
+        
     }
 
     private void FiltrarResultadosCorrida()
