@@ -5,6 +5,10 @@
 @using Microsoft.AspNetCore.Components.Forms;
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
+@using GT_RT_FrontEnd.Components;
+
+<ModalDelete @ref="DeleteModal" Title="Confirmação" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
+
 
 <h2>Criar novo resultado de corrida</h2>
 <hr style="border-top: 20px solid #000;">
@@ -69,7 +73,6 @@
     </select>
     <button class="btn btn-primary" @onclick="FiltrarResultadosCorrida">Filtrar</button>
 </div>
-
 @if (ResultadosCorridaData is not null && ResultadosCorridaData.Any())
 {
     <table>
@@ -103,7 +106,10 @@
                     <td style="width: 100px; padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
                     <td style="width: 100px; padding: 20px;">@resultadoCorrida.Pontos</td>
                     <td>
-                        <button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
+                        @*<button class="btn btn-danger" @onclick="() => DeleteResultadoCorrida(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>*@
+                        @*<button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal()">Deletar</button>*@
+                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Deletar</button>
+                        
                     </td>
                 </tr>
             }
@@ -121,14 +127,11 @@ else
     List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
     ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
     List<Corrida> Corridas { get; set; } = new();
-
     List<Piloto> PilotosData { get; set; } = new();
-
-
     List<ResultadoCorrida> ResultadosCorridaDataFiltrados { get; set; } = new();
     public int filtroCorridaId { get; set; }
-
     bool showAlert = false;
+    public ModalDelete DeleteModal { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -165,11 +168,9 @@ else
             if (response is not null)
             {
                 showAlert = true;
-                //Task.Delay(2000);
-                //StateHasChanged();
             }
+            FiltrarResultadosCorrida();
 
-         
         }
         catch (Exception ex)
         {
@@ -178,8 +179,11 @@ else
         }
     }
 
+
+
     private async Task DeleteResultadoCorrida(int id)
     {
+        DeleteModal.CloseModal();
         try
         {
             await WebServiceAPI.DeleteResultadoCorrida(id);
@@ -190,18 +194,17 @@ else
             Debug.WriteLine(ex);
             throw;
         }
+        FiltrarResultadosCorrida();
     }
 
     private void FiltrarResultadosCorrida()
     {
         if (filtroCorridaId == 0)
         {
-            // Exibir todos os resultados de corrida
             ResultadosCorridaDataFiltrados = ResultadosCorridaData;
         }
         else
         {
-            // Filtrar os resultados de corrida pela corrida selecionada
             ResultadosCorridaDataFiltrados = ResultadosCorridaData.Where(r => r.Id_corrida == filtroCorridaId).ToList();
         }
     }
