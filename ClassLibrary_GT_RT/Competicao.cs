@@ -17,8 +17,9 @@ namespace ClassLibrary_GT_RT
 
         public string? Nome { get; set; }
         public bool IsDeleted { get; set; }
-
         public string? Descricao { get; set; }
+        public int? Id_Piloto_Categoria { get; set; }
+        public byte[]? Foto { get; set; }
         #endregion
     }
 }
