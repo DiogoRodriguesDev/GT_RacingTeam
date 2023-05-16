@@ -1,0 +1,220 @@
+﻿@page "/CriarCompeticao"
+@using ClassLibrary_GT_RT;
+@using GT_RT_FrontEnd.Interfaces;
+@using System.Diagnostics;
+@using Microsoft.AspNetCore.Components.Forms;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+@using GT_RT_FrontEnd.Components;
+
+
+<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
+    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de Competicao?" OnConfirm="DeleteCompeticao" />
+    <Modal @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
+</div>
+
+<h2>Criar novo resultado de Competicao</h2>
+<hr style="border-top: 20px solid #000;">
+<EditForm Model="@NewCompeticao" OnValidSubmit="CreateNewCompeticao">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <InputText id="name" class="form-control" @bind-Value="@NewCompeticao.Nome" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <InputTextArea id="description" class="form-control" @bind-Value="@NewCompeticao.Descricao" />
+        </div>
+
+        <div class="form-group">
+            <label for="Competicao_categoriaId">Categoria da Competicao:</label>
+            <select id="Competicao_categoriaId" class="form-control" @bind="@NewCompeticao.Id_Piloto_Categoria">
+                @foreach (var categoria in ListaCategoriasPiloto)
+                {
+                    <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+                }
+            </select>
+        </div>
+    
+    <div class="form-group">
+        <label for="foto">Foto:</label>
+        <InputFile id="foto" class="form-control" OnChange="HandleFileChange" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Criar</button>
+</EditForm>
+
+@if (showAlert)
+{
+    <div class="alert alert-primary" role="alert">
+        Resultado criado com sucesso!
+    </div>
+
+
+    showAlert = false;
+}
+
+<hr style="border-top: 20px solid #000;">
+
+<h2>Competições</h2>
+
+
+<div class="form-group col-sm-4">
+    <label for="filtroCompeticao">Filtrar por Competicao:</label>
+    <select id="filtroCompeticao" class="form-control" @bind="@filtroCompeticaoId">
+        <option value="">Todos</option>
+        @foreach (var categoria in ListaCategoriasPiloto)
+        {
+            <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="FiltrarCompeticao">Filtrar</button>
+</div>
+@if (CompeticaoData is not null && CompeticaoData.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 150px;">ID </th>
+                <th style="width: 150px;">Nome</th>
+                <th style="width: 150px;">Categoria</th>
+                <th style="width: 100px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var competicaofiltrada in CompeticaoDataFiltrados)
+            {
+                <tr>
+                    <td style="width: 150px; padding: 20px;">@competicaofiltrada.Id</td>
+                    <td style="width: 150px; padding: 20px;">@competicaofiltrada.Nome</td>
+                    <td style="width: 150px; padding: 20px;">@competicaofiltrada.Nome_Categoria</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(competicaofiltrada.Id)">Eliminar</button>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum resultado de Competicao encontrado.</p>
+}
+
+
+
+@code {
+    List<Competicao> CompeticaoData { get; set; } = new();
+    Competicao NewCompeticao { get; set; } = new Competicao();
+    List<Competicao> Competicoes { get; set; } = new();
+    List<Piloto> PilotosData { get; set; } = new();
+    List<Competicao> CompeticaoDataFiltrados { get; set; } = new();
+    public int filtroCompeticaoId { get; set; }
+    bool showAlert = false;
+    public ModalDelete DeleteModal { get; set; }
+    Modal SuccessModal { get; set; }
+    public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetPilotos();
+            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+            var response1 = await WebServiceAPI.GetCompeticoes();
+            CompeticaoData = response1.Where(p => !p.IsDeleted).ToList();
+
+            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+
+            Competicoes = await WebServiceAPI.GetCompeticoes();
+            FiltrarCompeticao();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+
+    private async Task CreateNewCompeticao()
+    {
+        try
+        {
+            if (NewCompeticao.Id_Piloto_Categoria == 0 || NewCompeticao.Id_Piloto_Categoria is null)
+            {
+                NewCompeticao.Id_Piloto_Categoria = 1;
+            }
+            NewCompeticao.Nome_Categoria = ListaCategoriasPiloto.FirstOrDefault(c => c.Id_Piloto_Categorias == NewCompeticao.Id_Piloto_Categoria).Nome_Piloto_Categoria;
+            var response = await WebServiceAPI.CreateCompeticao(NewCompeticao);
+            CompeticaoData.Add(response);
+            NewCompeticao = new Competicao();
+
+            if (response is not null)
+            {
+                showAlert = true;
+            }
+            FiltrarCompeticao();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+
+
+    private async Task DeleteCompeticao(int id)
+    {
+        try
+        {
+            DeleteModal.CloseModal();
+            await WebServiceAPI.DeleteCompeticao(id);
+            CompeticaoData.RemoveAll(p => p.Id == id);
+            FiltrarCompeticao();
+            SuccessModal.OpenModal();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+
+    }
+
+    private void FiltrarCompeticao()
+    {
+        if (filtroCompeticaoId == 0)
+        {
+            CompeticaoDataFiltrados = CompeticaoData;
+        }
+        else
+        {
+            CompeticaoDataFiltrados = CompeticaoData.Where(r => r.Id_Piloto_Categoria == filtroCompeticaoId).ToList();
+        }
+    }
+
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        using (var stream = file.OpenReadStream())
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+                NewCompeticao.Foto = memoryStream.ToArray();
+            }
+        }
+    }
+}

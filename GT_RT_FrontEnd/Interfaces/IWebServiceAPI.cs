@@ -61,5 +61,22 @@ namespace GT_RT_FrontEnd.Interfaces
 
         [Delete("/ResultadoCorrida/{id}")]
         public Task DeleteResultadoCorrida(int id);
+
+
+
+        [Get("/Competicoes")]
+        public Task<List<Competicao>> GetCompeticoes();
+
+        [Get("/Competicao-details/{id}")]
+        public Task<Competicao> GetCompeticao(int id);
+
+        [Post("/Competicao")]
+        public Task<Competicao> CreateCompeticao([Body] Competicao newCompeticao);
+
+        [Put("/Competicao-edit/{id}")]
+        public Task<Competicao> UpdateCompeticao([FromBody] Competicao updatedCompeticao, int id);
+
+        [Delete("/Competicao/{id}")]
+        public Task DeleteCompeticao(int id);
     }
 }

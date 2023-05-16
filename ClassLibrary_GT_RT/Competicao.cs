@@ -20,6 +20,9 @@ namespace ClassLibrary_GT_RT
         public string? Descricao { get; set; }
         public int? Id_Piloto_Categoria { get; set; }
         public byte[]? Foto { get; set; }
+        public string Nome_Categoria { get; set; }
+
+
         #endregion
     }
 }

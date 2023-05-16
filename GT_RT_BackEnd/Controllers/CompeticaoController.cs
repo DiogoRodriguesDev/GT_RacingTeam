@@ -51,14 +51,14 @@ namespace GT_RT_BackEnd.Controllers
         //    }));
         //    return Ok(result);
         //}
-        [HttpPost("Competicoes")]
+        [HttpPost("Competicao")]
         public async Task<IActionResult> AddCompeticao([FromBody] Competicao Competicao)
         {
             var result = await Mediator.Send(new AddCompeticaoCommand(Competicao));
             return Ok(result);
         }
 
-        [HttpDelete("Competicaos/{id}")]
+        [HttpDelete("Competicao/{id}")]
         public async Task<IActionResult> DeleteCompeticao(int id)
         {
             await Mediator.Send(new DeleteCompeticaoCommand(id));
