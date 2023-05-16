@@ -1,0 +1,103 @@
+﻿@page "/ListaDeCompeticoes"
+@using ClassLibrary_GT_RT;
+@using GT_RT_FrontEnd.Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+<h2>Lista de Competições</h2>
+
+<div class="form-group col-sm-4">
+    <label for="filtroCompeticao">Filtrar por Competição:</label>
+    <select id="filtroCompeticao" class="form-control" @bind="@filtroCompeticaoId">
+        <option value="">Todas</option>
+        @foreach (var categoria in ListaCategoriasPiloto)
+        {
+            <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="FiltrarCompeticao">Filtrar</button>
+</div>
+
+@if (CompeticoesFiltradas is not null && CompeticoesFiltradas.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var competicao in CompeticoesFiltradas)
+            {
+                <tr>
+                    <td style="padding: 20px;"><a href="@($"/competicao-details/{competicao.Id}")">@competicao.Nome</a></td>
+                    <td style="padding: 20px;">@competicao.Nome_Categoria</td>
+                    <td style="padding: 20px;">@competicao.Descricao</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhuma competição encontrada.</p>
+}
+
+@code {
+    List<Competicao> Competicoes { get; set; } = new List<Competicao>();
+    List<Competicao> CompeticoesFiltradas { get; set; } = new List<Competicao>();
+    public int filtroCompeticaoId { get; set; }
+    bool dataFetched = false;
+    public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+
+            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+            Competicoes = await WebServiceAPI.GetCompeticoes();
+            CompeticoesFiltradas = Competicoes;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private void FiltrarCompeticao()
+    {
+        if (filtroCompeticaoId == 0)
+        {
+            CompeticoesFiltradas = Competicoes;
+        }
+        else
+        {
+            CompeticoesFiltradas = Competicoes.Where(c => c.Id_Piloto_Categoria == filtroCompeticaoId).ToList();
+        }
+    }
+
+    private async Task DeleteCompeticao(int id)
+    {
+        try
+        {
+            await WebServiceAPI.DeleteCompeticao(id);
+            Competicoes.RemoveAll(c => c.Id == id);
+            CompeticoesFiltradas.RemoveAll(c => c.Id == id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+
+}

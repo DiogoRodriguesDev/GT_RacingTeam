@@ -1,0 +1,128 @@
+﻿@page "/EditarCompeticao/{id:int}"
+
+@using ClassLibrary_GT_RT;
+@using GT_RT_FrontEnd.Interfaces;
+@using System.Diagnostics;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Forms
+@using GT_RT_FrontEnd.Components
+
+<Modal @ref="SuccessModal" Title="Sucesso" Message="Competição editada com sucesso!" />
+
+<h2>Editar Competição</h2>
+
+@if (CompeticaoData is not null)
+{
+    <EditForm Model="@CompeticaoData" OnValidSubmit="UpdateCompeticao">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <InputText id="nome" class="form-control" @bind-Value="@CompeticaoData.Nome" />
+        </div>
+
+        <div class="form-group">
+            <label for="descricao">Descrição:</label>
+            <InputTextArea id="descricao" class="form-control" @bind-Value="@CompeticaoData.Descricao" />
+        </div>
+
+        <div class="form-group">
+            <label for="categoriaId">Categoria:</label>
+            <select id="categoriaId" class="form-control" @bind="@CompeticaoData.Id_Piloto_Categoria" @oninput="UpdateNomeCategoria">
+                @foreach (var categoria in ListaCategoriasPiloto)
+                {
+                    <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="foto">Foto:</label>
+            <InputFile id="foto" class="form-control" OnChange="HandleFileChange" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Competicao CompeticaoData { get; set; } = new();
+
+    public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
+
+
+    Modal SuccessModal { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            CompeticaoData = await WebServiceAPI.GetCompeticao(Id);
+            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            Console.WriteLine($"Erro na chamada da API: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async void UpdateCompeticao()
+    {
+        try
+        {
+            var newCompeticao = new Competicao
+            {
+                Nome = CompeticaoData.Nome,
+                Descricao = CompeticaoData.Descricao,
+                Id_Piloto_Categoria = CompeticaoData.Id_Piloto_Categoria,
+                Foto = CompeticaoData.Foto,
+                Nome_Categoria = CompeticaoData.Nome_Categoria
+            };
+
+            var response = await WebServiceAPI.UpdateCompeticao(newCompeticao, Id);
+
+            if (response != null)
+            {
+                SuccessModal.OpenModal();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+    private void UpdateNomeCategoria(ChangeEventArgs e)
+    {
+        int categoriaId = Convert.ToInt32(e.Value);
+
+        var categoria = ListaCategoriasPiloto.FirstOrDefault(c => c.Id_Piloto_Categorias == categoriaId);
+
+        if (categoria != null)
+        {
+            CompeticaoData.Nome_Categoria = categoria.Nome_Piloto_Categoria;
+        }
+    }
+
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        using (var stream = file.OpenReadStream())
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+                CompeticaoData.Foto = memoryStream.ToArray();
+            }
+        }
+    }
+
+}

@@ -30,6 +30,7 @@ namespace GT_RT_BackEnd.Handlers.CompeticaoHandlers
                 Competicao.Descricao = request.Competicao.Descricao;
                 Competicao.Foto = request.Competicao.Foto;
                 Competicao.Id_Piloto_Categoria = request.Competicao.Id_Piloto_Categoria;
+                Competicao.Nome_Categoria= request.Competicao.Nome_Categoria;
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
             }

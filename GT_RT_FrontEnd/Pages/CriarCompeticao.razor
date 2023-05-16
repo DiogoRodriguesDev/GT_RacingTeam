@@ -66,7 +66,7 @@
 <div class="form-group col-sm-4">
     <label for="filtroCompeticao">Filtrar por Competicao:</label>
     <select id="filtroCompeticao" class="form-control" @bind="@filtroCompeticaoId">
-        <option value="">Todos</option>
+        <option value="">Todas</option>
         @foreach (var categoria in ListaCategoriasPiloto)
         {
             <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
@@ -79,7 +79,6 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 150px;">ID </th>
                 <th style="width: 150px;">Nome</th>
                 <th style="width: 150px;">Categoria</th>
                 <th style="width: 100px;"></th>
@@ -89,11 +88,11 @@
             @foreach (var competicaofiltrada in CompeticaoDataFiltrados)
             {
                 <tr>
-                    <td style="width: 150px; padding: 20px;">@competicaofiltrada.Id</td>
-                    <td style="width: 150px; padding: 20px;">@competicaofiltrada.Nome</td>
+                    <td style="padding: 20px;"><a href="@($"/competicao-details/{competicaofiltrada.Id}")">@competicaofiltrada.Nome</a></td>
                     <td style="width: 150px; padding: 20px;">@competicaofiltrada.Nome_Categoria</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(competicaofiltrada.Id)">Eliminar</button>
+                    <td style="padding: 20px;"><button class="btn btn-primary" @onclick="() => EditCompeticao(competicaofiltrada.Id)">Editar</button></td>
 
                     </td>
                 </tr>
@@ -216,5 +215,10 @@ else
                 NewCompeticao.Foto = memoryStream.ToArray();
             }
         }
+    }
+
+    private void EditCompeticao(int id)
+    {
+        NavigationManager.NavigateTo($"/EditarCompeticao/{id}");
     }
 }

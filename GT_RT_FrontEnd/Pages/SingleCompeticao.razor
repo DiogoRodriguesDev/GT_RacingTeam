@@ -1,0 +1,42 @@
+﻿@page "/competicao-details/{id:int}"
+
+@using ClassLibrary_GT_RT
+@using GT_RT_FrontEnd.Interfaces
+@using System.Diagnostics
+@inject IWebServiceAPI WebServiceAPI
+
+@if (Competicao != null)
+{
+    <h3>@Competicao.Nome</h3>
+    @if (Competicao.Foto != null)
+    {
+        <img src="data:image;base64,@Convert.ToBase64String(Competicao.Foto)" alt="Foto da Competição" style="max-width: 200px; max-height: 200px;" />
+    }
+    <p><strong>ID da Competição:</strong> @Competicao.Id</p>
+    <p><strong>Descrição:</strong> @Competicao.Descricao</p>
+    <p><strong>Nome da Categoria:</strong> @Competicao.Nome_Categoria</p>
+}
+else
+{
+    <p>A competição não foi encontrada.</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Competicao Competicao { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Competicao = await WebServiceAPI.GetCompeticao(Id);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+}
