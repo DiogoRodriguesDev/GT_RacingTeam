@@ -14,15 +14,15 @@
 </div>
 
 <h2>Criar novo resultado de corrida</h2>
-<hr style="border-top: 20px solid #000;">
 <EditForm Model="@NewResultadoCorrida" OnValidSubmit="CreateNewResultadoCorrida">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <div class="form-group row">
+    <div class="form-group col-sm-4">
         <div class="form-group">
-            <label for="id_corrida">Selecione a Corrida:</label>
+            <label for="id_corrida">Corrida:</label>
             <InputSelect id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida">
+            <option value="">Selecionar Corrida</option>
                 @foreach (var corrida in Corridas)
                 {
                     <option value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
@@ -30,14 +30,24 @@
             </InputSelect>
         </div>
 
-        <div class="col-sm-4">
+        
+        <div class="form-group col-sm-4">
             <label for="posicaoFinal">Posição Final:</label>
-            <InputNumber id="posicaoFinal" class="form-control" @bind-Value="@NewResultadoCorrida.PosicaoFinal" />
+            <select id="posicaoId" class="form-control" @bind="NewResultadoCorrida.PosicaoFinal">
+                <option value="">Selecionar Posição</option>
+                @for (int i = 1; i <= 20; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
         </div>
 
-        <div class="col-sm-4">
+
+
+        <div class="form-group col-sm-4">
             <label for="pilotoId">Piloto:</label>
             <select id="pilotoId" class="form-control" @bind="NewResultadoCorrida.Id_piloto">
+                <option value="">Selecionar Piloto</option>
                 @foreach (var piloto in PilotosData)
                 {
                     <option value="@piloto.Id_piloto">@piloto.Nome</option>
@@ -54,6 +64,15 @@
 {
     <div class="alert alert-primary" role="alert">
         Resultado criado com sucesso!
+    </div>
+
+
+    showAlert = false;
+}
+@if (showAlert2)
+{
+    <div class="alert alert-primary" role="alert">
+        Falta Selecionar alguma coisa!
     </div>
 
 
@@ -143,6 +162,7 @@ else
     List<ResultadoCorrida> ResultadosCorridaDataFiltrados { get; set; } = new();
     public int filtroCorridaId { get; set; }
     bool showAlert = false;
+    bool showAlert2 = false;
     public ModalDelete DeleteModal { get; set; }
     Modal SuccessModal { get; set; }
     List<Competicao> Competicoes { get; set; } = new();
@@ -176,6 +196,14 @@ else
     {
         try
         {
+            if (NewResultadoCorrida.PosicaoFinal == 0 || NewResultadoCorrida.PosicaoFinal is null ||
+            NewResultadoCorrida.Id_piloto == 0 || NewResultadoCorrida.Id_piloto is null ||
+            NewResultadoCorrida.Id_corrida == 0 || NewResultadoCorrida.Id_corrida is null) // Serve para que se o user nao selecionar nenhuma posição não dar erro.
+            {
+                showAlert2 = true;
+                return; // Não faz nada e não cria o piloto
+            }
+            
             NewResultadoCorrida.Nome_Piloto = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nome;
             NewResultadoCorrida.NickName = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nickname;
             var response = await WebServiceAPI.CreateResultadoCorrida(NewResultadoCorrida);
@@ -187,7 +215,7 @@ else
                 showAlert = true;
             }
             FiltrarResultadosCorrida();
-
+            
         }
         catch (Exception ex)
         {
@@ -218,7 +246,7 @@ else
 
     private void FiltrarResultadosCorrida()
     {
-        if (filtroCorridaId == 0)
+        if (filtroCorridaId == 0 )
         {
             ResultadosCorridaDataFiltrados = ResultadosCorridaData;
         }
