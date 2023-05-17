@@ -11,7 +11,7 @@
 {
     <h3>@Corrida.Nome_Corrida</h3>
     <p><strong>ID da Corrida:</strong> @Corrida.Id_corrida</p>
-    <p><strong>Data:</strong> @Corrida.Data</p>
+    <p><strong>Data:</strong> @Corrida.Data?.ToString("dd/MM/yyyy")</p>
     <p><strong>Carros Permitidos:</strong> @Corrida.CarrosPermitidos</p>
     <p><strong>Tipo de Pneus:</strong> @Corrida.Tipo_Pneus</p>
     <p><strong>Número de Voltas:</strong> @Corrida.NumeroVoltas</p>

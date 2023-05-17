@@ -21,17 +21,58 @@ else
     <p>A competição não foi encontrada.</p>
 }
 
+@if (ResultadosCorrida != null && ResultadosCorrida.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID do Piloto</th>
+                <th>Nome do Piloto</th>
+                <th>Total de Pontos</th>
+          
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var resultado in ResultadosCorrida.GroupBy(r => r.Id_piloto)
+                                                        .OrderByDescending(x => x.Sum(r => r.Pontos)))
+            {
+                <tr>
+                    <td>@resultado.Key</td>
+                    <td>@resultado.First().Nome_Piloto</td>
+                    <td>@resultado.Sum(r => r.Pontos)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum resultado de corrida encontrado para esta competição.</p>
+}
+
 @code {
     [Parameter]
     public int Id { get; set; }
 
     private Competicao Competicao { get; set; }
+    private List<ResultadoCorrida> ResultadosCorrida { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             Competicao = await WebServiceAPI.GetCompeticao(Id);
+            var corridas = await WebServiceAPI.GetCorridas();
+            corridas = corridas.Where(c => c.Id_competicao == Id).ToList();
+
+            ResultadosCorrida = new List<ResultadoCorrida>();
+
+            foreach (var corrida in corridas)
+            {
+                var resultados = await WebServiceAPI.GetResultadoCorrida();
+                resultados = resultados.Where(r => r.Id_corrida == corrida.Id_corrida && !r.IsDeleted).ToList();
+                ResultadosCorrida.AddRange(resultados);
+            }
         }
         catch (Exception ex)
         {

@@ -26,6 +26,7 @@ namespace GT_RT_BackEnd.Controllers
             {
                 Search = request.Search
             });
+
             return Ok(result);
         }
 

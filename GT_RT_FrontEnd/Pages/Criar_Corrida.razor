@@ -6,7 +6,11 @@
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
-<Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida criada com sucesso!" />
+<Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
+<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
+    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir esta corrida?" OnConfirm="DeleteCorrida" />
+    <Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida eliminada!" ShowBackdrop="false" />
+</div>
 <h2>Criar nova corrida</h2>
 
 <EditForm Model="@NewCorrida" OnValidSubmit="CreateNewCorrida">
@@ -15,8 +19,8 @@
 
 
     <div class="form-group">
-        <label for="Nome_Corrida">Nome Corrida:</label>
-        <InputText id="Nome_Corrida" class="form-control" @bind-Value="@NewCorrida.Nome_Corrida" />
+        <label for="Nome_Corrida">Nome Corrida: (Nome da Competição - Ronda Numero - Categoria - Circuito)</label>
+        <InputText id="Nome_Corrida" class="form-control" placeholder="OWS - Ronda 1 - PRO AM - TOKYO EXPRESSWAY" @bind-Value="@NewCorrida.Nome_Corrida" />
     </div>
     <div class="form-group">
         <label for="circuito">Circuito:</label>
@@ -27,7 +31,6 @@
         <label for="carrosPermitidos">Carros Permitidos:</label>
         <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
     </div>
-
 
 
     <div class="form-group">
@@ -77,11 +80,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var corrida in CorridasData)
+            @foreach (var corrida in CorridasData.OrderByDescending(x => x.Data))
             {
                 <tr>
                     <td style="padding: 20px;"><a href="/corrida-details/@corrida.Id_corrida">@corrida.Nome_Corrida</a></td>
-                    <td style="padding: 20px;">@corrida.Data</td>
+                    <td style="padding: 20px;">@corrida.Data?.ToString("dd/MM/yyyy")</td>
                     <td style="padding: 20px;">@corrida.Circuito</td>
                     <td style="padding: 20px;">@corrida.CarrosPermitidos</td>
                     <td style="padding: 20px;">@corrida.Tipo_Pneus</td>
@@ -89,7 +92,8 @@
                     <td style="padding: 20px;">@corrida.NumeroMinutos</td>
                     <td style="padding: 20px;">@corrida.VideoYoutube</td>
                     <td>
-                        <button class="btn btn-danger" @onclick="() => DeleteCorrida(corrida.Id_corrida)">Deletar</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(corrida.Id_corrida)">Eliminar</button>
+
                         <button class="btn btn-primary" @onclick="() => EditCorrida(corrida.Id_corrida)">Editar</button>
                     </td>
                 </tr>
@@ -101,6 +105,8 @@
     List<Corrida> CorridasData { get; set; } = new();
     Corrida NewCorrida { get; set; } = new Corrida();
     Modal SuccessModal { get; set; }
+    Modal SuccessModal_CriarCorrida { get; set; }
+    public ModalDelete DeleteModal { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -171,7 +177,7 @@
 
             if (response != null)
             {
-                SuccessModal.OpenModal();
+                SuccessModal_CriarCorrida.OpenModal();
             }
         }
         catch (Exception ex)
@@ -185,8 +191,10 @@
     {
         try
         {
+            DeleteModal.CloseModal();
             await WebServiceAPI.DeleteCorrida(id);
             CorridasData.RemoveAll(p => p.Id_corrida == id);
+            SuccessModal.OpenModal();
         }
         catch (Exception ex)
         {
@@ -194,6 +202,7 @@
             throw;
         }
     }
+    
     private void EditCorrida(int id)
     {
         NavigationManager.NavigateTo($"/EditarCorrida/{id}");

@@ -7,7 +7,12 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using GT_RT_FrontEnd.Components;
 
-<Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto criado com sucesso!" />
+<Modal @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
+<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
+    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este Piloto?" OnConfirm="DeletePiloto" />
+    <Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto eliminado!" ShowBackdrop="false" />
+</div>
+
 <h2>Criar novo piloto</h2>
 
 <EditForm Model="@NewPiloto" OnValidSubmit="CreateNewPiloto">
@@ -87,7 +92,7 @@
                     <td style="padding: 20px;">@piloto.Nome</td>
                     <td style="padding: 20px;">@piloto.Nickname</td>
                     <td>
-                        <button class="btn btn-danger" @onclick="() => DeletePiloto(piloto.Id_piloto)">Deletar</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(piloto.Id_piloto)">Eliminar</button>
                         <button class="btn btn-primary" @onclick="() => EditPiloto(piloto.Id_piloto)">Editar</button>
                     </td>
                 </tr>
@@ -106,6 +111,10 @@
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
     public List<Equipa> ListaEquipasPiloto { get; set; } = new();
     Modal SuccessModal { get; set; }
+    Modal SuccessModal_criadopiloto { get; set; }
+    public ModalDelete DeleteModal { get; set; }
+
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -133,7 +142,7 @@
 
             if (response != null)
             {
-                SuccessModal.OpenModal();
+                SuccessModal_criadopiloto.OpenModal();
             }
         }
         catch (Exception ex)
@@ -147,8 +156,10 @@
     {
         try
         {
+            DeleteModal.CloseModal();
             await WebServiceAPI.DeletePiloto(id);
             PilotosData.RemoveAll(p => p.Id_piloto == id);
+            SuccessModal.OpenModal();
         }
         catch (Exception ex)
         {
@@ -156,6 +167,7 @@
             throw;
         }
     }
+
     private void EditPiloto(int id)
     {
         NavigationManager.NavigateTo($"/EditarPiloto/{id}");
