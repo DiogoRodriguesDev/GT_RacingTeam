@@ -6,6 +6,7 @@
 @inject NavigationManager NavigationManager
 
 
+
 <h2>Pilotos</h2>
 
 @if (Pilotos is not null && Pilotos.Any())
@@ -35,7 +36,7 @@
 @code {
     List<Piloto> Pilotos { get; set; } = new();
     bool dataFetched = false;
-
+    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -46,7 +47,9 @@
                 var response = await WebServiceAPI.GetPilotos();
                 Pilotos = response.Where(p => !p.IsDeleted).ToList();
                 dataFetched = true;
+
                 StateHasChanged();
+                
             }
             catch (Exception ex)
             {
