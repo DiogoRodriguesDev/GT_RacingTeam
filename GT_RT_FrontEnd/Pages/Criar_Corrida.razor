@@ -30,6 +30,11 @@
     <div class="form-group col-sm-2">
         <label for="carrosPermitidos">Carros Permitidos:</label>
         <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
+    </div>    
+    
+    <div class="form-group col-sm-2">
+        <label for="tipoPneus">Pneus Permitidos:</label>
+        <InputText id="tipoPneus" class="form-control" @bind-Value="@NewCorrida.Tipo_Pneus" />
     </div>
 
     <div class="form-group col-sm-2">
@@ -48,12 +53,6 @@
         <InputNumber id="numeroMinutos" class="form-control" @bind-Value="@NewCorrida.NumeroMinutos" />
     </div>
 
-@*    <div class="form-group col-sm-2">
-        <label for="id_competicao">ID da Competição:</label>
-        <InputNumber id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao" />
-    </div>
-*@
-
     <div class="form-group col-sm-4">
             <label for="id_corrida">Competição:</label>
             <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
@@ -71,8 +70,19 @@
     </div>
 
     <button type="submit" class="btn btn-primary" @onclick="ModifyVideoLink">Criar</button>
-    <Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
+    
 </EditForm>
+
+<Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
+@if (showAlert)
+{
+    <div class="alert alert-danger" role="alert">
+        Falta Selecionar uma competição!
+    </div>
+
+
+    showAlert = false;
+}
 
 <hr style="border-top: 20px solid #000;">
 <h2>Corridas</h2>
@@ -121,7 +131,7 @@
     Modal SuccessModal { get; set; }
     Modal SuccessModal_CriarCorrida { get; set; }
     public ModalDelete DeleteModal { get; set; }
-
+    bool showAlert = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -189,6 +199,12 @@
     {
         try
         {
+            if (NewCorrida.Id_competicao is null || NewCorrida.Id_competicao == 0)
+            {
+                showAlert = true;
+                return;
+            }
+
             var response = await WebServiceAPI.CreateCorrida(NewCorrida);
             CorridasData.Add(response);
             NewCorrida = new Corrida();

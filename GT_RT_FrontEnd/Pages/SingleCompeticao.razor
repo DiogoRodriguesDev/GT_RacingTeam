@@ -53,38 +53,24 @@ else
 
 @if (Corridas != null && Corridas.Any())
 {
-    <th>| Piloto |</th>
-    @foreach (var corrida in Corridas)
-    {
-
-                    <th>| @corrida.Nome_Corrida |</th> 
-    }
-}
-else
-{
-    <p>Nenhuma corrida encontrada para esta competição.</p>
-}
-@if (Corridas != null && Corridas.Any())
-{
-    <table>
+    <table style="border-collapse: collapse; width: 100%;">
         <thead>
             <tr>
-                <th>Piloto</th>
+                <th style="border: 1px solid black;">Piloto</th>
                 @foreach (var corrida in Corridas)
                 {
-                    @*<th>@corrida.Nome_Corrida</th>*@
+                    <th style="border: 1px solid black;">@corrida.Circuito</th>
                 }
             </tr>
         </thead>
         <tbody>
-            @foreach (var resultado in ResultadosCorrida.GroupBy(r => r.Id_piloto)
-           .OrderByDescending(x => x.Sum(r => r.Pontos)))
+            @foreach (var resultado in ResultadosCorrida.GroupBy(r => r.Id_piloto).OrderByDescending(x => x.Sum(r => r.Pontos)))
             {
                 <tr>
-                    <td>@resultado.First().Nome_Piloto</td>
+                    <td style="border: 1px solid black;">@resultado.First().Nome_Piloto</td>
                     @foreach (var corrida in Corridas)
                     {
-                        <td>
+                        <td style="border: 1px solid black;">
                             @{
                                 var pontos = resultado.FirstOrDefault(r => r.Id_corrida == corrida.Id_corrida)?.Pontos;
                                 @pontos
@@ -116,7 +102,7 @@ else
         {
             Competicao = await WebServiceAPI.GetCompeticao(Id);
             var corridas = await WebServiceAPI.GetCorridas();
-            corridas = corridas.Where(c => c.Id_competicao == Id).ToList();
+            corridas = corridas.Where(c => c.Id_competicao == Id && !c.IsDeleted).ToList();
             Corridas = corridas;
 
             ResultadosCorrida = new List<ResultadoCorrida>();
