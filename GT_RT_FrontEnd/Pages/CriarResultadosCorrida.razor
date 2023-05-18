@@ -62,21 +62,18 @@
 
 @if (showAlert)
 {
-    <div class="alert alert-primary" role="alert">
-        Resultado criado com sucesso!
+    <div class="alert alert-success" role="alert">
+        @showAlertMensage
     </div>
-
-
     showAlert = false;
 }
-@if (showAlert2)
+
+@if (showAlertError)
 {
-    <div class="alert alert-primary" role="alert">
-        Falta Selecionar alguma coisa!
+    <div class="alert alert-danger" role="alert">
+        @showAlertMensage
     </div>
-
-
-    showAlert = false;
+    showAlertError = false;
 }
 
 <hr style="border-top: 20px solid #000;">
@@ -98,7 +95,7 @@
 @if (ResultadosCorridaData is not null && ResultadosCorridaData.Any())
 {
     <table>
-        <thead>
+        
             <tr>
                 <th style="width: 150px;">Nome da Corrida</th>
                 <th style="width: 150px;">Competição</th>
@@ -109,42 +106,47 @@
                 <th style="width: 100px;">Pontos</th>
                 <th style="width: 100px;"></th>
             </tr>
-        </thead>
-        <tbody>
+        
+    </table>
+    <table>
+        
             @foreach (var resultadoCorrida in ResultadosCorridaDataFiltrados)
             {
                 <tr>
                     <td style="width: 150px; padding: 20px;">
                         @{
                             var corrida = Corridas.FirstOrDefault(c => c.Id_corrida == resultadoCorrida.Id_corrida);
+                            
                             if (corrida != null)
                             {
                             <td style="padding: 20px;"><a href="@($"/corrida-details/{corrida.Id_corrida}")">@corrida.Nome_Corrida</a></td>
-                            }
+                            <td style="width: 150px; padding: 20px;">
+                                    @{
+                                        var competicao = Competicoes.FirstOrDefault(c => c.Id == corrida.Id_competicao);
+                                        if (competicao != null)
+                                        {
+                                    <td style="padding: 20px;">@competicao.Nome</td>
+                                        }
+                                    }
+                            </td>
+                            <td style="width: 150px; padding: 20px;">@corrida.Id_competicao</td>
+                            <td style="width: 150px; padding: 20px;">@resultadoCorrida.Id_corrida</td>
+                            <td style="width: 200px; padding: 20px;">@resultadoCorrida.Id_piloto</td>
+                            <td style="width: 150px; padding: 20px;">@resultadoCorrida.Nome_Piloto</td>
+                            <td style="width: 100px; padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
+                            <td style="width: 100px; padding: 20px;">@resultadoCorrida.Pontos</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Eliminar</button>
+                            </td>
+                                }
                         }
-                    </td>
-                    <td style="width: 150px; padding: 20px;">
-                        @{
-                            var competicao = Competicoes.FirstOrDefault(c => c.Id == corrida.Id_competicao);
-                            if (competicao != null)
-                            {
-                            <td style="padding: 20px;">@competicao.Nome</td>
-                            }
-                        }
-                    </td>
-                    <td style="width: 150px; padding: 20px;">@corrida.Id_competicao</td>
-                    <td style="width: 150px; padding: 20px;">@resultadoCorrida.Id_corrida</td>
-                    <td style="width: 200px; padding: 20px;">@resultadoCorrida.Id_piloto</td>
-                    <td style="width: 150px; padding: 20px;">@resultadoCorrida.Nome_Piloto</td>
-                    <td style="width: 100px; padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
-                    <td style="width: 100px; padding: 20px;">@resultadoCorrida.Pontos</td>
-                    <td>
-                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Eliminar</button>
-                        
+                    
+                    
+                    
                     </td>
                 </tr>
             }
-        </tbody>
+       
     </table>
 }
 else
@@ -162,7 +164,8 @@ else
     List<ResultadoCorrida> ResultadosCorridaDataFiltrados { get; set; } = new();
     public int filtroCorridaId { get; set; }
     bool showAlert = false;
-    bool showAlert2 = false;
+    bool showAlertError = false;
+    public string showAlertMensage { get; set; }
     public ModalDelete DeleteModal { get; set; }
     Modal SuccessModal { get; set; }
     List<Competicao> Competicoes { get; set; } = new();
@@ -177,7 +180,9 @@ else
             var response1 = await WebServiceAPI.GetResultadoCorrida();
             ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
 
-            Corridas = await WebServiceAPI.GetCorridas();
+
+            var response2 = await WebServiceAPI.GetCorridas();
+            Corridas =  response2.Where(p => !p.IsDeleted).ToList();
 
             Competicoes = await WebServiceAPI.GetCompeticoes();
 
@@ -200,10 +205,30 @@ else
             NewResultadoCorrida.Id_piloto == 0 || NewResultadoCorrida.Id_piloto is null ||
             NewResultadoCorrida.Id_corrida == 0 || NewResultadoCorrida.Id_corrida is null) // Serve para que se o user nao selecionar nenhuma posição não dar erro.
             {
-                showAlert2 = true;
+                
+                showAlertMensage = "Falta Selecionar um dos campos!";
+                showAlertError = true;
                 return; // Não faz nada e não cria o piloto
             }
-            
+
+            var checkResultadoExistente = await WebServiceAPI.GetResultadoCorrida();
+            if (checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_piloto == NewResultadoCorrida.Id_piloto
+                                                && p.Id_corrida == NewResultadoCorrida.Id_corrida))
+
+            {
+                showAlertMensage = "Este Piloto já tem resultado para esta corrida!";
+                showAlertError = true;
+                return;
+            } 
+            if (checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_corrida == NewResultadoCorrida.Id_corrida
+                                                && p.PosicaoFinal == NewResultadoCorrida.PosicaoFinal))
+            {
+                showAlertMensage = "Posição já atribuida";
+                showAlertError = true;
+                return;
+            }
+
+
             NewResultadoCorrida.Nome_Piloto = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nome;
             NewResultadoCorrida.NickName = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nickname;
             var response = await WebServiceAPI.CreateResultadoCorrida(NewResultadoCorrida);
@@ -213,6 +238,7 @@ else
             if (response is not null)
             {
                 showAlert = true;
+                showAlertMensage = "Resultado criado com sucesso!";
             }
             FiltrarResultadosCorrida();
             
@@ -246,13 +272,13 @@ else
 
     private void FiltrarResultadosCorrida()
     {
-        if (filtroCorridaId == 0 )
+        if (filtroCorridaId == 0)
         {
-            ResultadosCorridaDataFiltrados = ResultadosCorridaData;
+            ResultadosCorridaDataFiltrados = ResultadosCorridaData.OrderByDescending(r => r.Id_ResultadoCorrida).ToList();
         }
         else
         {
-            ResultadosCorridaDataFiltrados = ResultadosCorridaData.Where(r => r.Id_corrida == filtroCorridaId).ToList();
+            ResultadosCorridaDataFiltrados = ResultadosCorridaData.Where(r => r.Id_corrida == filtroCorridaId).OrderByDescending(r => r.Id_ResultadoCorrida).ToList();
         }
     }
 }

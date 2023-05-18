@@ -6,7 +6,7 @@
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
-<Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
+
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir esta corrida?" OnConfirm="DeleteCorrida" />
     <Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida eliminada!" ShowBackdrop="false" />
@@ -32,7 +32,6 @@
         <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
     </div>
 
-
     <div class="form-group col-sm-2">
         <label for="data">Data:</label>
         <InputDate id="data" class="form-control" @bind-Value="@NewCorrida.Data" />
@@ -49,9 +48,21 @@
         <InputNumber id="numeroMinutos" class="form-control" @bind-Value="@NewCorrida.NumeroMinutos" />
     </div>
 
-    <div class="form-group col-sm-2">
+@*    <div class="form-group col-sm-2">
         <label for="id_competicao">ID da Competição:</label>
         <InputNumber id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao" />
+    </div>
+*@
+
+    <div class="form-group col-sm-4">
+            <label for="id_corrida">Competição:</label>
+            <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
+                <option value="">Selecionar Competição</option>
+            @foreach (var competicao in CompeticoesData)
+                {
+                    <option value="@competicao.Id">@competicao.Nome</option>
+                }
+            </InputSelect>
     </div>
 
     <div class="form-group col-sm-4">
@@ -60,6 +71,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary" @onclick="ModifyVideoLink">Criar</button>
+    <Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
 </EditForm>
 
 <hr style="border-top: 20px solid #000;">
@@ -104,10 +116,12 @@
 }
 @code {
     List<Corrida> CorridasData { get; set; } = new();
+    List<Competicao> CompeticoesData { get; set; } = new();
     Corrida NewCorrida { get; set; } = new Corrida();
     Modal SuccessModal { get; set; }
     Modal SuccessModal_CriarCorrida { get; set; }
     public ModalDelete DeleteModal { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -115,6 +129,9 @@
         {
             var response = await WebServiceAPI.GetCorridas();
             CorridasData = response.Where(p => !p.IsDeleted).ToList();
+
+            var response1 = await WebServiceAPI.GetCompeticoes();
+            CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
         }
         catch (Exception ex)
         {

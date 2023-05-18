@@ -89,11 +89,8 @@
                 <tr>
                     <td style="padding: 20px;"><a href="@($"/competicao-details/{competicaofiltrada.Id}")">@competicaofiltrada.Nome</a></td>
                     <td style="width: 150px; padding: 20px;">@competicaofiltrada.Nome_Categoria</td>
-                    <td>
-                        <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(competicaofiltrada.Id)">Eliminar</button>
-                    <td style="padding: 20px;"><button class="btn btn-primary" @onclick="() => EditCompeticao(competicaofiltrada.Id)">Editar</button></td>
-
-                    </td>
+                    <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(competicaofiltrada.Id)">Eliminar</button>
+                     <button class="btn btn-primary" @onclick="() => EditCompeticao(competicaofiltrada.Id)">Editar</button>
                 </tr>
             }
         </tbody>

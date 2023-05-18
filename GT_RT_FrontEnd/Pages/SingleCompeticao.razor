@@ -50,12 +50,65 @@ else
     <p>Nenhum resultado de corrida encontrado para esta competição.</p>
 }
 
+
+@if (Corridas != null && Corridas.Any())
+{
+    <th>| Piloto |</th>
+    @foreach (var corrida in Corridas)
+    {
+
+                    <th>| @corrida.Nome_Corrida |</th> 
+    }
+}
+else
+{
+    <p>Nenhuma corrida encontrada para esta competição.</p>
+}
+@if (Corridas != null && Corridas.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Piloto</th>
+                @foreach (var corrida in Corridas)
+                {
+                    @*<th>@corrida.Nome_Corrida</th>*@
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var resultado in ResultadosCorrida.GroupBy(r => r.Id_piloto)
+           .OrderByDescending(x => x.Sum(r => r.Pontos)))
+            {
+                <tr>
+                    <td>@resultado.First().Nome_Piloto</td>
+                    @foreach (var corrida in Corridas)
+                    {
+                        <td>
+                            @{
+                                var pontos = resultado.FirstOrDefault(r => r.Id_corrida == corrida.Id_corrida)?.Pontos;
+                                @pontos
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhuma corrida encontrada para esta competição.</p>
+}
+
+
 @code {
     [Parameter]
     public int Id { get; set; }
 
     private Competicao Competicao { get; set; }
     private List<ResultadoCorrida> ResultadosCorrida { get; set; }
+    private List<Corrida> Corridas { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -64,6 +117,7 @@ else
             Competicao = await WebServiceAPI.GetCompeticao(Id);
             var corridas = await WebServiceAPI.GetCorridas();
             corridas = corridas.Where(c => c.Id_competicao == Id).ToList();
+            Corridas = corridas;
 
             ResultadosCorrida = new List<ResultadoCorrida>();
 
