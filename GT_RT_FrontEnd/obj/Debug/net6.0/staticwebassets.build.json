@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WpVjYVU7Hd4lOgLH6LBVFJwIYdSZnoghUF4eHaTFwgk=",
+  "Hash": "hJmj8w96omf6PlmqJC3jEerTRrhswA8pordAasEcS7w=",
   "Source": "GT_RT_FrontEnd",
   "BasePath": "_content/GT_RT_FrontEnd",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\index.html",
+      "SourceId": "GT_RT_FrontEnd",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\",
+      "BasePath": "_content/GT_RT_FrontEnd",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
     }
   ]
 }

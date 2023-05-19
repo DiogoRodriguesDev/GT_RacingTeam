@@ -4,6 +4,8 @@
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
+
+
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">GT3 Racing Team</a>
@@ -23,18 +25,18 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Pilotos
+            <NavLink class="nav-link " href="" Match="NavLinkMatch.All">
+                <i class="bi bi-person-fill me-1"></i> Pilotos
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/ListaDeCorridas">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Corridas
+                <i class="bi bi-ev-front-fill me-1"></i> Corridas
             </NavLink>
         </div>       
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/ListaDeCompeticoes">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Competições
+                <i class="bi bi-trophy-fill me-1"></i> Competições
             </NavLink>
         </div>
 
@@ -43,7 +45,7 @@
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/CriarPilotos">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Pilotos
+                <i class="fa-sharp fa-solid fa-user-plus me-2" style="color: #1d9064;"></i> Manage Pilotos
             </NavLink>
         </div>
         <div class="nav-item px-3">
