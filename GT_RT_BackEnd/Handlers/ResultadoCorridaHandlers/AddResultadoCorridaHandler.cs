@@ -31,6 +31,10 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
                     //request.ResultadoCorrida.Pontos =
                     var pontos = tabelaposicoes.Where(c => c.Numero_Posicao == request.ResultadoCorrida.PosicaoFinal).FirstOrDefault().Pontos_Da_Posicao;
                     request.ResultadoCorrida.Pontos = pontos;
+                    if (request.ResultadoCorrida.VoltaRapida == true)
+                    {
+                        request.ResultadoCorrida.Pontos++;
+                    }
 
 
                     await ResultadoCorrida.AddAsync(request.ResultadoCorrida);
