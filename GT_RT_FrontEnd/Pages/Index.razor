@@ -7,12 +7,23 @@
 
 
 <h2>Pilotos</h2>
+<label for="filtroCategoria">Filtrar por Categoria:</label>
+<div class="form-group col-sm-1">
+    <select id="filtroCompeticao" class="form-control" @bind="@filtroCategoriaId">
+        <option value="">Todos</option>
+        @foreach (var categoria in Categorias)
+        {
+            <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+        }
+    </select >
+    <button class="btn btn-primary" @onclick="FiltrarCategoria">Filtrar</button>
+</div>
 
 @if (Pilotos is not null && Pilotos.Any())
 {
     <table>
         <tbody>
-            @foreach (var piloto in Pilotos)
+            @foreach (var piloto in PilotosFiltrados)
             {
                 <tr>
                     <td style="position: relative; padding: 26px;">
@@ -34,8 +45,11 @@
 
 @code {
     List<Piloto> Pilotos { get; set; } = new();
+    List<Piloto> PilotosFiltrados { get; set; } = new();
     bool dataFetched = false;
-    
+
+    private int filtroCategoriaId { get; set; } = new();
+    private List<Piloto_Categorias> Categorias { get; set; } = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -45,10 +59,13 @@
             {
                 var response = await WebServiceAPI.GetPilotos();
                 Pilotos = response.Where(p => !p.IsDeleted).ToList();
-                dataFetched = true;
 
+                Categorias = await WebServiceAPI.GetCategorias();
+
+                dataFetched = true;
+                FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
                 StateHasChanged();
-                
+
             }
             catch (Exception ex)
             {
@@ -58,22 +75,16 @@
         }
     }
 
-    private async Task Deletepiloto(int id)
+    public void FiltrarCategoria()
     {
-        try
+        if (filtroCategoriaId == 0)
         {
-            await WebServiceAPI.DeletePiloto(id);
-            Pilotos.RemoveAll(p => p.Id_piloto == id);
-            dataFetched = false; // Adiciona esta linha para garantir que a lista seja atualizada após excluir um piloto.
+            PilotosFiltrados = Pilotos;
         }
-        catch (Exception ex)
+        else
         {
-            Debug.WriteLine(ex);
-            throw;
+            PilotosFiltrados = Pilotos.Where(x => x.Id_Piloto_Categoria == filtroCategoriaId).ToList();
         }
     }
-    private void Editpiloto(int id)
-    {
-        NavigationManager.NavigateTo($"/EditarPiloto/{id}");
-    }
+
 }
