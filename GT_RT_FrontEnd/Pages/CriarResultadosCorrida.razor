@@ -223,14 +223,14 @@ else
                 showAlertError = true;
                 return;
             }
-
-            if (checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_corrida == NewResultadoCorrida.Id_corrida
-                                                && p.VoltaRapida == NewResultadoCorrida.VoltaRapida))
+            
+            if (NewResultadoCorrida.VoltaRapida == true && checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_corrida == NewResultadoCorrida.Id_corrida && p.VoltaRapida == true))
             {
-                showAlertMensage = "Volta Mais Rápida já atribuida";
+                showAlertMensage = "Volta Mais Rápida já atribuída";
                 showAlertError = true;
                 return;
             }
+
 
            
 
