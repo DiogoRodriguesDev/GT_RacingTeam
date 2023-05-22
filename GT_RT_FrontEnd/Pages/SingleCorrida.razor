@@ -10,7 +10,8 @@
 @if (Corrida != null)
 {
     <h3>@Corrida.Nome_Corrida</h3>
-    <p><strong>ID da Corrida:</strong> @Corrida.Id_corrida</p>
+
+    <p><strong>Competição:</strong> <a href="@($"/competicao-details/{Corrida.Id_competicao}")">@ListaCompeticoes.Where(y => y.Id == Corrida.Id_competicao).FirstOrDefault().Nome</a></p>
     <p><strong>Data:</strong> @Corrida.Data?.ToString("dd/MM/yyyy")</p>
     <p><strong>Carros Permitidos:</strong> @Corrida.CarrosPermitidos</p>
     <p><strong>Tipo de Pneus:</strong> @Corrida.Tipo_Pneus</p>
@@ -67,6 +68,7 @@ else
     public int Id { get; set; }
     private Corrida Corrida { get; set; }
     private List<ResultadoCorrida> ResultadosCorrida { get; set; }
+    private List<Competicao> ListaCompeticoes { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -78,6 +80,9 @@ else
                                 .Where(r => r.Id_corrida == Corrida.Id_corrida)
                                 .OrderBy(r => r.PosicaoFinal)
                                 .ToList();
+            ListaCompeticoes = (await WebServiceAPI.GetCompeticoes())
+                                .Where(x => !x.IsDeleted)
+                                .ToList();                        
         }
         catch (Exception ex)
         {

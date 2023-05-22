@@ -46,6 +46,13 @@
         <button type="submit" class="btn btn-primary">Atualizar</button>
     </EditForm>
 }
+@if (showAlertError)
+{
+    <div class="alert alert-danger col-sm-2" role="alert">
+        @showAlertMensage
+    </div>
+    showAlertError = false;
+}
 
 @code {
     [Parameter]
@@ -57,6 +64,8 @@
 
 
     Modal SuccessModal { get; set; }
+    bool showAlertError = false;
+    public string showAlertMensage { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -77,6 +86,12 @@
     {
         try
         {
+            if (string.IsNullOrEmpty(CompeticaoData.Nome))
+            {
+                showAlertMensage = "Inserir nome para Competição";
+                showAlertError = true;
+                return;
+            }
             var newCompeticao = new Competicao
             {
                 Nome = CompeticaoData.Nome,

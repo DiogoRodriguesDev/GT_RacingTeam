@@ -99,8 +99,6 @@
             <tr>
                 <th style="width: 150px;">Nome da Corrida</th>
                 <th style="width: 150px;">Competição</th>
-                <th style="width: 150px;">ID da Corrida</th>
-                <th style="width: 150px;">ID do Piloto</th>
                 <th style="width: 200px;">Nome do Piloto</th>
                 <th style="width: 150px;">Posição Final</th>
                 <th style="width: 100px;">Pontos</th>
@@ -129,24 +127,17 @@
                                         }
                                     }
                             </td>
-                            <td style="width: 150px; padding: 20px;">@corrida.Id_competicao</td>
-                            <td style="width: 150px; padding: 20px;">@resultadoCorrida.Id_corrida</td>
-                            <td style="width: 200px; padding: 20px;">@resultadoCorrida.Id_piloto</td>
-                            <td style="width: 150px; padding: 20px;">@resultadoCorrida.Nome_Piloto</td>
-                            <td style="width: 100px; padding: 20px;">@resultadoCorrida.PosicaoFinal</td>
-                            <td style="width: 100px; padding: 20px;">@resultadoCorrida.Pontos</td>
+                            <td style="width: 150px; padding: 40px;">@resultadoCorrida.Nome_Piloto</td>
+                            <td style="width: 100px; padding: 70px;">@resultadoCorrida.PosicaoFinal</td>
+                            <td style="width: 100px; padding: 70px;">@resultadoCorrida.Pontos</td>
                             <td>
                                 <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Eliminar</button>
                             </td>
                                 }
                         }
-                    
-                    
-                    
                     </td>
                 </tr>
             }
-       
     </table>
 }
 else

@@ -64,6 +64,22 @@
             </InputSelect>
     </div>
 
+    <label for="id_corrida">Competição:</label>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
+                <option value="">Selecionar Competição</option>
+                @foreach (var competicao in CompeticoesData)
+                {
+                    <option value="@competicao.Id">@competicao.Nome</option>
+                }
+            </InputSelect>
+        </ul>
+    </div>
+
     <div class="form-group col-sm-4">
         <label for="VideoYoutube">Link Video Youtube:</label>
         <InputText id="VideoYoutube" class="form-control" @bind-Value="@NewCorrida.VideoYoutube" />
