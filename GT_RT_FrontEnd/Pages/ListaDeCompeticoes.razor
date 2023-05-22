@@ -63,6 +63,7 @@ else
 
             ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
             Competicoes = await WebServiceAPI.GetCompeticoes();
+            Competicoes = Competicoes.Where(p => !p.IsDeleted).ToList();
             CompeticoesFiltradas = Competicoes;
         }
         catch (Exception ex)
