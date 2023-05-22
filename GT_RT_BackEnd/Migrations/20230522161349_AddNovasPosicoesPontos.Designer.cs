@@ -4,6 +4,7 @@ using GT_RT_BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GT_RT_BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522161349_AddNovasPosicoesPontos")]
+    partial class AddNovasPosicoesPontos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,72 +240,6 @@ namespace GT_RT_BackEnd.Migrations
                     b.ToTable("Posicao");
                 });
 
-            modelBuilder.Entity("ClassLibrary_GT_RT.PosicaoNovosPontos_AM", b =>
-                {
-                    b.Property<int?>("Id_Posicao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id_Posicao"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Numero_Posicao")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pontos_Da_Posicao")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id_Posicao");
-
-                    b.ToTable("PosicaoNovosPontos_AM");
-                });
-
-            modelBuilder.Entity("ClassLibrary_GT_RT.PosicaoNovosPontos_PRO", b =>
-                {
-                    b.Property<int?>("Id_Posicao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id_Posicao"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Numero_Posicao")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pontos_Da_Posicao")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id_Posicao");
-
-                    b.ToTable("PosicaoNovosPontos_PRO");
-                });
-
-            modelBuilder.Entity("ClassLibrary_GT_RT.PosicaoNovosPontos_PROAM", b =>
-                {
-                    b.Property<int?>("Id_Posicao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id_Posicao"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("Numero_Posicao")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pontos_Da_Posicao")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id_Posicao");
-
-                    b.ToTable("PosicaoNovosPontos_PROAM");
-                });
-
             modelBuilder.Entity("ClassLibrary_GT_RT.Resultado", b =>
                 {
                     b.Property<int>("Id_Resultado")
@@ -375,9 +312,6 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.Property<TimeSpan?>("Tempo_total")
                         .HasColumnType("time");
-
-                    b.Property<int?>("TipoDePontuacao")
-                        .HasColumnType("int");
 
                     b.Property<bool?>("VoltaRapida")
                         .HasColumnType("bit");

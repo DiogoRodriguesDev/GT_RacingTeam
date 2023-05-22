@@ -18,7 +18,9 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
         public async Task<ResultadoCorrida> Handle(AddResultadoCorridaCommand request, CancellationToken cancellationToken)
         {
             var ResultadoCorrida = _dataContext.ResultadoCorrida;
-            var tabelaposicoes = _dataContext.Posicao.ToList();
+            var tabelaposicoesAntiga = _dataContext.Posicao.ToList();
+            var tabelaposicoesNovaPRO = _dataContext.PosicaoNovosPontos_PRO.ToList();
+            var tabelaposicoesNovaPROAM = _dataContext.PosicaoNovosPontos_PROAM.ToList();
 
             if (ResultadoCorrida == null)
             {
@@ -28,13 +30,34 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
             {
                 try
                 {
-                    //request.ResultadoCorrida.Pontos =
-                    var pontos = tabelaposicoes.Where(c => c.Numero_Posicao == request.ResultadoCorrida.PosicaoFinal).FirstOrDefault().Pontos_Da_Posicao;
-                    request.ResultadoCorrida.Pontos = pontos;
-                    if (request.ResultadoCorrida.VoltaRapida == true)
+                    if (request.ResultadoCorrida.TipoDePontuacao == 1)//Se o tipo de pontuação for igual a 1 vai buscar os pontos da tabela antiga
                     {
-                        request.ResultadoCorrida.Pontos++;
+                        var pontos = tabelaposicoesAntiga.Where(c => c.Numero_Posicao == request.ResultadoCorrida.PosicaoFinal).FirstOrDefault().Pontos_Da_Posicao;
+                        request.ResultadoCorrida.Pontos = pontos;
+                        if (request.ResultadoCorrida.VoltaRapida == true)
+                        {
+                            request.ResultadoCorrida.Pontos++;
+                        }
                     }
+                    else if (request.ResultadoCorrida.TipoDePontuacao == 2)//Se o tipo de pontuação for igual a 2 vai buscar os pontos da tabela nova da PRO.
+                    {
+                        var pontos = tabelaposicoesNovaPRO.Where(c => c.Numero_Posicao == request.ResultadoCorrida.PosicaoFinal).FirstOrDefault().Pontos_Da_Posicao;
+                        request.ResultadoCorrida.Pontos = pontos;
+                        if (request.ResultadoCorrida.VoltaRapida == true)
+                        {
+                            request.ResultadoCorrida.Pontos = request.ResultadoCorrida.Pontos + 2; //São dados 2 pontos ao pilotos que tem a volta mais rapida.
+                        }
+                    }
+                    else if (request.ResultadoCorrida.TipoDePontuacao == 3) //Se o tipo de pontuação for igual a 3 vai buscar os pontos da tabela nova da PRO AM.)
+                    {
+                        var pontos = tabelaposicoesNovaPROAM.Where(c => c.Numero_Posicao == request.ResultadoCorrida.PosicaoFinal).FirstOrDefault().Pontos_Da_Posicao;
+                        request.ResultadoCorrida.Pontos = pontos;
+                        if (request.ResultadoCorrida.VoltaRapida == true)
+                        {
+                            request.ResultadoCorrida.Pontos = request.ResultadoCorrida.Pontos + 2; //São dados 2 pontos ao pilotos que tem a volta mais rapida.
+                        }
+                    }
+
 
 
                     await ResultadoCorrida.AddAsync(request.ResultadoCorrida);

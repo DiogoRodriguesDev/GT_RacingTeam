@@ -4,6 +4,7 @@ using GT_RT_BackEnd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GT_RT_BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522162938_AddNovasPosicoesPontos_PROPROAMAM")]
+    partial class AddNovasPosicoesPontos_PROPROAMAM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -375,9 +378,6 @@ namespace GT_RT_BackEnd.Migrations
 
                     b.Property<TimeSpan?>("Tempo_total")
                         .HasColumnType("time");
-
-                    b.Property<int?>("TipoDePontuacao")
-                        .HasColumnType("int");
 
                     b.Property<bool?>("VoltaRapida")
                         .HasColumnType("bit");

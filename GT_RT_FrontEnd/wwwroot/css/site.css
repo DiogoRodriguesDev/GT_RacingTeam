@@ -63,8 +63,8 @@ a, .btn-link {
         content: "An error has occurred."
     }
 body {
-    background: rgb(181,181,181);
-    background: linear-gradient(90deg, rgba(181,181,181,0.9009978991596639) 30%, rgba(179,110,110,0.9486169467787114) 40%, rgba(221,39,30,0.8309698879551821) 100%);
+    background: rgb(43,36,36);
+    background: linear-gradient(90deg, rgba(43,36,36,0.9009978991596639) 5%, rgba(181,181,181,0.8309698879551821) 25%, rgba(181,181,181,0.9009978991596639) 30%, rgba(179,110,110,0.9486169467787114) 40%, rgba(221,39,30,0.8309698879551821) 100%);
     /*background: url('https://wallpapercave.com/wp/dRlhz1q.jpg') no-repeat center center fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;

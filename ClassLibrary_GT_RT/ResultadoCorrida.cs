@@ -36,5 +36,7 @@ namespace ClassLibrary_GT_RT
         public int? Id_Posicao { get; set; }
         
         public bool? VoltaRapida { get; set; } = false;
+
+        public int? TipoDePontuacao { get; set; } //1 = Antiga, 2 = Nova PRO, 3 = Nova PROAM
     }
 }

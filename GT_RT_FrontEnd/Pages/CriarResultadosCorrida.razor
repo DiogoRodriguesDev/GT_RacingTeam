@@ -30,7 +30,16 @@
             </InputSelect>
         </div>
 
-        
+        <div class="form-group col-sm-4">
+            <label for="tipoDePontuacao">Tipo de Pontuação:</label>
+            <select id="tipoDePontuacao" class="form-control" @bind="NewResultadoCorrida.TipoDePontuacao">
+                <option value="0">Selecionar Tipo</option>
+                <option value="1">Antiga</option>
+                <option value="2">PRO</option>
+                <option value="3">Pro AM</option>
+            </select>
+        </div>
+
         <div class="form-group col-sm-4">
             <label for="posicaoFinal">Posição Final:</label>
             <select id="posicaoId" class="form-control" @bind="NewResultadoCorrida.PosicaoFinal">
@@ -199,7 +208,9 @@ else
         {
             if (NewResultadoCorrida.PosicaoFinal == 0 || NewResultadoCorrida.PosicaoFinal is null ||
             NewResultadoCorrida.Id_piloto == 0 || NewResultadoCorrida.Id_piloto is null ||
-            NewResultadoCorrida.Id_corrida == 0 || NewResultadoCorrida.Id_corrida is null) // Serve para que se o user nao selecionar nenhuma posição não dar erro.
+            NewResultadoCorrida.Id_corrida == 0 || NewResultadoCorrida.Id_corrida is null ||
+            NewResultadoCorrida.TipoDePontuacao == 0 || NewResultadoCorrida.TipoDePontuacao is null) 
+            // Serve para que se o user nao selecionar nenhuma posição não dar erro.
             {
 
                 showAlertMensage = "Falta Selecionar um dos campos!";
