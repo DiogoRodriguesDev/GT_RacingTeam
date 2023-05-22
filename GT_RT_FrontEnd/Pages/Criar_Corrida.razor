@@ -30,8 +30,8 @@
     <div class="form-group col-sm-2">
         <label for="carrosPermitidos">Carros Permitidos:</label>
         <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
-    </div>    
-    
+    </div>
+
     <div class="form-group col-sm-2">
         <label for="tipoPneus">Pneus Permitidos:</label>
         <InputText id="tipoPneus" class="form-control" @bind-Value="@NewCorrida.Tipo_Pneus" />
@@ -54,30 +54,14 @@
     </div>
 
     <div class="form-group col-sm-4">
-            <label for="id_corrida">Competição:</label>
-            <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
-                <option value="">Selecionar Competição</option>
+        <label for="id_competicao">Competição:</label>
+        <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
+            <option value="">Selecionar Competição</option>
             @foreach (var competicao in CompeticoesData)
-                {
-                    <option value="@competicao.Id">@competicao.Nome</option>
-                }
-            </InputSelect>
-    </div>
-
-    <label for="id_corrida">Competição:</label>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-            <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
-                <option value="">Selecionar Competição</option>
-                @foreach (var competicao in CompeticoesData)
-                {
-                    <option value="@competicao.Id">@competicao.Nome</option>
-                }
-            </InputSelect>
-        </ul>
+            {
+                <option value="@competicao.Id">@competicao.Nome</option>
+            }
+        </InputSelect>
     </div>
 
     <div class="form-group col-sm-4">
@@ -86,7 +70,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary" @onclick="ModifyVideoLink">Criar</button>
-    
+
 </EditForm>
 
 <Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
@@ -103,7 +87,19 @@
 <hr style="border-top: 20px solid #000;">
 <h2>Corridas</h2>
 
-@if (CorridasData is not null && CorridasData.Any())
+<div class="form-group col-sm-4">
+    <label for="filtroCompeticao">Filtrar por Competição:</label>
+    <select id="filtroCompeticao" class="form-control" @bind="@filtroCorridaId">
+        <option value="">Todas</option>
+        @foreach (var competicao in CompeticoesData)
+        {
+            <option value="@competicao.Id">@competicao.Nome</option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="FiltrarCorridas">Filtrar</button>
+</div>
+
+@if (CorridasFiltradas is not null && CorridasFiltradas.Any())
 {
     <table>
         <thead>
@@ -111,15 +107,15 @@
                 <th>Nome</th>
                 <th>Data</th>
                 <th>Circuito</th>
-                <th>Carros Permitidos</th>
-                <th>Tipo de Pneus</th>
-                <th>Número de Voltas</th>
-                <th>Número de Minutos</th>
+                <th>Carros </th>
+                <th>Pneus</th>
+                <th>Voltas</th>
+                <th>Minutos</th>
                 <th>Link Video Youtube</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var corrida in CorridasData.OrderByDescending(x => x.Data))
+            @foreach (var corrida in CorridasFiltradas.OrderByDescending(x => x.Data))
             {
                 <tr>
                     <td style="padding: 20px;"><a href="/corrida-details/@corrida.Id_corrida">@corrida.Nome_Corrida</a></td>
@@ -132,7 +128,6 @@
                     <td style="padding: 20px;">@corrida.VideoYoutube</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(corrida.Id_corrida)">Eliminar</button>
-
                         <button class="btn btn-primary" @onclick="() => EditCorrida(corrida.Id_corrida)">Editar</button>
                     </td>
                 </tr>
@@ -140,6 +135,7 @@
         </tbody>
     </table>
 }
+
 @code {
     List<Corrida> CorridasData { get; set; } = new();
     List<Competicao> CompeticoesData { get; set; } = new();
@@ -148,6 +144,8 @@
     Modal SuccessModal_CriarCorrida { get; set; }
     public ModalDelete DeleteModal { get; set; }
     bool showAlert = false;
+    public int filtroCorridaId { get; set; } = 0;
+    List<Corrida> CorridasFiltradas { get; set; } = new List<Corrida>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -158,6 +156,9 @@
 
             var response1 = await WebServiceAPI.GetCompeticoes();
             CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
+
+      
+            CorridasFiltradas = CorridasData;
         }
         catch (Exception ex)
         {
@@ -165,6 +166,7 @@
             throw;
         }
     }
+
     private void ModifyVideoLink()
     {
         if (!string.IsNullOrEmpty(NewCorrida.VideoYoutube))
@@ -209,8 +211,6 @@
         return youtubeLink;
     }
 
-
-
     private async Task CreateNewCorrida()
     {
         try
@@ -252,9 +252,21 @@
             throw;
         }
     }
-    
+
     private void EditCorrida(int id)
     {
         NavigationManager.NavigateTo($"/EditarCorrida/{id}");
+    }
+
+    private void FiltrarCorridas()
+    {
+        if (filtroCorridaId == 0)
+        {
+            CorridasFiltradas = CorridasData.Where(p => !p.IsDeleted).ToList();
+        }
+        else
+        {
+            CorridasFiltradas = CorridasData.Where(p => p.Id_competicao == filtroCorridaId && !p.IsDeleted).ToList();
+        }
     }
 }

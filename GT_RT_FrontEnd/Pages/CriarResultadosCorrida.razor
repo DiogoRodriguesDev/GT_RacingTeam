@@ -108,56 +108,59 @@
 </div>
 @if (ResultadosCorridaData is not null && ResultadosCorridaData.Any())
 {
-    <table>
-        
+    <table style="border-collapse: collapse;">
+        <tr>
+            <th style="width: 350px; padding: 5px;">Nome da Corrida</th>
+            <th style="width: 250px; padding: 5px;">Competição</th>
+            <th style="width: 200px; padding: 5px;">Nome do Piloto</th>
+            <th style="width: 150px; padding: 5px;">Posição Final</th>
+            <th style="width: 100px; padding: 5px;">Pontos</th>
+            <th style="width: 100px; padding: 5px;">VMR</th>
+            <th style="width: 100px; padding: 5px;"></th>
+        </tr>
+
+        @foreach (var resultadoCorrida in ResultadosCorridaDataFiltrados)
+        {
             <tr>
-                <th style="width: 150px;">Nome da Corrida</th>
-                <th style="width: 150px;">Competição</th>
-                <th style="width: 200px;">Nome do Piloto</th>
-                <th style="width: 150px;">Posição Final</th>
-                <th style="width: 100px;">Pontos</th>
-                <th style="width: 100px;"></th>
-            </tr>
-        
-    </table>
-    <table>
-        
-            @foreach (var resultadoCorrida in ResultadosCorridaDataFiltrados)
-            {
-                <tr>
-                    <td style="width: 150px; padding: 20px;">
-                        @{
-                            var corrida = Corridas.FirstOrDefault(c => c.Id_corrida == resultadoCorrida.Id_corrida);
-                            
-                            if (corrida != null)
+                @{
+                    var corrida = Corridas.FirstOrDefault(c => c.Id_corrida == resultadoCorrida.Id_corrida);
+
+                    if (corrida != null)
+                    {
+                        var competicao = Competicoes.FirstOrDefault(c => c.Id == corrida.Id_competicao);
+
+                        <td style="width: 350px; padding: 5px;">
+                            <a href="@($"/corrida-details/{corrida.Id_corrida}")">@corrida.Nome_Corrida</a>
+                        </td>
+                        <td style="width: 250px; padding: 5px;">
+                            @if (competicao != null)
                             {
-                            <td style="padding: 20px;"><a href="@($"/corrida-details/{corrida.Id_corrida}")">@corrida.Nome_Corrida</a></td>
-                            <td style="width: 150px; padding: 20px;">
-                                    @{
-                                        var competicao = Competicoes.FirstOrDefault(c => c.Id == corrida.Id_competicao);
-                                        if (competicao != null)
-                                        {
-                                    <td style="padding: 20px;">@competicao.Nome</td>
-                                        }
-                                    }
-                            </td>
-                            <td style="width: 150px; padding: 40px;">@resultadoCorrida.Nome_Piloto</td>
-                            <td style="width: 100px; padding: 70px;">@resultadoCorrida.PosicaoFinal</td>
-                            <td style="width: 100px; padding: 70px;">@resultadoCorrida.Pontos</td>
-                            <td>
-                                <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Eliminar</button>
-                            </td>
-                                }
-                        }
-                    </td>
-                </tr>
-            }
+                            <td style="padding: 5px;">@competicao.Nome</td>
+                            }
+                        </td>
+                        <td style="width: 200px; padding: 5px;">@resultadoCorrida.Nome_Piloto</td>
+                        <td style="width: 150px; padding: 5px;">@resultadoCorrida.PosicaoFinal</td>
+                        <td style="width: 100px; padding: 5px;">@resultadoCorrida.Pontos</td>
+                        <td style="width: 100px; padding: 5px;">@(resultadoCorrida.VoltaRapida ?? false ? "VMR" : "")</td>
+                        <td>
+                            <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(resultadoCorrida.Id_ResultadoCorrida)">Eliminar</button>
+                        </td>
+                    }
+                }
+            </tr>
+        }
     </table>
 }
 else
 {
     <p>Nenhum resultado de corrida encontrado.</p>
 }
+
+
+
+
+
+
 
 
 
