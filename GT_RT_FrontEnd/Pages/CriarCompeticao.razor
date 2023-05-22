@@ -192,7 +192,7 @@ else
             DeleteModal.CloseModal();
             await WebServiceAPI.DeleteCompeticao(id);
             CompeticaoData.RemoveAll(p => p.Id == id);
-            FiltrarCompeticao();
+            FiltrarCompeticao(); //Isto tem de estar aqui para poder fazer o load inicial às competicoes.
             SuccessModal.OpenModal();
 
         }

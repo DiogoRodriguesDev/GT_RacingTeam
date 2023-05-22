@@ -7,7 +7,19 @@
 
 <h2>Lista de Corridas</h2>
 
-@if (Corridas is not null && Corridas.Any())
+<div class="form-group col-sm-4">
+    <label for="filtroCompeticao">Filtrar por Competição:</label>
+    <select id="filtroCompeticao" class="form-control" @bind="@filtroCorridaId">
+        <option value="">Todas</option>
+        @foreach (var competicao in Competicoes)
+        {
+            <option value="@competicao.Id">@competicao.Nome</option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="FiltrarCorridas">Filtrar</button>
+</div>
+
+@if (Corridas is not null && CorridasFiltradas.Any())
 {
     <table>
         <thead>
@@ -19,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var Corrida in Corridas)
+            @foreach (var Corrida in CorridasFiltradas)
             {
                 <tr>
                     <td style="padding: 20px;"><a href="@($"/corrida-details/{Corrida.Id_corrida}")">@Corrida.Nome_Corrida</a></td>
@@ -30,10 +42,15 @@
         </tbody>
     </table>
 }
-
 @code {
     List<Corrida> Corridas { get; set; } = new();
+    List<Corrida> CorridasFiltradas { get; set; } = new();
     bool dataFetched = false;
+
+    public int filtroCorridaId { get; set; } = 0;
+
+    List<Competicao> Competicoes { get; set; } = new();
+
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -44,7 +61,13 @@
             {
                 var response = await WebServiceAPI.GetCorridas();
                 Corridas = response.Where(p => !p.IsDeleted).ToList();
+
+                var response1 = await WebServiceAPI.GetCompeticoes();
+                Competicoes = response1.Where(p => !p.IsDeleted).ToList();
+
+
                 dataFetched = true;
+                FiltrarCorridas(); //se nao meter isto aqui a pagina não faz load inicial às corridas.
                 StateHasChanged();
             }
             catch (Exception ex)
@@ -52,6 +75,18 @@
                 Debug.WriteLine(ex);
                 throw;
             }
+        }
+    }
+
+    private void FiltrarCorridas()
+    {
+        if (filtroCorridaId == 0)
+        {
+            CorridasFiltradas = Corridas.Where(p => !p.IsDeleted).ToList();
+        }
+        else
+        {
+            CorridasFiltradas = Corridas.Where(p => p.Id_competicao == filtroCorridaId && !p.IsDeleted).ToList();
         }
     }
 
