@@ -82,30 +82,11 @@
     {
         if (filtroCorridaId == 0)
         {
-            CorridasFiltradas = Corridas.Where(p => !p.IsDeleted).ToList();
+            CorridasFiltradas = Corridas.Where(p => !p.IsDeleted).OrderByDescending(x => x.Data).ToList();
         }
         else
         {
             CorridasFiltradas = Corridas.Where(p => p.Id_competicao == filtroCorridaId && !p.IsDeleted).ToList();
         }
-    }
-
-    private async Task DeleteCorrida(int id)
-    {
-        try
-        {
-            await WebServiceAPI.DeleteCorrida(id);
-            Corridas.RemoveAll(p => p.Id_corrida == id);
-            dataFetched = false; // Adicionada esta linha para garantir que a lista seja atualizada após excluir um Corrida.
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
-        }
-    }
-    private void EditCorrida(int id)
-    {
-        NavigationManager.NavigateTo($"/EditarCorrida/{id}");
     }
 }

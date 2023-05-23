@@ -118,14 +118,14 @@
             @foreach (var corrida in CorridasFiltradas.OrderByDescending(x => x.Data))
             {
                 <tr>
-                    <td style="padding: 20px;"><a href="/corrida-details/@corrida.Id_corrida">@corrida.Nome_Corrida</a></td>
-                    <td style="padding: 20px;">@corrida.Data?.ToString("dd/MM/yyyy")</td>
-                    <td style="padding: 20px;">@corrida.Circuito</td>
-                    <td style="padding: 20px;">@corrida.CarrosPermitidos</td>
-                    <td style="padding: 20px;">@corrida.Tipo_Pneus</td>
-                    <td style="padding: 20px;">@corrida.NumeroVoltas</td>
-                    <td style="padding: 20px;">@corrida.NumeroMinutos</td>
-                    <td style="padding: 20px;">@corrida.VideoYoutube</td>
+                    <td style="border: 1px solid black;"><a href="/corrida-details/@corrida.Id_corrida">@corrida.Nome_Corrida</a></td>
+                    <td style="border: 1px solid black;">@corrida.Data?.ToString("dd/MM/yyyy")</td>
+                    <td style="border: 1px solid black;">@corrida.Circuito</td>
+                    <td style="border: 1px solid black;">@corrida.CarrosPermitidos</td>
+                    <td style="border: 1px solid black;">@corrida.Tipo_Pneus</td>
+                    <td style="border: 1px solid black;">@corrida.NumeroVoltas</td>
+                    <td style="border: 1px solid black;">@corrida.NumeroMinutos</td>
+                    <td style="border: 1px solid black;">@corrida.VideoYoutube</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(corrida.Id_corrida)">Eliminar</button>
                         <button class="btn btn-primary" @onclick="() => EditCorrida(corrida.Id_corrida)">Editar</button>

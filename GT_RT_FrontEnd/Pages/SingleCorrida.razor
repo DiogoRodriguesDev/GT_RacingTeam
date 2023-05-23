@@ -35,16 +35,19 @@
                     <th>Nome</th>
                     <th>NickName</th>
                     <th>Pontos</th>
+                    <th>Volta Mais Rápida</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var resultado in ResultadosCorrida)
                 {
                     <tr>
-                        <td>@resultado.PosicaoFinal</td>
-                        <td><a href="/piloto-details/@resultado.Id_piloto">@resultado.Nome_Piloto</a></td>
-                        <td>@resultado.NickName</td>
-                        <td>@resultado.Pontos</td>
+
+                        <td style="border-bottom: 1px solid black;">@resultado.PosicaoFinal</td>
+                        <td style="border-bottom: 1px solid black;"><a href="/piloto-details/@resultado.Id_piloto">@resultado.Nome_Piloto</a></td>
+                        <td style="border-bottom: 1px solid black;">@resultado.NickName</td>
+                        <td style="border-bottom: 1px solid black;">@resultado.Pontos</td>
+                        <td style="border-bottom: 1px solid black;">@(resultado.VoltaRapida ?? false ? "VMR" : "")</td>
                     </tr>
                 }
             </tbody>

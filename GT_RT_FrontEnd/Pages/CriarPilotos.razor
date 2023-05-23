@@ -90,8 +90,8 @@
             @foreach (var piloto in PilotosData)
             {
                 <tr>
-                    <a style="padding: 20px;" href="@($"/piloto-details/{piloto.Id_piloto}")">@piloto.Nome</a>
-                    <td style="padding: 20px;">@piloto.Nickname</td>
+                    <a style="padding: 5px;" href="@($"/piloto-details/{piloto.Id_piloto}")">@piloto.Nome</a>
+                    <td style="padding: 5px;">@piloto.Nickname</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(piloto.Id_piloto)">Eliminar</button>
                         <button class="btn btn-primary" @onclick="() => EditPiloto(piloto.Id_piloto)">Editar</button>
@@ -122,7 +122,7 @@
         try
         {
             var response = await WebServiceAPI.GetPilotos();
-            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+            PilotosData = response.Where(p => !p.IsDeleted).OrderByDescending(p => p.Id_piloto).ToList();
             ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
             ListaEquipasPiloto = await WebServiceAPI.GetEquipas();
         }
