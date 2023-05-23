@@ -117,10 +117,8 @@ body {
    
 }
 
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+
+window.scrollToBottom = function() {
+    window .scrollTo(0,document.body.scrollHeight);
 }
 

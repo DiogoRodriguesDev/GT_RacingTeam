@@ -1,13 +1,13 @@
-﻿<div class="modal-dialog" style="display:@ModalDisplay; z-index:1080">
+﻿<div class="modal-dialog bg-dark" style="display:@ModalDisplay; z-index:1080">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark">
             <h1 class="modal-title fs-5" id="exampleModalLabel">@Title</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
         </div>
-        <div class="modal-body">
+        <div class="modal-body text-black ">
             @Message
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer bg-dark">
             <button type="button" class="btn btn-secondary" @onclick="() => CloseModal()">Close</button>
         </div>
     </div>
