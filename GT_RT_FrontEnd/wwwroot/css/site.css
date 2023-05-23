@@ -1,7 +1,11 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+@font-face {
+    font-family: 'sfsportsnightnsupright';
+    src: url('open-iconic/font/fonts/sfsportsnightnsupright.ttf') format('truetype');
+}
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'sfsportsnightnsupright','Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h1:focus {
@@ -63,13 +67,14 @@ a, .btn-link {
         content: "An error has occurred."
     }
 body {
-    background: rgb(43,36,36);
-    background: linear-gradient(90deg, rgba(43,36,36,0.9009978991596639) 5%, rgba(181,181,181,0.8309698879551821) 25%, rgba(181,181,181,0.9009978991596639) 30%, rgba(179,110,110,0.9486169467787114) 40%, rgba(221,39,30,0.8309698879551821) 100%);
+    background: rgb(0,0,0);
+    background: linear-gradient(118deg, rgba(0,0,0,0.8309698879551821) 0%, rgba(255,255,255,0.9009978991596639) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8477766106442577) 100%, rgba(43,36,36,0.9009978991596639) 100%, rgba(181,181,181,0.8309698879551821) 100%, rgba(255,255,255,1) 100%);
     /*background: url('https://wallpapercave.com/wp/dRlhz1q.jpg') no-repeat center center fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
 }
 
 
@@ -111,3 +116,11 @@ body {
     background-color: #f7f7f7;
    
 }
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+

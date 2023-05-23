@@ -11,7 +11,7 @@
 {
     <h3>@Corrida.Nome_Corrida</h3>
 
-    <p><strong>Competição:</strong> <a href="@($"/competicao-details/{Corrida.Id_competicao}")">@ListaCompeticoes.Where(y => y.Id == Corrida.Id_competicao).FirstOrDefault().Nome</a></p>
+    <p><strong>Competicao:</strong> <a href="@($"/competicao-details/{Corrida.Id_competicao}")">@ListaCompeticoes.Where(y => y.Id == Corrida.Id_competicao).FirstOrDefault().Nome</a></p>
     <p><strong>Data:</strong> @Corrida.Data?.ToString("dd/MM/yyyy")</p>
     <p><strong>Carros Permitidos:</strong> @Corrida.CarrosPermitidos</p>
     <p><strong>Tipo de Pneus:</strong> @Corrida.Tipo_Pneus</p>
@@ -28,10 +28,10 @@
     <h2>Resultados da Corrida</h2>
     @if (ResultadosCorrida != null && ResultadosCorrida.Any())
     {
-        <table class="table" style="width: 50%;">
+        <table  style="width: 50%;">
             <thead>
                 <tr>
-                    <th>Posição Final</th>
+                    <th>Posicao Final</th>
                     <th>Nome</th>
                     <th>NickName</th>
                     <th>Pontos</th>

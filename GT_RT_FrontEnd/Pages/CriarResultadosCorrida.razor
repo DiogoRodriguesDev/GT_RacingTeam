@@ -8,8 +8,8 @@
 @using GT_RT_FrontEnd.Components;
 
 
-<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
-    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
+<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%); font-family SF Sports Night NS Upright;">
+    <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
     <Modal @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
 </div>
 
@@ -31,7 +31,7 @@
         </div>
 
         <div class="form-group col-sm-4">
-            <label for="tipoDePontuacao">Tipo de Pontuação:</label>
+            <label for="tipoDePontuacao">Tipo de Pontuacao:</label>
             <select id="tipoDePontuacao" class="form-control" @bind="NewResultadoCorrida.TipoDePontuacao">
                 <option value="0">Selecionar Tipo</option>
                 <option value="1">Antiga</option>
@@ -41,9 +41,9 @@
         </div>
 
         <div class="form-group col-sm-4">
-            <label for="posicaoFinal">Posição Final:</label>
+            <label for="posicaoFinal">Posicao Final:</label>
             <select id="posicaoId" class="form-control" @bind="NewResultadoCorrida.PosicaoFinal">
-                <option value="">Selecionar Posição</option>
+                <option value="">Selecionar Posicao</option>
                 @for (int i = 1; i <= 20; i++)
                 {
                     <option value="@i">@i</option>
@@ -111,9 +111,9 @@
     <table style="border-collapse: collapse;">
         <tr>
             <th style="width: 350px; padding: 5px;">Nome da Corrida</th>
-            <th style="width: 250px; padding: 5px;">Competição</th>
+            <th style="width: 250px; padding: 5px;">Competicao</th>
             <th style="width: 200px; padding: 5px;">Nome do Piloto</th>
-            <th style="width: 150px; padding: 5px;">Posição Final</th>
+            <th style="width: 150px; padding: 5px;">Posicao Final</th>
             <th style="width: 100px; padding: 5px;">Pontos</th>
             <th style="width: 100px; padding: 5px;">VMR</th>
             <th style="width: 100px; padding: 5px;"></th>
@@ -214,7 +214,7 @@ else
             NewResultadoCorrida.Id_piloto == 0 || NewResultadoCorrida.Id_piloto is null ||
             NewResultadoCorrida.Id_corrida == 0 || NewResultadoCorrida.Id_corrida is null ||
             NewResultadoCorrida.TipoDePontuacao == 0 || NewResultadoCorrida.TipoDePontuacao is null) 
-            // Serve para que se o user nao selecionar nenhuma posição não dar erro.
+            // Serve para que se o user nao selecionar nenhuma posicao não dar erro.
             {
 
                 showAlertMensage = "Falta Selecionar um dos campos!";
@@ -234,7 +234,7 @@ else
             if (checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_corrida == NewResultadoCorrida.Id_corrida
                                                 && p.PosicaoFinal == NewResultadoCorrida.PosicaoFinal))
             {
-                showAlertMensage = "Posição já atribuida";
+                showAlertMensage = "Posicao já atribuida";
                 showAlertError = true;
                 return;
             }

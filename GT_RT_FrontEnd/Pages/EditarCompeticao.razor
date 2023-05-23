@@ -8,9 +8,9 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using GT_RT_FrontEnd.Components
 
-<Modal @ref="SuccessModal" Title="Sucesso" Message="Competição editada com sucesso!" />
+<Modal @ref="SuccessModal" Title="Sucesso" Message="Competicao editada com sucesso!" />
 
-<h2>Editar Competição</h2>
+<h2>Editar Competicao</h2>
 
 @if (CompeticaoData is not null)
 {
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            <label for="descricao">Descrição:</label>
+            <label for="descricao">Descricao:</label>
             <InputTextArea id="descricao" class="form-control" @bind-Value="@CompeticaoData.Descricao" />
         </div>
 
@@ -88,7 +88,7 @@
         {
             if (string.IsNullOrEmpty(CompeticaoData.Nome))
             {
-                showAlertMensage = "Inserir nome para Competição";
+                showAlertMensage = "Inserir nome para Competicao";
                 showAlertError = true;
                 return;
             }

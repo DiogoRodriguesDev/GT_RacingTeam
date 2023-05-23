@@ -9,7 +9,7 @@
 
 <Modal @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
-    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este Piloto?" OnConfirm="DeletePiloto" />
+    <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este Piloto?" OnConfirm="DeletePiloto" />
     <Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto eliminado!" ShowBackdrop="false" />
 </div>
 
@@ -35,7 +35,7 @@
     </div>
 
     <div class="form-group col-sm-2">
-        <label for="description">Descrição:</label>
+        <label for="description">Descricao:</label>
         <InputTextArea id="description" class="form-control" @bind-Value="@NewPiloto.Descricao" />
     </div>
 
@@ -137,7 +137,7 @@
     {
         try
         {
-            if (NewPiloto.Id_Piloto_Categoria == 0 || NewPiloto.Id_Piloto_Categoria is null) //caso o utilizador não escolha nenhuma opção
+            if (NewPiloto.Id_Piloto_Categoria == 0 || NewPiloto.Id_Piloto_Categoria is null) //caso o utilizador não escolha nenhuma opcao
             {
                 NewPiloto.Id_Piloto_Categoria = 1;// "1" na minha db é Sem Categoria na tabela Pilot_Categorias
             }

@@ -10,15 +10,15 @@
     <h3>@Competicao.Nome</h3>
     @if (Competicao.Foto != null)
     {
-        <img src="data:image;base64,@Convert.ToBase64String(Competicao.Foto)" alt="Foto da Competição" style="max-width: 200px; max-height: 200px;" />
+        <img src="data:image;base64,@Convert.ToBase64String(Competicao.Foto)" alt="Foto da Competicao" style="max-width: 200px; max-height: 200px;" />
     }
-    <p><strong>ID da Competição:</strong> @Competicao.Id</p>
-    <p><strong>Descrição:</strong> @Competicao.Descricao</p>
+    <p><strong>ID da Competicao:</strong> @Competicao.Id</p>
+    <p><strong>Descricao:</strong> @Competicao.Descricao</p>
     <p><strong>Nome da Categoria:</strong> @Competicao.Nome_Categoria</p>
 }
 else
 {
-    <p>A competição não foi encontrada.</p>
+    <p>A competicao não foi encontrada.</p>
 }
 
 @if (ResultadosCorrida != null && ResultadosCorrida.Any())
@@ -47,7 +47,7 @@ else
 }
 else
 {
-    <p>Nenhum resultado de corrida encontrado para esta competição.</p>
+    <p>Nenhum resultado de corrida encontrado para esta competicao.</p>
 }
 
 
@@ -84,7 +84,7 @@ else
 }
 else
 {
-    <p>Nenhuma corrida encontrada para esta competição.</p>
+    <p>Nenhuma corrida encontrada para esta competicao.</p>
 }
 
 

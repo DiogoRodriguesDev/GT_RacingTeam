@@ -9,8 +9,8 @@
 
 
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
-    <ModalDelete @ref="DeleteModal" Title="Confirmação" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de Competicao?" OnConfirm="DeleteCompeticao" />
-    <Modal @ref="SuccessModal" Title="Sucesso" Message="Competição eliminada!" ShowBackdrop="false" />
+    <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de Competicao?" OnConfirm="DeleteCompeticao" />
+    <Modal @ref="SuccessModal" Title="Sucesso" Message="Competicao eliminada!" ShowBackdrop="false" />
 </div>
 
 <h2>Criar Competicao</h2>
@@ -25,7 +25,7 @@
         </div>
 
     <div class="form-group col-sm-4">
-            <label for="description">Descrição:</label>
+            <label for="description">Descricao:</label>
             <InputTextArea id="description" class="form-control" @bind-Value="@NewCompeticao.Descricao" />
         </div>
 
@@ -67,7 +67,7 @@
 
 <hr style="border-top: 20px solid #000;">
 
-<h2>Competições</h2>
+<h2>Competicoes</h2>
 
 
 <div class="form-group col-sm-6">
@@ -161,7 +161,7 @@ else
         {
             if (string.IsNullOrEmpty(NewCompeticao.Nome))
             {
-                showAlertMensage = "Inserir nome para Competição";
+                showAlertMensage = "Inserir nome para Competicao";
                 showAlertError = true;
                 return;
             }
@@ -176,7 +176,7 @@ else
 
             if (response is not null)
             {
-                showAlertMensage = "Competição criada com sucesso!";
+                showAlertMensage = "Competicao criada com sucesso!";
                 showAlert = true;
             }
             FiltrarCompeticao();

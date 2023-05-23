@@ -29,6 +29,14 @@
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
+      "Id": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\css\\open-iconic\\font\\css\\stylesheet.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\stylesheet.css"
+    },
+    {
+      "Id": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\css\\open-iconic\\font\\fonts\\SFSportsNightNSUpright.ttf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\SFSportsNightNSUpright.ttf"
+    },
+    {
       "Id": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
@@ -47,6 +55,10 @@
     {
       "Id": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\css\\open-iconic\\font\\fonts\\stylesheet.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\stylesheet.css"
     },
     {
       "Id": "C:\\Users\\DiogoRodrigues\\Desktop\\GT_RacingTeam\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\css\\site.css",
