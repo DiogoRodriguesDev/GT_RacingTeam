@@ -3,6 +3,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+
 }
 
 main[b-rg24wdcj0j] {
@@ -57,6 +58,9 @@ main[b-rg24wdcj0j] {
         position: sticky;
         top: 0;
     }
+        .sidebar.collapsed[b-rg24wdcj0j] {
+            height: 50px; 
+        }
 
     .top-row[b-rg24wdcj0j] {
         position: sticky;

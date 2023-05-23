@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+﻿@*@inherits LayoutComponentBase
 
 <PageTitle>GT_RT_FrontEnd</PageTitle>
 
@@ -16,4 +16,104 @@
             @Body
         </article>
     </main>
+</div>*@
+
+@using ClassLibrary_GT_RT
+@using GT_RT_FrontEnd.Interfaces
+@using System.Diagnostics
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+
+@inherits LayoutComponentBase
+
+<PageTitle>GT_RT_FrontEnd</PageTitle>
+
+<div class="page">
+    <main>
+        <nav class="navbar navbar-fixed navbar-dark bg-dark">
+            <div class="container-fluid justify-content-center">
+                <div class="row align-items-center">
+                 
+                    <div class="col-auto px-3">
+                    
+                        <NavLink class="nav-link text-white" href="" Match="NavLinkMatch.All">
+                            <i class="bi bi-person-fill me-1"></i> Pilotos
+                        </NavLink>
+                    </div>
+
+                    <div class="col-auto px-3">
+                        <NavLink class="nav-link text-white" href="/ListaDeCorridas">
+                            <i class="bi bi-ev-front-fill me-1"></i> Corridas
+                        </NavLink>
+                    </div>
+
+                    <div class="col-auto px-3">
+                        <NavLink class="nav-link text-white" href="/ListaDeCompeticoes">
+                            <i class="bi bi-trophy-fill me-1"></i> Competições
+                        </NavLink>
+                    </div>
+
+                    <div class="col-auto">
+                    
+                        @if (FotoPiloto != null)
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 40px; max-height: 100px;" />
+                        }
+                    </div>
+
+                    <div class="col-auto px-3">
+                        <NavLink class="nav-link text-white" href="/CriarPilotos">
+                            <i class="fa-sharp fa-solid fa-user-plus me-2" style="color: #1d9064;"></i> Manage Pilotos
+                        </NavLink>
+                    </div>
+
+                    <div class="col-auto px-3">
+                        <NavLink class="nav-link text-white" href="/CriarResultadosCorrida">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Resultados
+                        </NavLink>
+                    </div>
+
+                    <div class="col-auto px-3">
+                        <NavLink class="nav-link text-white" href="/CriarCorridas">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Corridas
+                        </NavLink>
+                    </div>
+
+                    <div class="col-auto px-3">
+                        <NavLink class="nav-link text-white" href="/CriarCompeticao">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Competições
+                        </NavLink>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
 </div>
+
+@code {
+    private byte[] FotoPiloto { get; set; }
+    private bool showNavMenu = false;
+    private string NavCssClass => showNavMenu ? "" : "hidden";
+
+    private void ToggleNavMenu()
+    {
+        showNavMenu = !showNavMenu;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Piloto piloto = await WebServiceAPI.GetPiloto(1031); //1031 É o PILOTO que tem Logotipo nesta base de dados
+            FotoPiloto = piloto.Foto;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+}
