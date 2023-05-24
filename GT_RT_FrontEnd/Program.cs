@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Refit;
 
+
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +16,18 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddRefitClient<IWebServiceAPI>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7107"));
+
+
+builder.Services.AddScoped<Utilities.ILocalStorage, Utilities.LocalStorage>();
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireClaim("Role", "Admin");
+    });
+});
 
 var app = builder.Build();
 

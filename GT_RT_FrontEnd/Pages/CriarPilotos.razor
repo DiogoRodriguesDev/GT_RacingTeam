@@ -6,7 +6,16 @@
 @inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.Components.Forms
 @using GT_RT_FrontEnd.Components;
+@inject IAuthorizationService AuthorizationService
+@using Microsoft.AspNetCore.Components.Authorization
+@inject Utilities.ILocalStorage LocalStorage
 
+@if (!isAdmin)
+{
+    <p>Acesso não autorizado.</p>
+}
+else
+{
 <Modal @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este Piloto?" OnConfirm="DeletePiloto" />
@@ -105,7 +114,7 @@
 
 
 
-
+}
 @code {
     List<Piloto> PilotosData { get; set; } = new();
     Piloto NewPiloto { get; set; } = new Piloto();
@@ -116,20 +125,38 @@
     public ModalDelete DeleteModal { get; set; }
 
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    private bool isAdmin = false;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+        if (firstRender)
         {
-            var response = await WebServiceAPI.GetPilotos();
-            PilotosData = response.Where(p => !p.IsDeleted).OrderByDescending(p => p.Id_piloto).ToList();
-            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
-            ListaEquipasPiloto = await WebServiceAPI.GetEquipas();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
+
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+            if (isAdmin)
+            {
+                try
+                {
+                    var response = await WebServiceAPI.GetPilotos();
+                    PilotosData = response.Where(p => !p.IsDeleted).OrderByDescending(p => p.Id_piloto).ToList();
+                    ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+                    ListaEquipasPiloto = await WebServiceAPI.GetEquipas();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
+
+            StateHasChanged();
         }
     }
 

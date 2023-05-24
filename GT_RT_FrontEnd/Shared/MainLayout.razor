@@ -23,9 +23,17 @@
 @using System.Diagnostics
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
-
-
 @inherits LayoutComponentBase
+
+
+@* NOTE: BEGIN NEW CODE *@
+@using System.Threading.Tasks
+@inject Utilities.ILocalStorage LocalStorage
+
+<CascadingValue Value="this">
+@* NOTE: END NEW CODE *@
+
+
 
 <PageTitle>GT_RT_FrontEnd</PageTitle>
 
@@ -69,13 +77,21 @@
                         </NavLink>
                     </div>
                    
-                  
-
-
-
-
                 </div>
-            </div>
+                    @* NOTE: BEGIN NEW CODE (REPLACED THE "About" LINK) *@
+                    <div style="width:70px;text-align:right;">
+                        @if (loggedIn)
+                        {
+                            <a class="btn btn-sm btn-primary text-white" title="Account" href="account"><span class="oi oi-key"></span></a>
+                            <button class="btn btn-sm btn-danger" title="Logout" @onclick="Logout"><span class="oi oi-account-logout"></span></button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-success" title="Login" @onclick="OpenLogin"><span class="oi oi-account-login"></span></button>
+                        }
+                    </div>
+                    @* NOTE: END NEW CODE *@
+                </div>
         </nav>
         <article class="content px-4 text-white font-monospace">
 
@@ -93,41 +109,147 @@
         </article>
 
             <nav class="navbar navbar-fixed navbar-dark bg-dark">
-                <div class="container-fluid ">
-                    <div class="container-fluid ">
-                        <div class="col-auto px-3">
-                            <NavLink class="nav-link text-white" href="/CriarPilotos">
-                                <i class="fa-sharp fa-solid fa-user-plus me-2" style="color: #1d9064;"></i> Manage Pilotos
-                            </NavLink>
-                        </div>
+                    
+                        <div class="container-fluid ">
+                            <div class="container-fluid ">
+                                @if (isAdmin)
+                                {
+                                    <div class="col-auto px-3">
+                                        <NavLink class="nav-link text-white" href="/CriarPilotos">
+                                            <i class="fa-sharp fa-solid fa-user-plus me-2" style="color: #1d9064;"></i> Manage Pilotos
+                                        </NavLink>
+                                    </div>
 
-                        <div class="col-auto px-3">
-                            <NavLink class="nav-link text-white" href="/CriarResultadosCorrida">
-                                <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Resultados
-                            </NavLink>
-                        </div>
+                                    <div class="col-auto px-3">
+                                        <NavLink class="nav-link text-white" href="/CriarResultadosCorrida">
+                                            <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Resultados
+                                        </NavLink>
+                                    </div>
 
-                        <div class="col-auto px-3">
-                            <NavLink class="nav-link text-white" href="/CriarCorridas">
-                                <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Corridas
-                            </NavLink>
-                        </div>
+                                    <div class="col-auto px-3">
+                                        <NavLink class="nav-link text-white" href="/CriarCorridas">
+                                            <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Corridas
+                                        </NavLink>
+                                    </div>
 
-                        <div class="col-auto px-3">
-                            <NavLink class="nav-link text-white" href="/CriarCompeticao">
-                                <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Competicoes
-                            </NavLink>
-                        </div>
+                                    <div class="col-auto px-3">
+                                        <NavLink class="nav-link text-white" href="/CriarCompeticao">
+                                            <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Competicoes
+                                        </NavLink>
+                                    </div>
+                                }
+                         </div>
                     </div>
-                </div>
-            </nav>
-
-
-
+              </nav>
     </main>
 </div>
+    @* NOTE: BEGIN NEW CODE *@
+</CascadingValue>
+@* NOTE: END NEW CODE *@
+@* NOTE: BEGIN NEW CODE *@
 
+<div class="modal-backdrop fade @(show ? "show" : "") @(display ? "d-block" : "d-none")"></div>
+
+<div class="modal fade @(show ? "show" : "")  @(display ? "d-block" : "d-none")" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Nome</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Nome ou NickName" autocomplete="off" required @bind-value="user" />
+                </div>
+                <div class="mb-3">
+                    <label for="loginPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="loginPassword" required @bind-value="loginPassword" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" @onclick="Login">Login</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* NOTE: END NEW CODE *@
 @code {
+
+
+
+    @* NOTE: BEGIN NEW CODE *@
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            user = await LocalStorage.GetStringAsync("user");
+            loggedIn = !string.IsNullOrEmpty(user);
+            StateHasChanged();
+        }
+    }
+    @* NOTE: END NEW CODE *@
+
+
+    @* NOTE: BEGIN NEW CODE *@
+    private bool show, display, loggedIn;
+    private string? user;
+
+    public string? GetUserName()
+    {
+        return loggedIn ? user : null;
+    }
+
+    public async Task OpenLogin()
+    {
+        display = true;
+        await Task.Delay(100);
+        show = true;
+    }
+
+    public async Task Logout()
+    {
+        user = null;
+        loggedIn = false;
+        await LocalStorage.RemoveAsync("user");
+    }
+
+    private async Task Close()
+    {
+        show = false;
+        await Task.Delay(500);
+        display = false;
+    }
+
+
+
+    private bool isAdmin = false;
+    private string loginPassword { get; set; }
+    private async Task Login()
+        {
+        if (!string.IsNullOrEmpty(user))
+        {
+            if (user == "ADMINXXX" && loginPassword == "XXX123")
+            {
+                isAdmin = true;
+            }
+
+            await Close();
+            loggedIn = true;
+            await LocalStorage.SaveStringAsync("user", user);
+            await LocalStorage.SaveStringAsync("password", loginPassword);
+        }
+        }
+
+
+    @* NOTE: END NEW CODE *@
+
+
+
     private byte[] FotoPiloto { get; set; }
     private bool showNavMenu = false;
     private string NavCssClass => showNavMenu ? "" : "hidden";
@@ -141,6 +263,12 @@
     {
         try
         {
+            @* NOTE: BEGGIN NEW CODE *@
+            //await base.OnInitializedAsync();
+            //user = await LocalStorage.GetStringAsync("user");
+            //loggedIn = !string.IsNullOrEmpty(user);
+            @* NOTE: END NEW CODE *@
+
             Piloto piloto = await WebServiceAPI.GetPiloto(1031); //1031 É o PILOTO que tem Logotipo nesta base de dados
             FotoPiloto = piloto.Foto;
         }
