@@ -45,9 +45,12 @@
 
                     <div class="col-auto">
 
+                            <img src="https://drive.google.com/uc?id=1KjJ9znerXytfn3yTf6oeAHQ7zp-19CKN" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />
+
                         @if (FotoPiloto != null)
                         {
-                            <img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />
+                            @*<img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />*@
+                       
                         }
                     </div>
                  
@@ -103,7 +106,8 @@
 
                 @if (FotoPiloto != null)
                 {
-                    <img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 140px; max-height: 100px;" />
+                    @*<img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 140px; max-height: 100px;" />*@
+                        <img src="https://drive.google.com/uc?id=1KjJ9znerXytfn3yTf6oeAHQ7zp-19CKN" alt="Foto do Piloto" style="max-width: 140px; max-height: 100px;" />
                 }
             </div>
         </article>
