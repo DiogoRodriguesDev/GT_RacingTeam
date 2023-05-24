@@ -6,7 +6,16 @@
 @inject IWebServiceAPI WebServiceAPI
 @inject NavigationManager NavigationManager
 
+@using GT_RT_FrontEnd.Components;
 
+@inject Utilities.ILocalStorage LocalStorage
+
+@if (!isAdmin)
+{
+    <p>Acesso não autorizado.</p>
+}
+else
+{
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir esta corrida?" OnConfirm="DeleteCorrida" />
     <Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida eliminada!" ShowBackdrop="false" />
@@ -135,7 +144,7 @@
         </tbody>
     </table>
 }
-
+}
 @code {
     List<Corrida> CorridasData { get; set; } = new();
     List<Competicao> CompeticoesData { get; set; } = new();
@@ -146,26 +155,58 @@
     bool showAlert = false;
     public int filtroCorridaId { get; set; } = 0;
     List<Corrida> CorridasFiltradas { get; set; } = new List<Corrida>();
-
-    protected override async Task OnInitializedAsync()
+    private bool isAdmin = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+        if (firstRender)
         {
-            var response = await WebServiceAPI.GetCorridas();
-            CorridasData = response.Where(p => !p.IsDeleted).ToList();
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
 
-            var response1 = await WebServiceAPI.GetCompeticoes();
-            CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
 
-      
-            CorridasFiltradas = CorridasData;
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
+            if (isAdmin)
+            {
+                try
+                {
+                    var response = await WebServiceAPI.GetCorridas();
+                    CorridasData = response.Where(p => !p.IsDeleted).ToList();
+
+                    var response1 = await WebServiceAPI.GetCompeticoes();
+                    CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
+
+
+                    CorridasFiltradas = CorridasData;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
+
+            StateHasChanged();
         }
     }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        var response = await WebServiceAPI.GetCorridas();
+    //        CorridasData = response.Where(p => !p.IsDeleted).ToList();
+
+    //        var response1 = await WebServiceAPI.GetCompeticoes();
+    //        CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
+
+      
+    //        CorridasFiltradas = CorridasData;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        throw;
+    //    }
+    //}
 
     private void ModifyVideoLink()
     {

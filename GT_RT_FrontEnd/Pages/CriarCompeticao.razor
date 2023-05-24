@@ -7,7 +7,16 @@
 @inject NavigationManager NavigationManager
 @using GT_RT_FrontEnd.Components;
 
+@using GT_RT_FrontEnd.Components;
 
+@inject Utilities.ILocalStorage LocalStorage
+
+@if (!isAdmin)
+{
+    <p>Acesso não autorizado.</p>
+}
+else
+{
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de Competicao?" OnConfirm="DeleteCompeticao" />
     <Modal @ref="SuccessModal" Title="Sucesso" Message="Competicao eliminada!" ShowBackdrop="false" />
@@ -114,7 +123,7 @@ else
 {
     <p>Nenhum resultado de Competicao encontrado.</p>
 }
-
+}
 
 
 @code {
@@ -130,29 +139,65 @@ else
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
     bool showAlertError = false;
     public string showAlertMensage { get; set; }
+    private bool isAdmin = false;
 
-    protected override async Task OnInitializedAsync()
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+        if (firstRender)
         {
-            var response = await WebServiceAPI.GetPilotos();
-            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
 
-            var response1 = await WebServiceAPI.GetCompeticoes();
-            CompeticaoData = response1.Where(p => !p.IsDeleted).ToList();
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
 
-            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+            if (isAdmin)
+            {
+                try
+                {
+                    var response = await WebServiceAPI.GetPilotos();
+                    PilotosData = response.Where(p => !p.IsDeleted).ToList();
 
-            Competicoes = await WebServiceAPI.GetCompeticoes();
-            FiltrarCompeticao();
+                    var response1 = await WebServiceAPI.GetCompeticoes();
+                    CompeticaoData = response1.Where(p => !p.IsDeleted).ToList();
 
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
+                    ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+
+                    Competicoes = await WebServiceAPI.GetCompeticoes();
+                    FiltrarCompeticao();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
+
+            StateHasChanged();
         }
     }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        var response = await WebServiceAPI.GetPilotos();
+    //        PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+    //        var response1 = await WebServiceAPI.GetCompeticoes();
+    //        CompeticaoData = response1.Where(p => !p.IsDeleted).ToList();
+
+    //        ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+
+    //        Competicoes = await WebServiceAPI.GetCompeticoes();
+    //        FiltrarCompeticao();
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        throw;
+    //    }
+    //}
 
 
     private async Task CreateNewCompeticao()

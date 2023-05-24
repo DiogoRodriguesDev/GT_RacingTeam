@@ -5,7 +5,14 @@
 @using GT_RT_FrontEnd.Components;
 @inject IWebServiceAPI WebServiceAPI;
 @inject NavigationManager NavigationManager;
+@inject Utilities.ILocalStorage LocalStorage
 
+@if (!isAdmin)
+{
+    <p>Acesso não autorizado.</p>
+}
+else
+{
 
 <Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida atualizada com sucesso!" />
 
@@ -71,30 +78,54 @@ else
     <p>Nenhuma corrida selecionada para edicao.</p>
 }
 
-
+}
 @code {
     [Parameter]
     public int Id { get; set; }
 
     Corrida CorridaData { get; set; } = new();
     Modal SuccessModal { get; set; }
+    private bool isAdmin = false;
 
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
-
-        try
+        if (firstRender)
         {
-            CorridaData = await WebServiceAPI.GetCorrida(Id);
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            Console.WriteLine($"Erro na chamada da API: {ex.Message}");
-            throw;
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
+
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+            if (isAdmin)
+            {
+                try
+                {
+                    CorridaData = await WebServiceAPI.GetCorrida(Id);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
+
+            StateHasChanged();
         }
     }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        CorridaData = await WebServiceAPI.GetCorrida(Id);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        Console.WriteLine($"Erro na chamada da API: {ex.Message}");
+    //        throw;
+    //    }
+    //}
 
     private void ModifyVideoLink()
     {

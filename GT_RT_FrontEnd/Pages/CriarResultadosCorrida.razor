@@ -7,7 +7,14 @@
 @inject NavigationManager NavigationManager
 @using GT_RT_FrontEnd.Components;
 
+@inject Utilities.ILocalStorage LocalStorage
 
+@if (!isAdmin)
+{
+    <p>Acesso não autorizado.</p>
+}
+else
+{
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%); font-family SF Sports Night NS Upright;">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
     <Modal @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
@@ -160,11 +167,7 @@ else
 
 
 
-
-
-
-
-
+}
 @code {
     List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
     ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
@@ -179,32 +182,69 @@ else
     Modal SuccessModal { get; set; }
     List<Competicao> Competicoes { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        var response = await WebServiceAPI.GetPilotos();
+    //        PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+    //        var response1 = await WebServiceAPI.GetResultadoCorrida();
+    //        ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
+
+
+    //        var response2 = await WebServiceAPI.GetCorridas();
+    //        Corridas =  response2.Where(p => !p.IsDeleted).ToList();
+
+    //        Competicoes = await WebServiceAPI.GetCompeticoes();
+
+    //        FiltrarResultadosCorrida();
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        throw;
+    //    }
+    //}
+    private bool isAdmin = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+        if (firstRender)
         {
-            var response = await WebServiceAPI.GetPilotos();
-            PilotosData = response.Where(p => !p.IsDeleted).ToList();
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
 
-            var response1 = await WebServiceAPI.GetResultadoCorrida();
-            ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+            if (isAdmin)
+            {
+                try
+                {
+                    var response = await WebServiceAPI.GetPilotos();
+                    PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+                    var response1 = await WebServiceAPI.GetResultadoCorrida();
+                    ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
 
 
-            var response2 = await WebServiceAPI.GetCorridas();
-            Corridas =  response2.Where(p => !p.IsDeleted).ToList();
+                    var response2 = await WebServiceAPI.GetCorridas();
+                    Corridas = response2.Where(p => !p.IsDeleted).ToList();
 
-            Competicoes = await WebServiceAPI.GetCompeticoes();
+                    Competicoes = await WebServiceAPI.GetCompeticoes();
 
-            FiltrarResultadosCorrida();
+                    FiltrarResultadosCorrida();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
 
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
+            StateHasChanged();
         }
     }
-
 
     private async Task CreateNewResultadoCorrida() //A LÓGICA DOS PONTOS VAI FICAR NO LADO DO SERVIDOR, NO HANDLER
     {

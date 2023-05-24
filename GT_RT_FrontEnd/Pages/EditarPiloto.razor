@@ -6,7 +6,14 @@
 @inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.Components.Forms
 @using GT_RT_FrontEnd.Components;
+@inject Utilities.ILocalStorage LocalStorage
 
+@if (!isAdmin)
+{
+    <p>Acesso não autorizado.</p>
+}
+else
+{
 <Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
 <h2>Editar Piloto</h2>
 
@@ -66,7 +73,7 @@
 
 
 }
-
+}
 @code {
     [Parameter]
     public int Id { get; set; }
@@ -74,26 +81,53 @@
     Piloto PilotoData { get; set; } = new();
 
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
-
+    private bool isAdmin = false;
 
     Modal SuccessModal { get; set; }
 
-    protected override async Task OnInitializedAsync()
+
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
-
-        try
+        if (firstRender)
         {
-            PilotoData = await WebServiceAPI.GetPiloto(Id);
-            ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            Console.WriteLine($"Erro na chamada da API: {ex.Message}");
-            throw;
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
+
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+            if (isAdmin)
+            {
+                try
+                {
+                    PilotoData = await WebServiceAPI.GetPiloto(Id);
+                    ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
+
+            StateHasChanged();
         }
     }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        PilotoData = await WebServiceAPI.GetPiloto(Id);
+    //        ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        Console.WriteLine($"Erro na chamada da API: {ex.Message}");
+    //        throw;
+    //    }
+    //}
 
 
 
