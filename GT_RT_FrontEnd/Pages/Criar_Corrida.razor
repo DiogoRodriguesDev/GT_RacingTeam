@@ -44,7 +44,8 @@ else
     <div class="form-group col-sm-2">
         <label for="tipoPneus">Pneus Permitidos:</label>
         <InputText id="tipoPneus" class="form-control" @bind-Value="@NewCorrida.Tipo_Pneus" />
-    </div>
+    </div>    
+    
 
     <div class="form-group col-sm-2">
         <label for="data">Data:</label>
@@ -71,6 +72,11 @@ else
                 <option value="@competicao.Id">@competicao.Nome</option>
             }
         </InputSelect>
+    </div>
+
+    <div class="form-group col-sm-4">
+        <label for="descricao">Descricao:</label>
+            <InputTextArea id="descricao" class="form-control" rows="5" @bind-Value="@NewCorrida.Descricao" />
     </div>
 
     <div class="form-group col-sm-4">

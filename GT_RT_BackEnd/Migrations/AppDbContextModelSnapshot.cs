@@ -90,6 +90,9 @@ namespace GT_RT_BackEnd.Migrations
                     b.Property<DateTime?>("Data")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Id_Resultado")
                         .HasColumnType("int");
 

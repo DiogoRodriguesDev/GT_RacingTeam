@@ -30,7 +30,7 @@ namespace ClassLibrary_GT_RT
         public Resultado? Resultado { get; set; }
         public string? VideoYoutube { get; set; }
 
-
+        public string? Descricao { get; set; }
         #endregion
     }
 }
