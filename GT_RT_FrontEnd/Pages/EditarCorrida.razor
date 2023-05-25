@@ -14,7 +14,7 @@
 else
 {
 
-<Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida atualizada com sucesso!" />
+<Modal1 @ref="SuccessModal" Title="Sucesso" Message="Corrida atualizada com sucesso!" />
 
 <h2>Editar Corrida</h2>
 
@@ -24,7 +24,7 @@ else
 
     <EditForm Model="@CorridaData" OnValidSubmit="UpdateCorrida">
         <DataAnnotationsValidator />
-        <ValidationSummary />
+            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
 
 
@@ -90,7 +90,7 @@ else
     public int Id { get; set; }
 
     Corrida CorridaData { get; set; } = new();
-    Modal SuccessModal { get; set; }
+    Modal1 SuccessModal { get; set; }
     private bool isAdmin = false;
 
 

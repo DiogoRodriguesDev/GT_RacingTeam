@@ -19,13 +19,13 @@ else
 {
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de Competicao?" OnConfirm="DeleteCompeticao" />
-    <Modal @ref="SuccessModal" Title="Sucesso" Message="Competicao eliminada!" ShowBackdrop="false" />
+    <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Competicao eliminada!" ShowBackdrop="false" />
 </div>
 
 <h2>Criar Competicao</h2>
 <EditForm Model="@NewCompeticao" OnValidSubmit="CreateNewCompeticao">
     <DataAnnotationsValidator />
-    <ValidationSummary />
+        <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
 
     <div class="form-group col-sm-4 ">
@@ -135,7 +135,7 @@ else
     public int filtroCompeticaoId { get; set; }
     bool showAlert = false;
     public ModalDelete DeleteModal { get; set; }
-    Modal SuccessModal { get; set; }
+    Modal1 SuccessModal { get; set; }
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
     bool showAlertError = false;
     public string showAlertMensage { get; set; }

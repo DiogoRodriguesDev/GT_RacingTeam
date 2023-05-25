@@ -18,13 +18,13 @@ else
 {
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir esta corrida?" OnConfirm="DeleteCorrida" />
-    <Modal @ref="SuccessModal" Title="Sucesso" Message="Corrida eliminada!" ShowBackdrop="false" />
+    <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Corrida eliminada!" ShowBackdrop="false" />
 </div>
 <h2>Criar nova corrida</h2>
 
 <EditForm Model="@NewCorrida" OnValidSubmit="CreateNewCorrida">
     <DataAnnotationsValidator />
-    <ValidationSummary />
+        <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
 
     <div class="form-group col-sm-5">
@@ -88,7 +88,7 @@ else
 
 </EditForm>
 
-<Modal @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
+<Modal1 @ref="SuccessModal_CriarCorrida" Title="Sucesso" Message="Corrida criada com sucesso!" />
 @if (showAlert)
 {
     <div class="alert alert-danger" role="alert">
@@ -155,8 +155,8 @@ else
     List<Corrida> CorridasData { get; set; } = new();
     List<Competicao> CompeticoesData { get; set; } = new();
     Corrida NewCorrida { get; set; } = new Corrida();
-    Modal SuccessModal { get; set; }
-    Modal SuccessModal_CriarCorrida { get; set; }
+    Modal1 SuccessModal { get; set; }
+    Modal1 SuccessModal_CriarCorrida { get; set; }
     public ModalDelete DeleteModal { get; set; }
     bool showAlert = false;
     public int filtroCorridaId { get; set; } = 0;

@@ -15,7 +15,7 @@
 }
 else
 {
-<Modal @ref="SuccessModal" Title="Sucesso" Message="Competicao editada com sucesso!" />
+<Modal1 @ref="SuccessModal" Title="Sucesso" Message="Competicao editada com sucesso!" />
 
 <h2>Editar Competicao</h2>
 
@@ -23,7 +23,7 @@ else
 {
     <EditForm Model="@CompeticaoData" OnValidSubmit="UpdateCompeticao">
         <DataAnnotationsValidator />
-        <ValidationSummary />
+        <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
         <div class="form-group">
             <label for="nome">Nome:</label>
@@ -70,7 +70,7 @@ else
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
     private bool isAdmin = false;
 
-    Modal SuccessModal { get; set; }
+    Modal1 SuccessModal { get; set; }
     bool showAlertError = false;
     public string showAlertMensage { get; set; }
 

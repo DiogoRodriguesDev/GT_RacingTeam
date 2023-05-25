@@ -2,7 +2,9 @@ using GT_RT_FrontEnd.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Refit;
-
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 
 
 
@@ -28,6 +30,14 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim("Role", "Admin");
     });
 });
+
+builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrapProviders()
+    .AddFontAwesomeIcons();
 
 var app = builder.Build();
 

@@ -17,13 +17,13 @@ else
 {
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%); font-family SF Sports Night NS Upright;">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
-    <Modal @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
+    <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
 </div>
 
 <h2>Criar novo resultado de corrida</h2>
 <EditForm Model="@NewResultadoCorrida" OnValidSubmit="CreateNewResultadoCorrida">
     <DataAnnotationsValidator />
-    <ValidationSummary />
+        <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
     <div class="form-group col-sm-4">
         <div class="form-group">
@@ -179,7 +179,7 @@ else
     bool showAlertError = false;
     public string showAlertMensage { get; set; }
     public ModalDelete DeleteModal { get; set; }
-    Modal SuccessModal { get; set; }
+    Modal1 SuccessModal { get; set; }
     List<Competicao> Competicoes { get; set; } = new();
 
     //protected override async Task OnInitializedAsync()

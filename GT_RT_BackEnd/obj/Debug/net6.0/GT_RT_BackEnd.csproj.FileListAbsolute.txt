@@ -92,3 +92,17 @@ C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\De
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.pdb
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\GT_RT_BackEnd.genruntimeconfig.cache
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\obj\Debug\net6.0\ref\GT_RT_BackEnd.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\GT_RT_BackEnd.staticwebassets.runtime.json
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Blazorise.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Blazorise.Bootstrap.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Blazorise.Charts.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Blazorise.Icons.FontAwesome.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Blazorise.Licensing.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Lambda2Js.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\Microsoft.JSInterop.dll
+C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Debug\net6.0\System.IO.Pipelines.dll

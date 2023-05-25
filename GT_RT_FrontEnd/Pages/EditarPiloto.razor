@@ -14,14 +14,14 @@
 }
 else
 {
-<Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
+<Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
 <h2>Editar Piloto</h2>
 
 @if (PilotoData is not null)
 {
     <EditForm Model="@PilotoData" OnValidSubmit="UpdatePiloto">
         <DataAnnotationsValidator />
-        <ValidationSummary />
+            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
         <div class="form-group">
             <label for="name">Nome:</label>
@@ -83,7 +83,7 @@ else
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
     private bool isAdmin = false;
 
-    Modal SuccessModal { get; set; }
+    Modal1 SuccessModal { get; set; }
 
 
 

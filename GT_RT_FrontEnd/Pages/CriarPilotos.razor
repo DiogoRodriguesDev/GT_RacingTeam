@@ -16,17 +16,17 @@
 }
 else
 {
-<Modal @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
+<Modal1 @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
 <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este Piloto?" OnConfirm="DeletePiloto" />
-    <Modal @ref="SuccessModal" Title="Sucesso" Message="Piloto eliminado!" ShowBackdrop="false" />
+    <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto eliminado!" ShowBackdrop="false" />
 </div>
 
 <h2>Criar novo piloto</h2>
 
 <EditForm Model="@NewPiloto" OnValidSubmit="CreateNewPiloto">
     <DataAnnotationsValidator />
-    <ValidationSummary />
+        <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
     <div class="form-group col-sm-2">
         <label for="name">Nome:</label>
@@ -120,8 +120,8 @@ else
     Piloto NewPiloto { get; set; } = new Piloto();
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
     public List<Equipa> ListaEquipasPiloto { get; set; } = new();
-    Modal SuccessModal { get; set; }
-    Modal SuccessModal_criadopiloto { get; set; }
+    Modal1 SuccessModal { get; set; }
+    Modal1 SuccessModal_criadopiloto { get; set; }
     public ModalDelete DeleteModal { get; set; }
 
 

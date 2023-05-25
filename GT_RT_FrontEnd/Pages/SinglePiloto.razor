@@ -4,7 +4,8 @@
 @using GT_RT_FrontEnd.Interfaces
 @using System.Diagnostics
 @inject IWebServiceAPI WebServiceAPI
-
+@using Blazorise
+@using Blazorise.Charts
 
 @if (Piloto != null)
 {
@@ -15,12 +16,10 @@
     }
 
     <p><strong>Nickname:</strong> @Piloto.Nome</p>
-    @*<p><strong>ID do Piloto:</strong> @Piloto.Id_piloto</p>*@
     <p><strong>Equipa:</strong> @Piloto.Piloto_Equipa.Nome</p>
     <p><strong>Categoria:</strong> @Piloto.Piloto_Categoria.Nome_Piloto_Categoria</p>
     <p><strong>País/Região:</strong> @Piloto.PaisRegiao</p>
     <p><strong>Informação:</strong> @Piloto.Descricao</p>
-    @*<p><strong>Valor:</strong> @Piloto.Valor €</p>*@
 
     <div style="margin-bottom: 60px;"></div>
 
@@ -29,6 +28,13 @@
     <p><strong>Total de Vitórias:</strong> @TotalVitorias</p>
     <p><strong>Total de Pódios:</strong> @TotalPodios</p>
     <p><strong>Total de Voltas Mais Rápidas:</strong> @TotalVoltasMaisRapidas</p>
+
+    <h4>Desempenho nas Corridas</h4>
+    @*<Button Color="Color.Primary" Clicked="@(async () => await HandleRedraw())">Mostrar Desempenho do Piloto</Button>*@
+
+    <div style="width: 800px; height: 400px;;">
+        <LineChart @ref="lineChart" TItem="double"  />
+    </div>
 }
 else
 {
@@ -42,32 +48,74 @@ else
 
     private Piloto Piloto { get; set; }
 
-
-
     private List<ResultadoCorrida> ResultadosCorridaPiloto { get; set; } = new List<ResultadoCorrida>();
     private int TotalCorridas { get; set; }
     private int TotalVitorias { get; set; }
     private int TotalPodios { get; set; }
     private int TotalVoltasMaisRapidas { get; set; }
 
+    private LineChart<double> lineChart = new();
+
+
+    async Task HandleRedraw()
+    {
+        await lineChart.Clear();
+
+        await lineChart.AddLabelsDatasetsAndUpdate(GetLabels(), GetLineChartDataset());
+    }
+
+    List<string> GetLabels()
+    {
+        int count = ResultadosCorridaPiloto
+            .Where(r => r.Id_piloto == Id && !r.IsDeleted)
+            .Count();
+
+        return Enumerable.Repeat(string.Empty, count).ToList();
+    }
+
+    LineChartDataset<double> GetLineChartDataset()
+    {
+        var data = ResultadosCorridaPiloto
+            .Where(r => r.Id_piloto == Id && !r.IsDeleted)
+            .OrderBy( r => r.Id_corrida) 
+            .Select(r => (double)(100 - (r.PosicaoFinal - 1) * 100.0 / 13.0))
+            .ToList();
+
+        var dataset = new LineChartDataset<double>
+            {
+                Label = "Desempenho",
+                Data = data,
+                BackgroundColor = "rgba(75, 192, 192, 0.2)",
+                BorderColor = "rgba(75, 192, 192, 1)",
+                Fill = false,
+                PointRadius = 5
+            };
+
+        return dataset;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await HandleRedraw();
+    }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+
             Piloto = await WebServiceAPI.GetPiloto(Id);
             List<Piloto_Categorias> categorias = await WebServiceAPI.GetCategorias();
             List<Equipa> equipas = await WebServiceAPI.GetEquipas();
             Piloto.Piloto_Categoria = categorias.Find(c => c.Id_Piloto_Categorias == Piloto.Id_Piloto_Categoria);
             Piloto.Piloto_Equipa = equipas.Find(c => c.Id == Piloto.Id_Equipa);
 
-
             ResultadosCorridaPiloto = await WebServiceAPI.GetResultadoCorrida();
             TotalCorridas = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted);
             TotalVitorias = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted && r.PosicaoFinal == 1);
             TotalPodios = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted && r.PosicaoFinal <= 3);
             TotalVoltasMaisRapidas = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted && r.VoltaRapida == true);
-
+       
 
         }
         catch (Exception ex)
