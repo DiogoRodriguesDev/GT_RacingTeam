@@ -19,6 +19,7 @@
     <button class="btn btn-primary" @onclick="FiltrarCategoria">Filtrar</button>
 </div>
 
+
 @if (Pilotos is not null && Pilotos.Any())
 {
     <div style="display: flex; flex-wrap: wrap;">
@@ -36,7 +37,7 @@
                     }
 
                     <div>
-                        <a href="@($"/piloto-details/{piloto.Id_piloto}")">@piloto.Nome</a><br />
+                        <a href="@($"/piloto-details/{piloto.Id_piloto}")" class="link-personalizado">@piloto.Nome</a><br />
                         @piloto.Nickname
                     </div>
                 </div>

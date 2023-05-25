@@ -26,7 +26,6 @@
 @inherits LayoutComponentBase
 
 
-@* NOTE: BEGIN NEW CODE *@
 @using System.Threading.Tasks
 @inject Utilities.ILocalStorage LocalStorage
 
@@ -74,9 +73,12 @@
                             <button @onclick="ScrollToBottom"></button>
                         </NavLink>
                     </div>
-                   
+                        <div class="col-auto">
+                            <img src="https://drive.google.com/uc?id=1XE1tmmfTgxsJbiQbfVUDHSEvvFGY5RYX" alt="Foto do Piloto" style="max-width: 80px; max-height: 100px;" />
+                            
+                        </div>
                 </div>
-                    @* NOTE: BEGIN NEW CODE (REPLACED THE "About" LINK) *@
+               
                     <div style="width:70px;text-align:right;">
                         @if (loggedIn)
                         {

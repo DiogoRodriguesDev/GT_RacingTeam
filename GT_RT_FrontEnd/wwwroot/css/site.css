@@ -126,3 +126,13 @@ window.scrollToBottom = function() {
     width: 200px;
     height: 100px;
 }
+
+
+.link-personalizado {
+    color: grey; 
+    text-decoration: none;
+    font-weight: unset; 
+}
+    .link-personalizado:hover {
+        color: red 
+    }
