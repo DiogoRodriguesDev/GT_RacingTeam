@@ -31,7 +31,6 @@
 @inject Utilities.ILocalStorage LocalStorage
 
 <CascadingValue Value="this">
-@* NOTE: END NEW CODE *@
 
 
 
@@ -47,11 +46,7 @@
 
                             <img src="https://drive.google.com/uc?id=1KjJ9znerXytfn3yTf6oeAHQ7zp-19CKN" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />
 
-                        @if (FotoPiloto != null)
-                        {
-                            @*<img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />*@
-                       
-                        }
+
                     </div>
                  
                     <div class="col-auto px-3">
@@ -93,7 +88,7 @@
                             <button class="btn btn-sm btn-success" title="Login" @onclick="OpenLogin"><span class="oi oi-account-login"></span></button>
                         }
                     </div>
-                    @* NOTE: END NEW CODE *@
+   
                 </div>
         </nav>
         <article class="content px-4 text-white font-monospace">
@@ -104,11 +99,10 @@
 
             <div class=" top-row px-4 bg-transparent ">
 
-                @if (FotoPiloto != null)
-                {
+
                     @*<img src="data:image;base64,@Convert.ToBase64String(FotoPiloto)" alt="Foto do Piloto" style="max-width: 140px; max-height: 100px;" />*@
                         <img src="https://drive.google.com/uc?id=1KjJ9znerXytfn3yTf6oeAHQ7zp-19CKN" alt="Foto do Piloto" style="max-width: 140px; max-height: 100px;" />
-                }
+
             </div>
         </article>
 
@@ -147,10 +141,9 @@
               </nav>
     </main>
 </div>
-    @* NOTE: BEGIN NEW CODE *@
+
 </CascadingValue>
-@* NOTE: END NEW CODE *@
-@* NOTE: BEGIN NEW CODE *@
+
 
 <div class="modal-backdrop fade @(show ? "show" : "") @(display ? "d-block" : "d-none")"></div>
 
@@ -181,12 +174,12 @@
     </div>
 </div>
 
-@* NOTE: END NEW CODE *@
+
 @code {
 
 
 
-    @* NOTE: BEGIN NEW CODE *@
+  
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -196,10 +189,7 @@
             StateHasChanged();
         }
     }
-    @* NOTE: END NEW CODE *@
 
-
-    @* NOTE: BEGIN NEW CODE *@
     private bool show, display, loggedIn;
     private string? user;
 
@@ -250,11 +240,9 @@
         }
 
 
-    @* NOTE: END NEW CODE *@
 
 
 
-    private byte[] FotoPiloto { get; set; }
     private bool showNavMenu = false;
     private string NavCssClass => showNavMenu ? "" : "hidden";
 
@@ -263,25 +251,6 @@
         showNavMenu = !showNavMenu;
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            @* NOTE: BEGGIN NEW CODE *@
-            //await base.OnInitializedAsync();
-            //user = await LocalStorage.GetStringAsync("user");
-            //loggedIn = !string.IsNullOrEmpty(user);
-            @* NOTE: END NEW CODE *@
-
-            Piloto piloto = await WebServiceAPI.GetPiloto(1031); //1031 É o PILOTO que tem Logotipo nesta base de dados
-            FotoPiloto = piloto.Foto;
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            throw;
-        }
-    }
 
 
 

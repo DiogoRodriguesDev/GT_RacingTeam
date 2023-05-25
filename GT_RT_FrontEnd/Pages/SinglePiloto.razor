@@ -8,19 +8,27 @@
 
 @if (Piloto != null)
 {
-    <h3>@Piloto.Nome</h3>
+    <h3>@Piloto.Nickname</h3>
     @if (Piloto.Foto != null)
     {
         <img src="data:image;base64,@Convert.ToBase64String(Piloto.Foto)" alt="Foto do Piloto" style="max-width: 200px; max-height: 200px;" />
     }
 
-    <p><strong>Nickname:</strong> @Piloto.Nickname</p>
-    <p><strong>ID do Piloto:</strong> @Piloto.Id_piloto</p>
-    <p><strong>Descricao:</strong> @Piloto.Descricao</p>
+    <p><strong>Nickname:</strong> @Piloto.Nome</p>
+    @*<p><strong>ID do Piloto:</strong> @Piloto.Id_piloto</p>*@
     <p><strong>Equipa:</strong> @Piloto.Piloto_Equipa.Nome</p>
-    <p><strong>País/Região:</strong> @Piloto.PaisRegiao</p>
     <p><strong>Categoria:</strong> @Piloto.Piloto_Categoria.Nome_Piloto_Categoria</p>
-    <p><strong>Valor:</strong> @Piloto.Valor €</p>
+    <p><strong>País/Região:</strong> @Piloto.PaisRegiao</p>
+    <p><strong>Informação:</strong> @Piloto.Descricao</p>
+    @*<p><strong>Valor:</strong> @Piloto.Valor €</p>*@
+
+    <div style="margin-bottom: 60px;"></div>
+
+    <h4>Estatísticas</h4>
+    <p><strong>Total de Corridas:</strong> @TotalCorridas</p>
+    <p><strong>Total de Vitórias:</strong> @TotalVitorias</p>
+    <p><strong>Total de Pódios:</strong> @TotalPodios</p>
+    <p><strong>Total de Voltas Mais Rápidas:</strong> @TotalVoltasMaisRapidas</p>
 }
 else
 {
@@ -34,6 +42,15 @@ else
 
     private Piloto Piloto { get; set; }
 
+
+
+    private List<ResultadoCorrida> ResultadosCorridaPiloto { get; set; } = new List<ResultadoCorrida>();
+    private int TotalCorridas { get; set; }
+    private int TotalVitorias { get; set; }
+    private int TotalPodios { get; set; }
+    private int TotalVoltasMaisRapidas { get; set; }
+
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -43,6 +60,15 @@ else
             List<Equipa> equipas = await WebServiceAPI.GetEquipas();
             Piloto.Piloto_Categoria = categorias.Find(c => c.Id_Piloto_Categorias == Piloto.Id_Piloto_Categoria);
             Piloto.Piloto_Equipa = equipas.Find(c => c.Id == Piloto.Id_Equipa);
+
+
+            ResultadosCorridaPiloto = await WebServiceAPI.GetResultadoCorrida();
+            TotalCorridas = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted);
+            TotalVitorias = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted && r.PosicaoFinal == 1);
+            TotalPodios = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted && r.PosicaoFinal <= 3);
+            TotalVoltasMaisRapidas = ResultadosCorridaPiloto.Count(r => r.Id_piloto == Id && !r.IsDeleted && r.VoltaRapida == true);
+
+
         }
         catch (Exception ex)
         {
