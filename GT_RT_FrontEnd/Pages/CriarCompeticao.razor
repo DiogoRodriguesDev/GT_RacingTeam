@@ -30,7 +30,7 @@ else
 
     <div class="form-group col-sm-4 ">
         <label for="name" class="form-label" style="color White" >Nome:</label>
-        <InputText id="name" class="form-control bg-transparent " style="color: white;" @bind-Value="@NewCompeticao.Nome" />
+        <InputText id="name" placeholder="OPEN WHEEL SERIES - PRO" class="form-control bg-transparent " style="color: white;" @bind-Value="@NewCompeticao.Nome" />
         </div>
 
     <div class="form-group col-sm-4">
@@ -53,7 +53,7 @@ else
         <InputFile id="foto" class="form-control bg-transparent" style="color: white;" OnChange="HandleFileChange" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Criar</button>
+        <button type="submit" class="btn btn-success">Criar</button>
 </EditForm>
 
 @if (showAlert)
@@ -79,8 +79,9 @@ else
 <h2>Competicoes</h2>
 
 
-<div class="form-group col-sm-6">
+    <div class="form-group row">
     <label for="filtroCompeticao"  style="color: white;">Filtrar por Competicao:</label>
+    <div class="col-sm-1"> 
     <select id="filtroCompeticao" class="form-control bg-transparent" style="color: white;" @bind="@filtroCompeticaoId">
         <option class="bg-black" style="color: white;" value="">Todas</option>
         @foreach (var categoria in ListaCategoriasPiloto)
@@ -88,7 +89,10 @@ else
             <option class="bg-black" style="color: white;" value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
         }
     </select>
-    <button class="btn btn-primary" @onclick="FiltrarCompeticao">Filtrar</button>
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-secondary" @onclick="FiltrarCompeticao">Filtrar</button>
+    </div>
 </div>
 
 @if (CompeticaoData is not null && CompeticaoData.Any())
@@ -106,7 +110,7 @@ else
             @foreach (var competicaofiltrada in CompeticaoDataFiltrados)
             {
                 <tr>
-                    <td style="padding: 5px;"><a href="@($"/competicao-details/{competicaofiltrada.Id}")">@competicaofiltrada.Nome</a></td>
+                        <td style="padding: 5px;"><a href="@($"/competicao-details/{competicaofiltrada.Id}") " class="link-personalizado2">@competicaofiltrada.Nome</a></td>
                     <td style="width: 50px; padding: 5px;">@competicaofiltrada.Nome_Categoria</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(competicaofiltrada.Id)">Eliminar</button>

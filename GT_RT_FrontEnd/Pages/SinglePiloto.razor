@@ -9,7 +9,7 @@
 
 @if (Piloto != null)
 {
-    <h3>@Piloto.Nickname</h3>
+    <h3 class="letrasSFNIGHT">@Piloto.Nickname</h3>
     @if (Piloto.Foto != null)
     {
         <img src="data:image;base64,@Convert.ToBase64String(Piloto.Foto)" alt="Foto do Piloto" style="max-width: 200px; max-height: 200px;" />

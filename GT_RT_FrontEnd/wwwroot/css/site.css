@@ -137,6 +137,21 @@ window.scrollToBottom = function() {
         color: red 
     }
 
+.link-personalizado2 {
+    color: floralwhite;
+    text-decoration: none;
+    font-weight: unset;
+
+}
+
+    .link-personalizado2:hover {
+        color: red
+    }
+
 .btn-gray {
     background-color: #dddddd; 
+}
+
+.letrasSFNIGHT {
+    font-family: 'sfsportsnightnsupright';
 }
