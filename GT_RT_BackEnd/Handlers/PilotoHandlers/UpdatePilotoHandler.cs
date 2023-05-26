@@ -31,6 +31,7 @@ namespace GT_RT_BackEnd.Handlers.PilotoHandlers
                 piloto.Valor = request.Piloto.Valor;
                 piloto.Id_Piloto_Categoria = request.Piloto.Id_Piloto_Categoria;
                 piloto.Foto = request.Piloto.Foto;
+                piloto.Inativo = request.Piloto.Inativo;
 
                 await _dataContext.SaveChangesAsync(cancellationToken);
             }

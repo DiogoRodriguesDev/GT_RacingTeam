@@ -14,7 +14,7 @@
 }
 else
 {
-<Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
+
 <h2>Editar Piloto</h2>
 
 @if (PilotoData is not null)
@@ -68,9 +68,18 @@ else
             <InputFile id="foto" class="form-control" OnChange="HandleFileChange" />
         </div>
 
-        <button type="submit" class="btn btn-primary">Atualizar</button>
-    </EditForm>
+            <div class="form-group">
+                <label class="form-check-label" for="inativo">Inativo</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="inativo" @bind="@PilotoData.Inativo" />
+                </div>
+            </div>
 
+           
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+            
+    </EditForm>
+        <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
 
 }
 }
@@ -144,7 +153,8 @@ else
                     PaisRegiao = PilotoData.PaisRegiao,
                     Valor = PilotoData.Valor,
                     Foto = PilotoData.Foto,
-                    Id_Piloto_Categoria = PilotoData.Id_Piloto_Categoria
+                    Id_Piloto_Categoria = PilotoData.Id_Piloto_Categoria,
+                    Inativo = PilotoData.Inativo
                 };
             var response = await WebServiceAPI.UpdatePiloto(newPiloto, Id);
 

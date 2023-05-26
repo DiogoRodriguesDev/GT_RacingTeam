@@ -136,3 +136,7 @@ window.scrollToBottom = function() {
     .link-personalizado:hover {
         color: red 
     }
+
+.btn-gray {
+    background-color: #dddddd; 
+}

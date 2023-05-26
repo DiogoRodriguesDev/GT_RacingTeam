@@ -168,6 +168,9 @@ namespace GT_RT_BackEnd.Migrations
                     b.Property<int?>("Id_Piloto_Categoria")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("Inativo")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
