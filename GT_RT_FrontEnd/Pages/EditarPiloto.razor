@@ -23,63 +23,69 @@ else
         <DataAnnotationsValidator />
             <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
-        <div class="form-group">
+            <div class="form-group col-sm-2" >
             <label for="name">Nome:</label>
-            <InputText id="name" class="form-control" @bind-Value="@PilotoData.Nome" />
+                <InputText id="name" class="form-control bg-transparent" style="color: white;" @bind-Value="@PilotoData.Nome" />
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-2">
             <label for="nickname">Nickname:</label>
-            <InputText id="nickname" class="form-control" @bind-Value="@PilotoData.Nickname" />
+                <InputText id="nickname" class="form-control bg-transparent" style="color: white;" @bind-Value="@PilotoData.Nickname" />
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-2">
             <label for="descricao">Descricao:</label>
-            <InputTextArea id="descricao" class="form-control" @bind-Value="@PilotoData.Descricao" />
+                <InputTextArea id="descricao" class="form-control bg-transparent" style="color: white;" @bind-Value="@PilotoData.Descricao" />
         </div>
 
-        <div class="form-group">
-            <label for="idEquipa">ID da Equipa:</label>
-            <InputNumber id="idEquipa" class="form-control" @bind-Value="@PilotoData.Id_Equipa" />
-        </div>
+            <div class="form-group col-sm-2">
+                <label for="equipaId">Equipa:</label>
+                <select id="equipaId" class="form-control bg-transparent" style="color: white;" @bind="@PilotoData.Id_Equipa">
+                    @foreach (var Equipa in ListaEquipasPiloto)
+                    {
+                        <option class="bg-black" value="@Equipa.Id">@Equipa.Nome</option>
+                    }
+                </select>
+            </div>
 
-        <div class="form-group">
+
+            <div class="form-group col-sm-2">
             <label for="paisRegiao">País/Região:</label>
-            <InputText id="paisRegiao" class="form-control" @bind-Value="@PilotoData.PaisRegiao" />
+                <InputText id="paisRegiao" class="form-control bg-transparent" style="color: white;" @bind-Value="@PilotoData.PaisRegiao" />
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-2">
             <label for="valor">Valor:</label>
-            <InputNumber id="valor" class="form-control" @bind-Value="@PilotoData.Valor" />
+                <InputNumber id="valor" class="form-control bg-transparent" style="color: white;" @bind-Value="@PilotoData.Valor" />
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-2">
             <label for="categoriaId">Categoria:</label>
-            <select id="categoriaId" class="form-control" @bind="@PilotoData.Id_Piloto_Categoria">
+                <select id="categoriaId" class="form-control bg-transparent" style="color: white;" @bind="@PilotoData.Id_Piloto_Categoria">
                 @foreach (var categoria in ListaCategoriasPiloto)
                 {
-                    <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+                    <option class="bg-black" value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
                 }
             </select>
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-2">
             <label for="foto">Foto:</label>
-            <InputFile id="foto" class="form-control" OnChange="HandleFileChange" />
+                <InputFile id="foto" class="form-control bg-transparent" style="color: white;" OnChange="HandleFileChange" />
         </div>
 
-            <div class="form-group">
+            <div class="form-group col-sm-2">
                 <label class="form-check-label" for="inativo">Inativo</label>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="inativo" @bind="@PilotoData.Inativo" />
                 </div>
             </div>
 
-           
-        <button type="submit" class="btn btn-primary">Atualizar</button>
+            <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
+        <button type="submit" class="btn btn-success">Atualizar</button>
             
     </EditForm>
-        <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto editado com sucesso!" />
+       
 
 }
 }
@@ -90,6 +96,7 @@ else
     Piloto PilotoData { get; set; } = new();
 
     public List<Piloto_Categorias> ListaCategoriasPiloto { get; set; } = new();
+    public List<Equipa> ListaEquipasPiloto { get; set; } = new();
     private bool isAdmin = false;
 
     Modal1 SuccessModal { get; set; }
@@ -112,6 +119,7 @@ else
                 {
                     PilotoData = await WebServiceAPI.GetPiloto(Id);
                     ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+                    ListaEquipasPiloto = await WebServiceAPI.GetEquipas();
                 }
                 catch (Exception ex)
                 {

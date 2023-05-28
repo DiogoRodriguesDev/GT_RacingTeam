@@ -42,10 +42,7 @@
                 <div class="row align-items-center">
 
                     <div class="col-auto">
-
                             <img src="https://drive.google.com/uc?id=1KjJ9znerXytfn3yTf6oeAHQ7zp-19CKN" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />
-
-
                     </div>
                  
                     <div class="col-auto px-3">
@@ -74,23 +71,13 @@
                         </NavLink>
                     </div>
                         <div class="col-auto">
-                            <img src="https://drive.google.com/uc?id=1XE1tmmfTgxsJbiQbfVUDHSEvvFGY5RYX" alt="Foto do Piloto" style="max-width: 80px; max-height: 100px;" />
+                            @*<img src="https://drive.google.com/uc?id=1XE1tmmfTgxsJbiQbfVUDHSEvvFGY5RYX" alt="Foto do Piloto" style="max-width: 80px; max-height: 100px;" />*@
                             
                         </div>
                 </div>
                
-                    <div style="width:70px;text-align:right;">
-                        @if (loggedIn)
-                        {
-                            <a class="btn btn-sm btn-primary text-white" title="Account" href="account"><span class="oi oi-key"></span></a>
-                            <button class="btn btn-sm btn-danger" title="Logout" @onclick="Logout"><span class="oi oi-account-logout"></span></button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-sm btn-success" title="Login" @onclick="OpenLogin"><span class="oi oi-account-login"></span></button>
-                        }
-                    </div>
-   
+
+   v
                 </div>
         </nav>
         <article class="content px-4 text-white font-monospace">
@@ -133,12 +120,24 @@
                                     </div>
 
                                     <div class="col-auto px-3">
-                                        <NavLink class="nav-link text-white" href="/CriarCompeticao">
+                                <NavLink class="nav-link text-white letrasSFNIGHT" href="/CriarCompeticao">
                                             <span class="oi oi-list-rich" aria-hidden="true"></span> Manage Competicoes
                                         </NavLink>
                                     </div>
                                 }
+                        <div style="width:70px;text-align:left;">
+                            @if (loggedIn)
+                            {
+                                <a class="btn btn-sm btn-primary text-white" title="Account" href="account"><span class="oi oi-key"></span></a>
+                                <button class="btn btn-sm btn-danger" title="Logout" @onclick="Logout"><span class="oi oi-account-logout"></span></button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-sm btn-success" title="Login" @onclick="OpenLogin"><span class="oi oi-account-login"></span></button>
+                            }
+                        </div>
                          </div>
+
                     </div>
               </nav>
     </main>
