@@ -25,37 +25,39 @@ else
         <DataAnnotationsValidator />
         <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
-        <div class="form-group">
+        <div class="form-group col-sm-4">
             <label for="nome">Nome:</label>
-            <InputText id="nome" class="form-control" @bind-Value="@CompeticaoData.Nome" />
+                <InputText id="nome" class="form-control bg-transparent" style="color: white;" @bind-Value="@CompeticaoData.Nome" />
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-4">
             <label for="descricao">Descricao:</label>
-            <InputTextArea id="descricao" class="form-control" @bind-Value="@CompeticaoData.Descricao" />
+                <InputTextArea id="descricao" class="form-control bg-transparent" style="color: white;" @bind-Value="@CompeticaoData.Descricao" />
         </div>
 
-        <div class="form-group">
+            <div class="form-group col-sm-4">
+                <label for="foto">Foto:</label>
+                <InputFile id="foto" class="form-control bg-transparent" OnChange="HandleFileChange" />
+            </div>
+
+            <div class="form-group col-sm-2">
             <label for="categoriaId">Categoria:</label>
-            <select id="categoriaId" class="form-control" @bind="@CompeticaoData.Id_Piloto_Categoria" @oninput="UpdateNomeCategoria">
+                <select id="categoriaId" class="form-control bg-transparent" style="color: white;" @bind="@CompeticaoData.Id_Piloto_Categoria" @oninput="UpdateNomeCategoria">
                 @foreach (var categoria in ListaCategoriasPiloto)
                 {
-                    <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+                        <option class="bg-black" value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
                 }
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="foto">Foto:</label>
-            <InputFile id="foto" class="form-control" OnChange="HandleFileChange" />
-        </div>
 
-        <button type="submit" class="btn btn-primary">Atualizar</button>
+
+            <button type="submit" class="btn btn-success">Atualizar</button>
     </EditForm>
 }
 @if (showAlertError)
 {
-    <div class="alert alert-danger col-sm-2" role="alert">
+    <div class="alert alert-danger col-sm-4" role="alert">
         @showAlertMensage
     </div>
     showAlertError = false;

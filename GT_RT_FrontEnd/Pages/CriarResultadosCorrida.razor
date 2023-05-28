@@ -25,7 +25,7 @@ else
     <DataAnnotationsValidator />
         <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-5">
         <div class="form-group">
             <label for="id_corrida">Corrida:</label>
             <InputSelect id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida">
@@ -51,7 +51,7 @@ else
             <label for="posicaoFinal">Posicao Final:</label>
             <select id="posicaoId" class="form-control" @bind="NewResultadoCorrida.PosicaoFinal">
                 <option value="">Selecionar Posicao</option>
-                @for (int i = 1; i <= 20; i++)
+                @for (int i = 1; i <= 14; i++) //SÓ QUERO QUE HAJA 14 POSICOES, PORQUE PODE DAR ERRO SE EU ESCOLHER 15 E SÓ TIVER PONTUACAO ATE' Á POSICAO 14.
                 {
                     <option value="@i">@i</option>
                 }

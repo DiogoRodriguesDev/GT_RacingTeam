@@ -138,15 +138,17 @@ window.scrollToBottom = function() {
     }
 
 .link-personalizado2 {
-    color: floralwhite;
-    text-decoration: none;
-    font-weight: unset;
-
+    color: sandybrown;
+    text-decoration: underline;
+    font-weight: normal;
 }
 
     .link-personalizado2:hover {
         color: red
     }
+
+
+
 
 .btn-gray {
     background-color: #dddddd; 

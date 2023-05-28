@@ -108,7 +108,7 @@ else
             @foreach (var piloto in PilotosData)
             {
                 <tr>
-                    <a style="padding: 5px;" href="@($"/piloto-details/{piloto.Id_piloto}")">@piloto.Nome</a>
+                    <a style="padding: 5px;" href="@($"/piloto-details/{piloto.Id_piloto}")" class="link-personalizado2">@piloto.Nome</a>
                     <td style="padding: 5px;">@piloto.Nickname</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(piloto.Id_piloto)">Eliminar</button>
