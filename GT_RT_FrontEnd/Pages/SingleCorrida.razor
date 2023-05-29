@@ -29,13 +29,12 @@
     <h2>Resultados da Corrida</h2>
     @if (ResultadosCorrida != null && ResultadosCorrida.Any())
     {
-        <table  style="width: 50%;">
+        <table  style="width: 30%;">
             <thead>
                 <tr>
-                    <th>Posicao Final</th>
-                    <th>Nome</th>
-                    <th>NickName</th>
+                    <th>Posicao</th>
                     <th>Pontos</th>
+                    <th>NickName</th>
                     <th>Volta Mais Rápida</th>
                 </tr>
             </thead>
@@ -45,9 +44,8 @@
                     <tr>
 
                         <td style="border-bottom: 1px solid black;">@resultado.PosicaoFinal</td>
-                        <td style="border-bottom: 1px solid black;"><a href="/piloto-details/@resultado.Id_piloto">@resultado.Nome_Piloto</a></td>
-                        <td style="border-bottom: 1px solid black;">@resultado.NickName</td>
                         <td style="border-bottom: 1px solid black;">@resultado.Pontos</td>
+                        <td style="border-bottom: 1px solid black;"><a href="/piloto-details/@resultado.Id_piloto" class="link-personalizado2">@resultado.NickName</a></td>
                         <td style="border-bottom: 1px solid black;">@(resultado.VoltaRapida ?? false ? "VMR" : "")</td>
                     </tr>
                 }

@@ -16,9 +16,10 @@
 }
 else
 {
-<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%);">
+    <div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%); bg-transparent">
     <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este Piloto?" OnConfirm="DeletePiloto" />
     <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Piloto eliminado!" ShowBackdrop="false" />
+    
 </div>
 
 <h2>Criar novo piloto</h2>
@@ -83,12 +84,12 @@ else
         </select>
     </div>
 
-
-
-    <Modal1 @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
+       
 
         <button type="submit" class="btn btn-success">Criar</button>
 </EditForm>
+    <Modal1 @ref="SuccessModal_criadopiloto" Title="Sucesso" Message="Piloto criado com sucesso!" />
+
 
 <hr style="border-top: 20px solid #000;">
 
@@ -190,6 +191,7 @@ else
             {
                 SuccessModal_criadopiloto.OpenModal();
             }
+
         }
         catch (Exception ex)
         {

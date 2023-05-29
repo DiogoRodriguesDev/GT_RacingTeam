@@ -152,7 +152,7 @@ else
         <tr>
             <th style="width: 350px; padding: 5px;">Nome da Corrida</th>
             <th style="width: 250px; padding: 5px;">Competicao</th>
-            <th style="width: 200px; padding: 5px;">Nome do Piloto</th>
+            <th style="width: 200px; padding: 5px;">Nickname</th>
             <th style="width: 150px; padding: 5px;">Posicao Final</th>
             <th style="width: 100px; padding: 5px;">Pontos</th>
             <th style="width: 100px; padding: 5px;">VMR</th>
@@ -179,7 +179,7 @@ else
                             }
                         </td>
 
-                        <td style="width: 200px; padding: 5px;border: 1px solid black;">@resultadoCorrida.Nome_Piloto</td>
+                        <td style="width: 200px; padding: 5px;border: 1px solid black;">@resultadoCorrida.NickName</td>
                         <td style="width: 150px; padding: 5px;border: 1px solid black;">@resultadoCorrida.PosicaoFinal</td>
                         <td style="width: 100px; padding: 5px;border: 1px solid black;">@resultadoCorrida.Pontos</td>
                         <td style="width: 100px; padding: 5px;border: 1px solid black;">@(resultadoCorrida.VoltaRapida ?? false ? "VMR" : "")</td>
@@ -265,7 +265,7 @@ else
 
 
                     var response2 = await WebServiceAPI.GetCorridas();
-                    Corridas = response2.Where(p => !p.IsDeleted).ToList();
+                    Corridas = response2.Where(p => !p.IsDeleted).OrderByDescending(p => p.Id_corrida).ToList(); 
 
                     Competicoes = await WebServiceAPI.GetCompeticoes();
                     Categorias = await WebServiceAPI.GetCategorias();
