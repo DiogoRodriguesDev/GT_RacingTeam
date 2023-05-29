@@ -157,3 +157,10 @@ window.scrollToBottom = function() {
 .letrasSFNIGHT {
     font-family: 'sfsportsnightnsupright';
 }
+
+
+.login-button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}

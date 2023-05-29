@@ -34,7 +34,7 @@
             @foreach (var competicao in CompeticoesFiltradas)
             {
                 <tr>
-                    <td style="padding: 20px;"><a href="@($"/competicao-details/{competicao.Id}")">@competicao.Nome</a></td>
+                    <td style="padding: 20px;"><a href="@($"/competicao-details/{competicao.Id}")" class="link-personalizado2">@competicao.Nome</a></td>
                     <td style="padding: 20px;">@competicao.Nome_Categoria</td>
                     <td style="padding: 20px;">@competicao.Descricao</td>
                 </tr>
