@@ -11,7 +11,7 @@
 {
     <h3>@Corrida.Nome_Corrida</h3>
 
-    <p><strong>Competicao:</strong> <a href="@($"/competicao-details/{Corrida.Id_competicao}")">@ListaCompeticoes.Where(y => y.Id == Corrida.Id_competicao).FirstOrDefault().Nome</a></p>
+    <p><strong>Competicao:</strong> <a href="@($"/competicao-details/{Corrida.Id_competicao}")" class="link-personalizado2">@ListaCompeticoes.Where(y => y.Id == Corrida.Id_competicao).FirstOrDefault().Nome</a></p>
     <p><strong>Data:</strong> @Corrida.Data?.ToString("dd/MM/yyyy")</p>
     <p><strong>Carros Permitidos:</strong> @Corrida.CarrosPermitidos</p>
     <p><strong>Tipo de Pneus:</strong> @Corrida.Tipo_Pneus</p>

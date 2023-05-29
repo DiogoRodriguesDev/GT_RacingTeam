@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\GT_RT_FrontEnd.props" />
-</Project>

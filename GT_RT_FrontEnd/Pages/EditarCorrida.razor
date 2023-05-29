@@ -14,7 +14,7 @@
 else
 {
 
-<Modal1 @ref="SuccessModal" Title="Sucesso" Message="Corrida atualizada com sucesso!" />
+
 
 <h2>Editar Corrida</h2>
 
@@ -28,55 +28,67 @@ else
 
 
 
-        <div class="form-group">
+            <div class="form-group col-sm-4">
             <label for="Nome_Corrida">Nome_Corrida:</label>
-            <InputText id="data" class="form-control" @bind-Value="@CorridaData.Nome_Corrida" />
+                <InputText id="data" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.Nome_Corrida" />
         </div>
 
-        <div class="form-group">
-            <label for="circuito">Circuito:</label>
-            <InputText id="circuito" class="form-control" @bind-Value="@CorridaData.Circuito" />
-        </div>
-
-        <div class="form-group">
-            <label for="carrosPermitidos">Carros Permitidos:</label>
-            <InputText id="carrosPermitidos" class="form-control" @bind-Value="@CorridaData.CarrosPermitidos" />
-        </div>
-
-        <div class="form-group">
-            <label for="tipo_Pneus">Tipo de Pneus:</label>
-            <InputText id="tipo_Pneus" class="form-control" @bind-Value="@CorridaData.Tipo_Pneus" />
-        </div>
-        <div class="form-group">
-            <label for="data">Data:</label>
-            <InputDate id="data" class="form-control" @bind-Value="@CorridaData.Data" />
-        </div>
-
-        <div class="form-group">
-            <label for="numeroVoltas">Número de Voltas:</label>
-            <InputNumber id="numeroVoltas" class="form-control" @bind-Value="@CorridaData.NumeroVoltas" />
-        </div>
-
-        <div class="form-group">
-            <label for="numeroMinutos">Número de Minutos:</label>
-            <InputNumber id="numeroMinutos" class="form-control" @bind-Value="@CorridaData.NumeroMinutos" />
-        </div>
-
-        <div class="form-group">
-            <label for="id_competicao">ID da Competicao:</label>
-            <InputNumber id="id_competicao" class="form-control" @bind-Value="@CorridaData.Id_competicao" />
-        </div>
-        <div class="form-group">
-            <label for="VideoYoutube">Link Video Youtube:</label>
-            <InputText id="VideoYoutube" class="form-control" @bind-Value="@CorridaData.VideoYoutube" />
-        </div>
-
-            <div class="form-group">
-                <label for="descricao">Descricao:</label>
-                <InputText id="descricao" class="form-control" @bind-Value="@CorridaData.Descricao" />
+            <div class="form-group col-sm-4">
+                <label for="id_competicao">Competicao:</label>
+                <InputSelect id="id_competicao" class="form-control bg-transparent text-white border-1" @bind-Value="@CorridaData.Id_competicao">
+                    <option class="bg-black" value="">Selecionar Competicao</option>
+                    @foreach (var competicao in CompeticoesData)
+                    {
+                        <option class="bg-black" value="@competicao.Id">@competicao.Nome</option>
+                    }
+                </InputSelect>
             </div>
 
-        <button type="submit" class="btn btn-primary" @onclick="ModifyVideoLink">Atualizar</button>
+            <div class="form-group col-sm-2">
+                <label for="data">Data:</label>
+                <InputDate id="data" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.Data" />
+            </div>
+
+            <div class="form-group col-sm-2">
+            <label for="circuito">Circuito:</label>
+                <InputText id="circuito" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.Circuito" />
+        </div>
+
+            <div class="form-group col-sm-2">
+            <label for="carrosPermitidos">Carros Permitidos:</label>
+                <InputText id="carrosPermitidos" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.CarrosPermitidos" />
+        </div>
+
+            <div class="form-group col-sm-2">
+            <label for="tipo_Pneus">Tipo de Pneus:</label>
+                <InputText id="tipo_Pneus" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.Tipo_Pneus" />
+        </div>
+            
+
+            <div class="form-group col-sm-2">
+            <label for="numeroVoltas">Número de Voltas:</label>
+                <InputNumber id="numeroVoltas" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.NumeroVoltas" />
+        </div>
+
+            <div class="form-group col-sm-2">
+            <label for="numeroMinutos">Número de Minutos:</label>
+                <InputNumber id="numeroMinutos" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.NumeroMinutos" />
+        </div>
+
+
+
+            <div class="form-group col-sm-4">
+                <label for="descricao">Descricao:</label>
+                <InputTextArea id="descricao" class="form-control bg-transparent" style="color: white;" rows="5" @bind-Value="@CorridaData.Descricao" />
+            </div>
+
+
+            <div class="form-group col-sm-4">
+                <label for="VideoYoutube">Link Video Youtube:</label>
+                <InputText id="VideoYoutube" class="form-control bg-transparent" style="color: white;" @bind-Value="@CorridaData.VideoYoutube" />
+            </div>
+            <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Corrida atualizada com sucesso!" />
+        <button type="submit" class="btn btn-success" @onclick="ModifyVideoLink">Atualizar</button>
     </EditForm>
 }
 else
@@ -92,7 +104,7 @@ else
     Corrida CorridaData { get; set; } = new();
     Modal1 SuccessModal { get; set; }
     private bool isAdmin = false;
-
+    List<Competicao> CompeticoesData { get; set; } = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -108,6 +120,9 @@ else
                 try
                 {
                     CorridaData = await WebServiceAPI.GetCorrida(Id);
+                   
+                    var response1 = await WebServiceAPI.GetCompeticoes();
+                    CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
                 }
                 catch (Exception ex)
                 {

@@ -29,62 +29,68 @@ else
 
     <div class="form-group col-sm-5">
         <label for="Nome_Corrida">Nome Corrida: (Nome da Competicao - Ronda Numero - Categoria - Circuito)</label>
-        <InputText id="Nome_Corrida" class="form-control" placeholder="OWS - Ronda 1 - PRO AM - TOKYO EXPRESSWAY" @bind-Value="@NewCorrida.Nome_Corrida" />
+            <InputText id="Nome_Corrida" class="form-control bg-transparent" style="color: white;" placeholder="OWS - Ronda 1 - PRO AM - TOKYO EXPRESSWAY" @bind-Value="@NewCorrida.Nome_Corrida" />
     </div>
+
+
+        <div class="form-group col-sm-5">
+            <label for="id_competicao">Competicao:</label>
+            <InputSelect id="id_competicao" class="form-control bg-transparent text-white border-1" @bind-Value="@NewCorrida.Id_competicao">
+                <option class="bg-black" value="">Selecionar Competicao</option>
+                @foreach (var competicao in CompeticoesData)
+                {
+                    <option class="bg-black" value="@competicao.Id">@competicao.Nome</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="form-group col-sm-2">
+            <label for="data">Data:</label>
+            <InputDate id="data" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.Data" />
+        </div>
+
     <div class="form-group col-sm-2">
         <label for="circuito">Circuito:</label>
-        <InputText id="circuito" class="form-control" @bind-Value="@NewCorrida.Circuito" />
+            <InputText id="circuito" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.Circuito" />
     </div>
 
     <div class="form-group col-sm-2">
         <label for="carrosPermitidos">Carros Permitidos:</label>
-        <InputText id="carrosPermitidos" class="form-control" @bind-Value="@NewCorrida.CarrosPermitidos" />
+            <InputText id="carrosPermitidos" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.CarrosPermitidos" />
     </div>
 
     <div class="form-group col-sm-2">
         <label for="tipoPneus">Pneus Permitidos:</label>
-        <InputText id="tipoPneus" class="form-control" @bind-Value="@NewCorrida.Tipo_Pneus" />
+            <InputText id="tipoPneus" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.Tipo_Pneus" />
     </div>    
     
 
-    <div class="form-group col-sm-2">
-        <label for="data">Data:</label>
-        <InputDate id="data" class="form-control" @bind-Value="@NewCorrida.Data" />
-    </div>
+
 
 
     <div class="form-group col-sm-2">
         <label for="numeroVoltas">Número de Voltas:</label>
-        <InputNumber id="numeroVoltas" class="form-control" @bind-Value="@NewCorrida.NumeroVoltas" />
+            <InputNumber id="numeroVoltas" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.NumeroVoltas" />
     </div>
 
     <div class="form-group col-sm-2">
         <label for="numeroMinutos">Número de Minutos:</label>
-        <InputNumber id="numeroMinutos" class="form-control" @bind-Value="@NewCorrida.NumeroMinutos" />
+            <InputNumber id="numeroMinutos" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.NumeroMinutos" />
     </div>
 
-    <div class="form-group col-sm-4">
-        <label for="id_competicao">Competicao:</label>
-        <InputSelect id="id_competicao" class="form-control" @bind-Value="@NewCorrida.Id_competicao">
-            <option value="">Selecionar Competicao</option>
-            @foreach (var competicao in CompeticoesData)
-            {
-                <option value="@competicao.Id">@competicao.Nome</option>
-            }
-        </InputSelect>
-    </div>
+
 
     <div class="form-group col-sm-4">
         <label for="descricao">Descricao:</label>
-            <InputTextArea id="descricao" class="form-control" rows="5" @bind-Value="@NewCorrida.Descricao" />
+            <InputTextArea id="descricao" class="form-control bg-transparent" style="color: white;" rows="5" @bind-Value="@NewCorrida.Descricao" />
     </div>
 
     <div class="form-group col-sm-4">
         <label for="VideoYoutube">Link Video Youtube:</label>
-        <InputText id="VideoYoutube" class="form-control" @bind-Value="@NewCorrida.VideoYoutube" />
+            <InputText id="VideoYoutube" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewCorrida.VideoYoutube" />
     </div>
 
-    <button type="submit" class="btn btn-primary" @onclick="ModifyVideoLink">Criar</button>
+        <button type="submit" class="btn btn-success" @onclick="ModifyVideoLink">Criar</button>
 
 </EditForm>
 
@@ -102,17 +108,23 @@ else
 <hr style="border-top: 20px solid #000;">
 <h2>Corridas</h2>
 
-<div class="form-group col-sm-4">
-    <label for="filtroCompeticao">Filtrar por Competicao:</label>
-    <select id="filtroCompeticao" class="form-control" @bind="@filtroCorridaId">
-        <option value="">Todas</option>
-        @foreach (var competicao in CompeticoesData)
-        {
-            <option value="@competicao.Id">@competicao.Nome</option>
-        }
-    </select>
-    <button class="btn btn-primary" @onclick="FiltrarCorridas">Filtrar</button>
-</div>
+    <div class="form-group row">
+
+        <div class="col-sm-3">
+            <select id="filtroCompeticao" class="form-control bg-transparent text-white border-0" @bind="@filtroCorridaId">
+                <option class="bg-black" value="">Todas</option>
+                @foreach (var competicao in CompeticoesData)
+                {
+                    <option class="bg-black" value="@competicao.Id">@competicao.Nome</option>
+                }
+            </select>
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-secondary" @onclick="FiltrarCorridas">Filtrar</button>
+        </div>
+    </div>
+
+
 
 @if (CorridasFiltradas is not null && CorridasFiltradas.Any())
 {
@@ -122,25 +134,17 @@ else
                 <th>Nome</th>
                 <th>Data</th>
                 <th>Circuito</th>
-                <th>Carros </th>
-                <th>Pneus</th>
-                <th>Voltas</th>
-                <th>Minutos</th>
-                <th>Link Video Youtube</th>
+                <th>Youtube</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var corrida in CorridasFiltradas.OrderByDescending(x => x.Data))
             {
                 <tr>
-                    <td style="border: 1px solid black;"><a href="/corrida-details/@corrida.Id_corrida">@corrida.Nome_Corrida</a></td>
-                    <td style="border: 1px solid black;">@corrida.Data?.ToString("dd/MM/yyyy")</td>
-                    <td style="border: 1px solid black;">@corrida.Circuito</td>
-                    <td style="border: 1px solid black;">@corrida.CarrosPermitidos</td>
-                    <td style="border: 1px solid black;">@corrida.Tipo_Pneus</td>
-                    <td style="border: 1px solid black;">@corrida.NumeroVoltas</td>
-                    <td style="border: 1px solid black;">@corrida.NumeroMinutos</td>
-                    <td style="border: 1px solid black;">@corrida.VideoYoutube</td>
+                        <td style="padding-right: 25px;"><a href="/corrida-details/@corrida.Id_corrida" class="link-personalizado2">@corrida.Nome_Corrida</a></td>
+                    <td style="padding-right: 25px;">@corrida.Data?.ToString("dd/MM/yyyy")</td>
+                        <td style="padding-right: 25px;">@corrida.Circuito</td>
+                        <td style="padding-right: 25px;">@corrida.VideoYoutube</td>
                     <td>
                         <button class="btn btn-danger" @onclick="() => DeleteModal.OpenModal(corrida.Id_corrida)">Eliminar</button>
                         <button class="btn btn-primary" @onclick="() => EditCorrida(corrida.Id_corrida)">Editar</button>

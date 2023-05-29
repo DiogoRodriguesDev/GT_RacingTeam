@@ -25,35 +25,75 @@ else
     <DataAnnotationsValidator />
         <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
-    <div class="form-group col-sm-5">
-        <div class="form-group">
+    
+            <div class="form-group col-sm-4">
             <label for="id_corrida">Corrida:</label>
-            <InputSelect id="id_corrida" class="form-control" @bind-Value="@NewResultadoCorrida.Id_corrida">
-            <option value="">Selecionar Corrida</option>
+                <InputSelect id="id_corrida" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewResultadoCorrida.Id_corrida">
+                    <option class="bg-black" value="">Selecionar Corrida</option>
                 @foreach (var corrida in Corridas)
                 {
-                    <option value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
+                        <option class="bg-black" value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
                 }
             </InputSelect>
         </div>
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-2">
             <label for="tipoDePontuacao">Tipo de Pontuacao:</label>
-            <select id="tipoDePontuacao" class="form-control" @bind="NewResultadoCorrida.TipoDePontuacao">
-                <option value="0">Selecionar Tipo</option>
-                <option value="1">Antiga</option>
-                <option value="2">PRO</option>
-                <option value="3">Pro AM</option>
+                <select id="tipoDePontuacao" class="form-control bg-transparent" style="color: white;" @bind="NewResultadoCorrida.TipoDePontuacao">
+                    <option class ="bg-black" value="0">Selecionar Tipo</option>
+                <option class="bg-black"      value="1">Antiga</option>
+                <option class="bg-black"      value="2">PRO</option>
+                    <option class="bg-black" value="3">Pro AM</option>
             </select>
         </div>
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-2">
             <label for="posicaoFinal">Posicao Final:</label>
-            <select id="posicaoId" class="form-control" @bind="NewResultadoCorrida.PosicaoFinal">
-                <option value="">Selecionar Posicao</option>
+                <select id="posicaoId" class="form-control bg-transparent" style="color: white;" @bind="NewResultadoCorrida.PosicaoFinal">
+                    <option class="bg-black" value="">Selecionar Posicao</option>
                 @for (int i = 1; i <= 14; i++) //SÓ QUERO QUE HAJA 14 POSICOES, PORQUE PODE DAR ERRO SE EU ESCOLHER 15 E SÓ TIVER PONTUACAO ATE' Á POSICAO 14.
                 {
-                    <option value="@i">@i</option>
+                    <option class="bg-black"       value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="form-group row col-sm-7">
+            <div class="col-sm-2">
+                <select id="filtroCompeticao" class="form-control bg-transparent text-white" @bind="@filtroCategoriaId">
+                    <option class="bg-black" value="">Todos</option>
+                    @foreach (var categoria in Categorias)
+                    {
+                        <option class="bg-black" value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-dark" @onclick="FiltrarCategoria">Filtrar</button>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="form-group col-sm-2">
+            <label for="pilotoId">Piloto:</label>
+                <select id="pilotoId" class="form-control bg-transparent" style="color: white;" @bind="NewResultadoCorrida.Id_piloto">
+                    <option class="bg-black" value="">Selecionar Piloto</option>
+                @foreach (var piloto in PilotosFiltrados)
+                {
+                        <option class="bg-black" value="@piloto.Id_piloto">@piloto.Nickname</option>
                 }
             </select>
         </div>
@@ -64,21 +104,10 @@ else
                 <input class="form-check-input" type="checkbox" id="voltaMaisRapida" name="voltaMaisRapida" @bind="NewResultadoCorrida.VoltaRapida" style="transform: scale(1.5);" />
             </div>
         </div>
-
-        <div class="form-group col-sm-4">
-            <label for="pilotoId">Piloto:</label>
-            <select id="pilotoId" class="form-control" @bind="NewResultadoCorrida.Id_piloto">
-                <option value="">Selecionar Piloto</option>
-                @foreach (var piloto in PilotosData)
-                {
-                    <option value="@piloto.Id_piloto">@piloto.Nickname</option>
-                }
-            </select>
-        </div>
-    </div>
+    
 
 
-    <button type="submit" class="btn btn-primary">Criar</button>
+    <button type="submit" class="btn btn-success">Criar</button>
 </EditForm>
 
 @if (showAlert)
@@ -102,16 +131,20 @@ else
 <h2>Resultados de Corrida</h2>
   
 
-<div class="form-group col-sm-4">
-    <label for="filtroCorrida">Filtrar por Corrida:</label>
-    <select id="filtroCorrida" class="form-control" @bind="@filtroCorridaId">
-        <option value="">Todos</option>
-        @foreach (var corrida in Corridas)
-        {
-            <option value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
-        }
-    </select>
-    <button class="btn btn-primary" @onclick="FiltrarResultadosCorrida">Filtrar</button>
+    <div class="form-group row col-sm-4">
+        <div class="col-sm-4">
+
+            <select id="filtroCorrida" class="form-control bg-transparent text-white border-0" @bind="@filtroCorridaId">
+                <option class="bg-black" value="">Todos</option>
+            @foreach (var corrida in Corridas)
+            {
+                    <option class="bg-black" value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
+            }
+        </select>
+        </div>
+            <div class="col-sm-1">
+        <button class="btn btn-secondary" @onclick="FiltrarResultadosCorrida">Filtrar</button>
+        </div>
 </div>
 @if (ResultadosCorridaData is not null && ResultadosCorridaData.Any())
 {
@@ -137,7 +170,7 @@ else
                         var competicao = Competicoes.FirstOrDefault(c => c.Id == corrida.Id_competicao);
 
                         <td style="width: 350px; padding: 5px;border: 1px solid black;">
-                            <a href="@($"/corrida-details/{corrida.Id_corrida}")">@corrida.Nome_Corrida</a>
+                                <a href="@($"/corrida-details/{corrida.Id_corrida}")" class="link-personalizado2">@corrida.Nome_Corrida</a>
                         </td>
                         <td style="width: 250px; padding: 5px;border: 1px solid black;">
                             @if (competicao != null)
@@ -181,6 +214,9 @@ else
     public ModalDelete DeleteModal { get; set; }
     Modal1 SuccessModal { get; set; }
     List<Competicao> Competicoes { get; set; } = new();
+    private List<Piloto_Categorias> Categorias { get; set; } = new();
+    List<Piloto> PilotosFiltrados { get; set; } = new();
+    private int filtroCategoriaId { get; set; } = new();
 
     //protected override async Task OnInitializedAsync()
     //{
@@ -232,7 +268,9 @@ else
                     Corridas = response2.Where(p => !p.IsDeleted).ToList();
 
                     Competicoes = await WebServiceAPI.GetCompeticoes();
+                    Categorias = await WebServiceAPI.GetCategorias();
 
+                    PilotosFiltrados = PilotosData; //para que inicialmente pilotsfiltrados sejam todos os pilotos
                     FiltrarResultadosCorrida();
                 }
                 catch (Exception ex)
@@ -244,6 +282,19 @@ else
 
             StateHasChanged();
         }
+    }
+
+    public void FiltrarCategoria()
+    {
+        if (filtroCategoriaId == 0)
+        {
+            PilotosFiltrados = PilotosData;
+        }
+        else
+        {
+            PilotosFiltrados = PilotosData.Where(x => x.Id_Piloto_Categoria == filtroCategoriaId).ToList();
+        }
+   
     }
 
     private async Task CreateNewResultadoCorrida() //A LÓGICA DOS PONTOS VAI FICAR NO LADO DO SERVIDOR, NO HANDLER
@@ -330,7 +381,7 @@ else
         }
     }
 
-    private void FiltrarResultadosCorrida()
+    public async Task  FiltrarResultadosCorrida()
     {
         if (filtroCorridaId == 0)
         {

@@ -39,7 +39,7 @@
             @foreach (var Corrida in CorridasFiltradas)
             {
                 <tr>
-                    <td style="padding: 20px;"><a href="@($"/corrida-details/{Corrida.Id_corrida}")">@Corrida.Nome_Corrida</a></td>
+                    <td style="padding: 20px;"><a href="@($"/corrida-details/{Corrida.Id_corrida}")" class="link-personalizado2">@Corrida.Nome_Corrida</a></td>
                     <td style="padding: 20px;">@Corrida.Data?.ToString("dd/MM/yyyy")</td>
                     <td style="padding: 20px;">@Corrida.Circuito</td>
                 </tr>
