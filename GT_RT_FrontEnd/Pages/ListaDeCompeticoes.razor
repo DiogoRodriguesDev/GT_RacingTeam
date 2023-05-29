@@ -7,16 +7,21 @@
 
 <h2>Lista de Competicoes</h2>
 
-<div class="form-group col-sm-4">
-    <label for="filtroCompeticao">Filtrar por Competicao:</label>
-    <select id="filtroCompeticao" class="form-control" @bind="@filtroCompeticaoId">
-        <option value="">Todas</option>
+<div class="form-group row">
+    
+  @*  <label for="filtroCompeticao">Filtrar por Competicao:</label>*@
+    <div class="col-sm-1">
+    <select id="filtroCompeticao" class="form-control bg-transparent text-white border-0" @bind="@filtroCompeticaoId">
+        <option class="bg-black" value="">Todas</option>
         @foreach (var categoria in ListaCategoriasPiloto)
         {
-            <option value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+            <option class="bg-black" value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
         }
     </select>
-    <button class="btn btn-primary" @onclick="FiltrarCompeticao">Filtrar</button>
+    </div>
+    <div class="col-sm-1">
+    <button class="btn btn-secondary" @onclick="FiltrarCompeticao">Filtrar</button>
+    </div>
 </div>
 
 @if (CompeticoesFiltradas is not null && CompeticoesFiltradas.Any())
