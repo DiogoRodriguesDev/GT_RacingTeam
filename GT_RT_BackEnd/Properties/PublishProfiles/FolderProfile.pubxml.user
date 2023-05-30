@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\GT_RT_BackEnd\bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2023-05-26T18:06:55.2963611Z;True|2023-05-25T16:26:37.4098162+01:00;</History>
+    <History>True|2023-05-30T15:50:44.2640137Z;True|2023-05-30T11:29:45.0312344+01:00;True|2023-05-26T19:06:55.2963611+01:00;True|2023-05-25T16:26:37.4098162+01:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

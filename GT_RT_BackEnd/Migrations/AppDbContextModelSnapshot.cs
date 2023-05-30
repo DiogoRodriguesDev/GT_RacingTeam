@@ -388,6 +388,12 @@ namespace GT_RT_BackEnd.Migrations
                     b.Property<bool?>("VoltaRapida")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("pontosAdicionar")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("pontosRemover")
+                        .HasColumnType("int");
+
                     b.HasKey("Id_ResultadoCorrida");
 
                     b.ToTable("ResultadoCorrida");

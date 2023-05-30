@@ -57,6 +57,27 @@
     List<Competicao> Competicoes { get; set; } = new();
 
 
+        protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetCorridas();
+            Corridas = response.Where(p => !p.IsDeleted).ToList();
+
+            var response1 = await WebServiceAPI.GetCompeticoes();
+            Competicoes = response1.Where(p => !p.IsDeleted).ToList();
+
+
+            dataFetched = true;
+            FiltrarCorridas(); //se nao meter isto aqui a pagina não faz load inicial às corridas.
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

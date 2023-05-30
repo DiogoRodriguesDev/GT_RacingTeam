@@ -18,7 +18,7 @@ namespace GT_RT_FrontEnd.Interfaces
         [Get("/Piloto_Equipas")]
         public Task<List<Equipa>> GetEquipas();
 
-        [Post("/pilotos")]
+        [Post("/pilotoS")]
         public Task<Piloto> CreatePiloto([Body] Piloto newPiloto);
 
         [Put("/piloto-edit/{id}")]
@@ -36,7 +36,7 @@ namespace GT_RT_FrontEnd.Interfaces
         [Get("/Corrida-details/{id}")]
         public Task<Corrida> GetCorrida(int id);
 
-        [Post("/Corridas")]
+        [Post("/CorridaS")]
         public Task<Corrida> CreateCorrida([Body] Corrida newCorrida);
 
         [Put("/Corrida-edit/{id}")]

@@ -1,0 +1,307 @@
+﻿@using ClassLibrary_GT_RT;
+@using GT_RT_FrontEnd.Interfaces;
+@using System.Diagnostics;
+@using Microsoft.AspNetCore.Components.Forms;
+@inject IWebServiceAPI WebServiceAPI
+@inject NavigationManager NavigationManager
+@using GT_RT_FrontEnd.Components;
+
+@inject Utilities.ILocalStorage LocalStorage
+
+<div style="position: fixed; top: 50%; left: 50%; right 50%; transform: translate(-50%, -50%); font-family SF Sports Night NS Upright;">
+    <ModalDelete @ref="DeleteModal" Title="Confirmacao" ShowBackdrop="false" Message="Tem certeza de que deseja excluir este resultado de corrida?" OnConfirm="DeleteResultadoCorrida" />
+    <Modal1 @ref="SuccessModal" Title="Sucesso" Message="Resultado eliminado!" ShowBackdrop="false" />
+</div>
+
+@*    FORMA ANTIGA DE FAZER RESULTADO, NAO APAGAR PODE VIR A FAZER FALTA
+
+            <div class="form-group col-sm-4">
+            <label for="id_corrida">Corrida:</label>
+                <InputSelect id="id_corrida" class="form-control bg-transparent" style="color: white;" @bind-Value="@NewResultadoCorrida.Id_corrida">
+                    <option class="bg-black" value="">Selecionar Corrida</option>
+                @foreach (var corrida in Corridas)
+                {
+                        <option class="bg-black" value="@corrida.Id_corrida">@corrida.Nome_Corrida</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="form-group col-sm-2">
+            <label for="tipoDePontuacao">Tipo de Pontuacao:</label>
+                <select id="tipoDePontuacao" class="form-control bg-transparent" style="color: white;" @bind="NewResultadoCorrida.TipoDePontuacao">
+                    <option class ="bg-black" value="0">Selecionar Tipo</option>
+                <option class="bg-black"      value="1">Antiga</option>
+                <option class="bg-black"      value="2">PRO</option>
+                    <option class="bg-black" value="3">Pro AM</option>
+            </select>
+        </div>*@
+
+<div class="form-group col-sm-2">
+    <label for="posicaoFinal">Posicao Final:</label>
+    <select id="posicaoId" class="form-control bg-transparent" style="color: white;" @bind="NewResultadoCorrida.PosicaoFinal">
+        <option class="bg-black" value="">Selecionar Posicao</option>
+        @for (int i = 1; i <= 14; i++) //SÓ QUERO QUE HAJA 14 POSICOES, PORQUE PODE DAR ERRO SE EU ESCOLHER 15 E SÓ TIVER PONTUACAO ATE' Á POSICAO 14.
+        {
+            <option class="bg-black" value="@i">@i</option>
+        }
+    </select>
+</div>
+
+@*      BLOCO DE CODIGO SERVE PARA FILTRAR PILOTO MAS COMO PODE DAR PROBLEMA NO FILTRO É MELHOR NAO METER POR AGORA
+
+
+        <div class="form-group row col-sm-7">
+            <div class="col-sm-2">
+                <select id="filtroCompeticao" class="form-control bg-transparent text-white" @bind="@filtroCategoriaId">
+                    <option class="bg-black" value="">Todos</option>
+                    @foreach (var categoria in Categorias)
+                    {
+                        <option class="bg-black" value="@categoria.Id_Piloto_Categorias">@categoria.Nome_Piloto_Categoria</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-dark" @onclick="FiltrarCategoria">Filtrar</button>
+            </div>
+        </div>*@
+
+<div class="form-group col-sm-2">
+    <label for="pilotoId">Piloto:</label>
+    <select id="pilotoId" class="form-control bg-transparent" style="color: white;" @bind="NewResultadoCorrida.Id_piloto">
+        <option class="bg-black" value="">Selecionar Piloto</option>
+        @foreach (var piloto in PilotosFiltrados)
+        {
+            <option class="bg-black" value="@piloto.Id_piloto">@piloto.Nickname</option>
+        }
+    </select>
+</div>
+
+<div class="form-group col-sm-6">
+    <label class="form-check-label" for="voltaMaisRapida">Fez volta mais Rápida</label>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="voltaMaisRapida" name="voltaMaisRapida" @bind="NewResultadoCorrida.VoltaRapida" style="transform: scale(1.5);" />
+    </div>
+</div>
+
+
+
+<button type="submit" class="btn btn-success">Criar</button>
+
+
+
+
+@if (showAlert)
+{
+    <div class="alert alert-success" role="alert">
+        @showAlertMensage
+    </div>
+    showAlert = false;
+}
+
+@if (showAlertError)
+{
+    <div class="alert alert-danger" role="alert">
+        @showAlertMensage
+    </div>
+    showAlertError = false;
+}
+
+@code {
+    public int Id_Corrida { get; set; }
+    public int TipoDePontuacao { get; set; }
+    List<ResultadoCorrida> ResultadosCorridaData { get; set; } = new();
+    ResultadoCorrida NewResultadoCorrida { get; set; } = new ResultadoCorrida();
+    List<Corrida> Corridas { get; set; } = new();
+    List<Piloto> PilotosData { get; set; } = new();
+    List<ResultadoCorrida> ResultadosCorridaDataFiltrados { get; set; } = new();
+    public int filtroCorridaId { get; set; }
+    bool showAlert = false;
+    bool showAlertError = false;
+    public string showAlertMensage { get; set; }
+    public ModalDelete DeleteModal { get; set; }
+    Modal1 SuccessModal { get; set; }
+    List<Competicao> Competicoes { get; set; } = new();
+    private List<Piloto_Categorias> Categorias { get; set; } = new();
+    List<Piloto> PilotosFiltrados { get; set; } = new();
+    private int filtroCategoriaId { get; set; } = new();
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        var response = await WebServiceAPI.GetPilotos();
+    //        PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+    //        var response1 = await WebServiceAPI.GetResultadoCorrida();
+    //        ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
+
+
+    //        var response2 = await WebServiceAPI.GetCorridas();
+    //        Corridas =  response2.Where(p => !p.IsDeleted).ToList();
+
+    //        Competicoes = await WebServiceAPI.GetCompeticoes();
+
+    //        FiltrarResultadosCorrida();
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        throw;
+    //    }
+    //}
+    private bool isAdmin = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var username = await LocalStorage.GetStringAsync("user");
+            var password = await LocalStorage.GetStringAsync("password");
+
+            isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+            if (isAdmin)
+            {
+                try
+                {
+                    var response = await WebServiceAPI.GetPilotos();
+                    PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+                    var response1 = await WebServiceAPI.GetResultadoCorrida();
+                    ResultadosCorridaData = response1.Where(p => !p.IsDeleted).ToList();
+
+
+                    var response2 = await WebServiceAPI.GetCorridas();
+                    Corridas = response2.Where(p => !p.IsDeleted).ToList();
+
+                    Competicoes = await WebServiceAPI.GetCompeticoes();
+                    Categorias = await WebServiceAPI.GetCategorias();
+
+                    PilotosFiltrados = PilotosData; //para que inicialmente pilotsfiltrados sejam todos os pilotos
+                    FiltrarResultadosCorrida();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
+
+            StateHasChanged();
+        }
+    }
+
+    public void FiltrarCategoria()
+    {
+        if (filtroCategoriaId == 0)
+        {
+            PilotosFiltrados = PilotosData;
+        }
+        else
+        {
+            PilotosFiltrados = PilotosData.Where(x => x.Id_Piloto_Categoria == filtroCategoriaId).ToList();
+        }
+
+    }
+
+    private async Task CreateNewResultadoCorrida() //A LÓGICA DOS PONTOS VAI FICAR NO LADO DO SERVIDOR, NO HANDLER
+    {
+        try
+        {
+            if (NewResultadoCorrida.PosicaoFinal == 0 || NewResultadoCorrida.PosicaoFinal is null ||
+            NewResultadoCorrida.Id_piloto == 0 || NewResultadoCorrida.Id_piloto is null ||
+            Id_Corrida == 0 || TipoDePontuacao == 0)
+            // Serve para que se o user nao selecionar nenhuma posicao não dar erro.
+            {
+
+                showAlertMensage = "Falta Selecionar um dos campos!";
+                showAlertError = true;
+                return; // Não faz nada e não cria o piloto
+            }
+
+            //ESTAS DUAS LINHAS TÊM DE FICAR ANTES DO CHECKRESULTADOEXISTENTE
+            NewResultadoCorrida.Id_corrida = Id_Corrida;
+            NewResultadoCorrida.TipoDePontuacao = TipoDePontuacao;
+
+
+            var checkResultadoExistente = await WebServiceAPI.GetResultadoCorrida();
+            if (checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_piloto == NewResultadoCorrida.Id_piloto
+                                                && p.Id_corrida == NewResultadoCorrida.Id_corrida))
+
+            {
+                showAlertMensage = "Este Piloto já tem resultado para esta corrida!";
+                showAlertError = true;
+                return;
+            }
+            if (checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_corrida == NewResultadoCorrida.Id_corrida
+                                                && p.PosicaoFinal == NewResultadoCorrida.PosicaoFinal))
+            {
+                showAlertMensage = "Posicao já atribuida";
+                showAlertError = true;
+                return;
+            }
+
+            if (NewResultadoCorrida.VoltaRapida == true && checkResultadoExistente.Any(p => !p.IsDeleted && p.Id_corrida == NewResultadoCorrida.Id_corrida && p.VoltaRapida == true))
+            {
+                showAlertMensage = "Volta Mais Rápida já atribuída";
+                showAlertError = true;
+                return;
+            }
+
+
+
+
+            NewResultadoCorrida.Nome_Piloto = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nome;
+            NewResultadoCorrida.NickName = PilotosData.FirstOrDefault(c => c.Id_piloto == NewResultadoCorrida.Id_piloto).Nickname;
+            var response = await WebServiceAPI.CreateResultadoCorrida(NewResultadoCorrida);
+            ResultadosCorridaData.Add(response);
+            NewResultadoCorrida = new ResultadoCorrida();
+
+            if (response is not null)
+            {
+                showAlert = true;
+                showAlertMensage = "Resultado criado com sucesso!";
+            }
+            FiltrarResultadosCorrida();
+
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+
+
+    private async Task DeleteResultadoCorrida(int id)
+    {
+        try
+        {
+            DeleteModal.CloseModal();
+            await WebServiceAPI.DeleteResultadoCorrida(id);
+            ResultadosCorridaData.RemoveAll(p => p.Id_ResultadoCorrida == id);
+            FiltrarResultadosCorrida();
+            SuccessModal.OpenModal();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
+
+    public async Task FiltrarResultadosCorrida()
+    {
+        if (filtroCorridaId == 0)
+        {
+            ResultadosCorridaDataFiltrados = ResultadosCorridaData.OrderByDescending(r => r.Id_ResultadoCorrida).ToList();
+        }
+        else
+        {
+            ResultadosCorridaDataFiltrados = ResultadosCorridaData.Where(r => r.Id_corrida == filtroCorridaId).OrderByDescending(r => r.Id_ResultadoCorrida).ToList();
+        }
+    }
+}

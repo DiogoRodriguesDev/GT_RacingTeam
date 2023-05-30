@@ -38,6 +38,8 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
                         {
                             request.ResultadoCorrida.Pontos++;
                         }
+                        request.ResultadoCorrida.Pontos -= request.ResultadoCorrida.pontosRemover;
+                        request.ResultadoCorrida.Pontos += request.ResultadoCorrida.pontosAdicionar;
                     }
                     else if (request.ResultadoCorrida.TipoDePontuacao == 2)//Se o tipo de pontuação for igual a 2 vai buscar os pontos da tabela nova da PRO.
                     {
@@ -47,6 +49,8 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
                         {
                             request.ResultadoCorrida.Pontos = request.ResultadoCorrida.Pontos + 2; //São dados 2 pontos ao pilotos que tem a volta mais rapida.
                         }
+                        request.ResultadoCorrida.Pontos -= request.ResultadoCorrida.pontosRemover;
+                        request.ResultadoCorrida.Pontos += request.ResultadoCorrida.pontosAdicionar;
                     }
                     else if (request.ResultadoCorrida.TipoDePontuacao == 3) //Se o tipo de pontuação for igual a 3 vai buscar os pontos da tabela nova da PRO AM.)
                     {
@@ -56,6 +60,8 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
                         {
                             request.ResultadoCorrida.Pontos = request.ResultadoCorrida.Pontos + 2; //São dados 2 pontos ao pilotos que tem a volta mais rapida.
                         }
+                        request.ResultadoCorrida.Pontos -= request.ResultadoCorrida.pontosRemover;
+                        request.ResultadoCorrida.Pontos += request.ResultadoCorrida.pontosAdicionar;
                     }
 
 

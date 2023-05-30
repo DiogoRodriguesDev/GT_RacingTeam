@@ -17,7 +17,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddRefitClient<IWebServiceAPI>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7107"));
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://backend.gt3racingteam.pt"));
 
 
 builder.Services.AddScoped<Utilities.ILocalStorage, Utilities.LocalStorage>();

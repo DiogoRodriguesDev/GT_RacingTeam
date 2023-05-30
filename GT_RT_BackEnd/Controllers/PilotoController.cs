@@ -5,6 +5,7 @@ using GT_RT_BackEnd.Queries;
 using ClassLibrary_GT_RT;
 using GT_RT_BackEnd.Commands.PilotoCommands;
 using GT_RT_BackEnd.Handlers.PilotoHandlers;
+using GT_RT_BackEnd.Queries.Competicoes;
 
 namespace GT_RT_BackEnd.Controllers
 {
@@ -28,6 +29,9 @@ namespace GT_RT_BackEnd.Controllers
             });
             return Ok(result);
         }
+        [HttpGet("Competicoes")]
+
+
 
         [HttpGet("/Piloto_Categorias")]
         public async Task<IActionResult> GetCategorias([FromQuery] Piloto_CategoriasRequest request)
@@ -69,7 +73,7 @@ namespace GT_RT_BackEnd.Controllers
         //    }));
         //    return Ok(result);
         //}
-        [HttpPost("Pilotos")]
+        [HttpPost("PilotoS")]
         public async Task<IActionResult> AddPiloto([FromBody] Piloto piloto)
         {
             var result = await Mediator.Send(new AddPilotoCommand(piloto));

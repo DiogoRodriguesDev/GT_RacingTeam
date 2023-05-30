@@ -33,6 +33,8 @@ namespace GT_RT_BackEnd.Handlers.ResultadoCorridaHandlers
                 ResultadoCorrida.PosicaoFinal = request.ResultadoCorrida.PosicaoFinal;
                 ResultadoCorrida.Nome_Piloto = request.ResultadoCorrida.Nome_Piloto;
                 ResultadoCorrida.NickName = request.ResultadoCorrida.NickName;
+                ResultadoCorrida.pontosAdicionar = request.ResultadoCorrida.pontosAdicionar;
+                ResultadoCorrida.pontosRemover = request.ResultadoCorrida.pontosRemover;
 
 
                 await _dataContext.SaveChangesAsync(cancellationToken);

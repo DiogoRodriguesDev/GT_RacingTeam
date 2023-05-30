@@ -166,9 +166,9 @@ else
     public int filtroCorridaId { get; set; } = 0;
     List<Corrida> CorridasFiltradas { get; set; } = new List<Corrida>();
     private bool isAdmin = false;
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
+        try
         {
             var username = await LocalStorage.GetStringAsync("user");
             var password = await LocalStorage.GetStringAsync("password");
@@ -197,7 +197,45 @@ else
 
             StateHasChanged();
         }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
     }
+ 
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        var username = await LocalStorage.GetStringAsync("user");
+    //        var password = await LocalStorage.GetStringAsync("password");
+
+    //        isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+    //        if (isAdmin)
+    //        {
+    //            try
+    //            {
+    //                var response = await WebServiceAPI.GetCorridas();
+    //                CorridasData = response.Where(p => !p.IsDeleted).ToList();
+
+    //                var response1 = await WebServiceAPI.GetCompeticoes();
+    //                CompeticoesData = response1.Where(p => !p.IsDeleted).ToList();
+
+
+    //                CorridasFiltradas = CorridasData;
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                Debug.WriteLine(ex);
+    //                throw;
+    //            }
+    //        }
+
+    //        StateHasChanged();
+    //    }
+    //}
     //protected override async Task OnInitializedAsync()
     //{
     //    try

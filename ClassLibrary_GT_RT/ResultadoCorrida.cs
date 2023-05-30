@@ -38,5 +38,8 @@ namespace ClassLibrary_GT_RT
         public bool? VoltaRapida { get; set; } = false;
 
         public int? TipoDePontuacao { get; set; } //1 = Antiga, 2 = Nova PRO, 3 = Nova PROAM
+
+        public int? pontosAdicionar { get; set; } = 0;
+        public int? pontosRemover { get; set; } = 0;
     }
 }

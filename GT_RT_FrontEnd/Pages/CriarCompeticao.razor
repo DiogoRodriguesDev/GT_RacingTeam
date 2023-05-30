@@ -147,10 +147,10 @@ else
     public string showAlertMensage { get; set; }
     private bool isAdmin = false;
 
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+ 
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
+        try
         {
             var username = await LocalStorage.GetStringAsync("user");
             var password = await LocalStorage.GetStringAsync("password");
@@ -181,7 +181,47 @@ else
 
             StateHasChanged();
         }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
     }
+
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        var username = await LocalStorage.GetStringAsync("user");
+    //        var password = await LocalStorage.GetStringAsync("password");
+
+    //        isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+    //        if (isAdmin)
+    //        {
+    //            try
+    //            {
+    //                var response = await WebServiceAPI.GetPilotos();
+    //                PilotosData = response.Where(p => !p.IsDeleted).ToList();
+
+    //                var response1 = await WebServiceAPI.GetCompeticoes();
+    //                CompeticaoData = response1.Where(p => !p.IsDeleted).ToList();
+
+    //                ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+
+    //                Competicoes = await WebServiceAPI.GetCompeticoes();
+    //                FiltrarCompeticao();
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                Debug.WriteLine(ex);
+    //                throw;
+    //            }
+    //        }
+
+    //        StateHasChanged();
+    //    }
+    //}
     //protected override async Task OnInitializedAsync()
     //{
     //    try

@@ -104,9 +104,9 @@ else
 
 
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
+        try
         {
             var username = await LocalStorage.GetStringAsync("user");
             var password = await LocalStorage.GetStringAsync("password");
@@ -130,7 +130,40 @@ else
 
             StateHasChanged();
         }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
     }
+
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        var username = await LocalStorage.GetStringAsync("user");
+    //        var password = await LocalStorage.GetStringAsync("password");
+
+    //        isAdmin = username == "ADMINXXX" && password == "XXX123";
+
+    //        if (isAdmin)
+    //        {
+    //            try
+    //            {
+    //                PilotoData = await WebServiceAPI.GetPiloto(Id);
+    //                ListaCategoriasPiloto = await WebServiceAPI.GetCategorias();
+    //                ListaEquipasPiloto = await WebServiceAPI.GetEquipas();
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                Debug.WriteLine(ex);
+    //                throw;
+    //            }
+    //        }
+
+    //        StateHasChanged();
+    //    }
+    //}
     //protected override async Task OnInitializedAsync()
     //{
     //    try

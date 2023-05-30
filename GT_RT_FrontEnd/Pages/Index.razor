@@ -63,6 +63,25 @@
     private int filtroCategoriaId { get; set; } = new();
     private List<Piloto_Categorias> Categorias { get; set; } = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await WebServiceAPI.GetPilotos();
+            Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
+
+            Categorias = await WebServiceAPI.GetCategorias();
+
+            dataFetched = true;
+            FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender || !dataFetched)

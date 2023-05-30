@@ -51,7 +51,7 @@ namespace GT_RT_BackEnd.Controllers
         //    }));
         //    return Ok(result);
         //}
-        [HttpPost("Corridas")]
+        [HttpPost("CorridaS")]
         public async Task<IActionResult> AddCorrida([FromBody] Corrida Corrida)
         {
             var result = await Mediator.Send(new AddCorridaCommand(Corrida));
