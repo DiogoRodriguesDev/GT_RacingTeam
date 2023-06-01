@@ -23,9 +23,9 @@ namespace GT_RT_BackEnd.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
             //optionsBuilder.UseSqlServer(@"Data Source=94.46.180.24\MSSQLSERVER2019;Initial Catalog=GT_RacingTeam; Trusted_Connection=True; TrustServerCertificate=True; ");//User Id = ; Password=;
             optionsBuilder.UseSqlServer(@"Data Source=94.46.180.24\MSSQLSERVER2019;Initial Catalog=GT_RacingTeam;User Id=dioscp;Password=dioXCZW558255;TrustServerCertificate=True;");
+
         }
         
 

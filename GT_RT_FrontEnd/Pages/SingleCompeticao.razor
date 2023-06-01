@@ -26,7 +26,7 @@ else
     <table>
         <thead>
             <tr>
-                <th>ID do Piloto</th>
+                <th>Posição</th>
                 <th>Nome do Piloto</th>
                 <th>Total de Pontos</th>
           
@@ -37,10 +37,12 @@ else
                                                         .OrderByDescending(x => x.Sum(r => r.Pontos)))
             {
                 <tr>
-                    <td>@resultado.Key</td>
+                    
+                    <td>@posicao</td>
                     <td>@resultado.First().Nome_Piloto</td>
                     <td>@resultado.Sum(r => r.Pontos)</td>
                 </tr>
+                posicao++;
             }
         </tbody>
     </table>
@@ -49,17 +51,20 @@ else
 {
     <p>Nenhum resultado de corrida encontrado para esta competicao.</p>
 }
-
+<hr>
 
 @if (Corridas != null && Corridas.Any())
 {
     <table style="border-collapse: collapse; width: 100%;">
         <thead>
+            
             <tr>
                 <th style="border: 1px solid black;">Piloto</th>
                 @foreach (var corrida in Corridas)
                 {
+                    
                     <th style="border: 1px solid black;">@corrida.Circuito</th>
+                    
                 }
             </tr>
         </thead>
@@ -67,7 +72,9 @@ else
             @foreach (var resultado in ResultadosCorrida.GroupBy(r => r.Id_piloto).OrderByDescending(x => x.Sum(r => r.Pontos)))
             {
                 <tr>
-                    <td style="border: 1px solid black;">@resultado.First().Nome_Piloto</td>
+
+                    <td style="border: 1px solid black;">@posicao_grelha @resultado.First().Nome_Piloto</td>
+
                     @foreach (var corrida in Corridas)
                     {
                         <td style="border: 1px solid black;">
@@ -77,7 +84,9 @@ else
                             }
                         </td>
                     }
+                    
                 </tr>
+                posicao_grelha++;
             }
         </tbody>
     </table>
@@ -91,6 +100,9 @@ else
 @code {
     [Parameter]
     public int Id { get; set; }
+
+    public int posicao { get; set; } = 1;
+    public int posicao_grelha { get; set; } = 1;
 
     private Competicao Competicao { get; set; }
     private List<ResultadoCorrida> ResultadosCorrida { get; set; }
