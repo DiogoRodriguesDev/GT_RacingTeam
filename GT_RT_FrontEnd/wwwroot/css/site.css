@@ -164,3 +164,7 @@ window.scrollToBottom = function() {
     background-color: transparent;
     outline: none;
 }
+
+.vmr {
+    color: sandybrown;
+}
