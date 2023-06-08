@@ -12,3 +12,17 @@ C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\ClassLibrary_GT_RT\o
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.pdb
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.genruntimeconfig.cache
 C:\Users\DiogoRodrigues\Desktop\GT_RacingTeam\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ref\ClassLibrary_GT_RT.dll
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\bin\Debug\net6.0\ClassLibrary_GT_RT.deps.json
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\bin\Debug\net6.0\ClassLibrary_GT_RT.runtimeconfig.json
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\bin\Debug\net6.0\ClassLibrary_GT_RT.dll
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\bin\Debug\net6.0\ClassLibrary_GT_RT.pdb
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.csproj.AssemblyReference.cache
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.AssemblyInfoInputs.cache
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.AssemblyInfo.cs
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.csproj.CoreCompileInputs.cache
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.dll
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\refint\ClassLibrary_GT_RT.dll
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.pdb
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ClassLibrary_GT_RT.genruntimeconfig.cache
+C:\Users\dioX2\Desktop\GITKRAKEN_REPOSITORIOS\GT_RacingTeam\ClassLibrary_GT_RT\obj\Debug\net6.0\ref\ClassLibrary_GT_RT.dll
