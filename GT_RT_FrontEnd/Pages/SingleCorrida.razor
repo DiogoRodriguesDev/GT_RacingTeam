@@ -44,7 +44,19 @@
                     <tr>
 
                         <td style="border-bottom: 1px solid black;">@resultado.PosicaoFinal</td>
+                        @if (resultado.VoltaRapida == true)
+                        {
+                        <th class="vmr">@resultado.Pontos</th>
+                        }
+                        else if (resultado.pontosRemover > 0)
+                        {
+                        <td class="perdeuPontos">@resultado.Pontos</td>
+                        }
+                        else
+                        {
                         <td style="border-bottom: 1px solid black;">@resultado.Pontos</td>
+                        }
+                        
                         <td style="border-bottom: 1px solid black;"><a href="/piloto-details/@resultado.Id_piloto" class="link-personalizado2">@resultado.NickName</a></td>
                         <td style="border-bottom: 1px solid black;">@(resultado.VoltaRapida ?? false ? "VMR" : "")</td>
                     </tr>
