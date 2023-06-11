@@ -36,11 +36,11 @@
                 <div>
                     @if (piloto.Foto != null)
                     {
-                        <img src="data:image;base64,@Convert.ToBase64String(piloto.Foto)" alt="Foto do Piloto" style="width: 100px; height: 100px; border-radius: 100%; margin-bottom: 10px;" />
+                        <img src="data:image;base64,@Convert.ToBase64String(piloto.Foto)" alt="Foto do Piloto" style="width: 100px; height: 100px; border-radius: 100%; margin-bottom: 10px;" onclick="@(() => RedirectToPilotoDetails(piloto.Id_piloto))" />
                     }
                     else
                     {
-                        <img src="https://drive.google.com/uc?id=1MIW2KXPDHF2GlnJ1A4qUERXJMbb345-Z" alt="Imagem" style="width: 100px; height: 100px; border-radius: 100%; margin-bottom: 10px;" />
+                        <img src="https://drive.google.com/uc?id=1MIW2KXPDHF2GlnJ1A4qUERXJMbb345-Z" alt="Imagem" style="width: 100px; height: 100px; border-radius: 100%; margin-bottom: 10px;" onclick="@(() => RedirectToPilotoDetails(piloto.Id_piloto))" />
                     }
 
                     <div>
@@ -56,6 +56,8 @@
 
 
 @code {
+
+
     List<Piloto> Pilotos { get; set; } = new();
     List<Piloto> PilotosFiltrados { get; set; } = new();
     bool dataFetched = false;
@@ -82,28 +84,33 @@
             throw;
         }
     }
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender || !dataFetched)
+    //    {
+    //        try
+    //        {
+    //            var response = await WebServiceAPI.GetPilotos();
+    //            Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
+
+    //            Categorias = await WebServiceAPI.GetCategorias();
+
+    //            dataFetched = true;
+    //            FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
+    //            StateHasChanged();
+
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Debug.WriteLine(ex);
+    //            throw;
+    //        }
+    //    }
+    //}
+
+    private void RedirectToPilotoDetails(int pilotoId)
     {
-        if (firstRender || !dataFetched)
-        {
-            try
-            {
-                var response = await WebServiceAPI.GetPilotos();
-                Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
-
-                Categorias = await WebServiceAPI.GetCategorias();
-
-                dataFetched = true;
-                FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
-                StateHasChanged();
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                throw;
-            }
-        }
+        NavigationManager.NavigateTo($"/piloto-details/{pilotoId}");
     }
 
     public void FiltrarCategoria()
