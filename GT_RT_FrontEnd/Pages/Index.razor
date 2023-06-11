@@ -67,46 +67,46 @@
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            var response = await WebServiceAPI.GetPilotos();
-            Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
+        //try
+        //{
+        //    var response = await WebServiceAPI.GetPilotos();
+        //    Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
 
-            Categorias = await WebServiceAPI.GetCategorias();
+        //    Categorias = await WebServiceAPI.GetCategorias();
 
-            dataFetched = true;
-            FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
-            StateHasChanged();
-        }
-        catch (Exception ex)
+        //    dataFetched = true;
+        //    FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
+        //    StateHasChanged();
+        //}
+        //catch (Exception ex)
+        //{
+        //    Debug.WriteLine(ex);
+        //    throw;
+        //}
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || !dataFetched)
         {
-            Debug.WriteLine(ex);
-            throw;
+            try
+            {
+                var response = await WebServiceAPI.GetPilotos();
+                Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
+
+                Categorias = await WebServiceAPI.GetCategorias();
+
+                dataFetched = true;
+                FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
+                StateHasChanged();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
     }
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender || !dataFetched)
-    //    {
-    //        try
-    //        {
-    //            var response = await WebServiceAPI.GetPilotos();
-    //            Pilotos = response.Where(p => !p.IsDeleted && p.Inativo == false).ToList();
-
-    //            Categorias = await WebServiceAPI.GetCategorias();
-
-    //            dataFetched = true;
-    //            FiltrarCategoria(); //para que inicialmente seja feito o load de todos os pilotos.
-    //            StateHasChanged();
-
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            Debug.WriteLine(ex);
-    //            throw;
-    //        }
-    //    }
-    //}
 
     private void RedirectToPilotoDetails(int pilotoId)
     {
