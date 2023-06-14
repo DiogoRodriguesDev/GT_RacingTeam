@@ -41,7 +41,9 @@
                 <div class="container-fluid">
                     <div class="col-auto">
                         <img src="https://drive.google.com/uc?id=1KjJ9znerXytfn3yTf6oeAHQ7zp-19CKN" alt="Foto do Piloto" style="max-width: 60px; max-height: 100px;" />
+                        <img src="@randomImageUrl" alt="Imagem Aleatória" style="max-width: 60px; max-height: 100px;" />
                     </div>
+                    
                     <div class="row align-items-center">
                         <div class="col-auto px-3">
                             <NavLink class="nav-link text-white letrasSFNIGHT" href="" Match="NavLinkMatch.All">
@@ -175,10 +177,31 @@
 @code {
 
 
+    private string randomImageUrl;
 
+    private List<string> imageUrls = new List<string>
+    {
+        "https://drive.google.com/uc?id=1zFn-dkqnRh15YVvh7HnN4fK_IDT0VwCA",
+        "https://drive.google.com/uc?id=1inDCQyiCK9l7a-zaXH_VxvBFuBUANQn3",
+        "https://drive.google.com/uc?id=1YAqnMAPDztKDQDEBM8F4xI2WTVrAJAgp",
+        "https://drive.google.com/uc?id=1VMhiNFnNR_dtpogYdkR1n5IrUQ5ItsjS",
+        "https://drive.google.com/uc?id=1smCqws6O_X5__2HcAPIdlF0MmlTZ3U_p",
+        "https://drive.google.com/uc?id=1NO76s1e4TkdnIQne1qqcgGCOZPDerI2M",
+        "https://drive.google.com/uc?id=1HDLc9kYBZv1Ug6LPyYnDql3bS90vkZuz",
+        "https://drive.google.com/uc?id=1cWMTxD1I6UEKHweYlPuJZl-o_TEue_iW",
+        "https://drive.google.com/uc?id=1-IIkQ_uy-2am7EH36V86yW7dQpw2lwf4"
+    };
+
+    protected override void OnInitialized()
+    {
+        var rand = new Random();
+        int index = rand.Next(imageUrls.Count);
+        randomImageUrl = imageUrls[index];
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+
         if (firstRender)
         {
             user = await LocalStorage.GetStringAsync("user");
