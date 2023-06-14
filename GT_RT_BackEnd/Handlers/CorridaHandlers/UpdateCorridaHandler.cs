@@ -32,6 +32,7 @@ namespace GT_RT_BackEnd.Handlers.CorridaHandlers
                 Corrida.Tipo_Pneus = request.Corrida.Tipo_Pneus;
                 Corrida.NumeroVoltas = request.Corrida.NumeroVoltas;
                 Corrida.NumeroMinutos = request.Corrida.NumeroMinutos;
+                Corrida.Descricao = request.Corrida.Descricao;
                 Corrida.Id_Resultado = request.Corrida.Id_Resultado;
                 Corrida.IsDeleted = request.Corrida.IsDeleted;
                 Corrida.VideoYoutube = request.Corrida.VideoYoutube;
