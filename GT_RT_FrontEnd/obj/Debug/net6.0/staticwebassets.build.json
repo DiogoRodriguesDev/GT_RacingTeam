@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VQrp0NLUY3oax4vaU7D0UPM7OJ0EvpB3MfmuIA7eBfY=",
+  "Hash": "FP6Ah4pBulPOMHnDBK2SxOGjT7upq+58eEbZRGqjqkM=",
   "Source": "GT_RT_FrontEnd",
   "BasePath": "_content/GT_RT_FrontEnd",
   "Mode": "Default",
@@ -1001,6 +1001,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\dioX2\\Desktop\\GITKRAKEN_REPOSITORIOS\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\favicon1.ico",
+      "SourceId": "GT_RT_FrontEnd",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dioX2\\Desktop\\GITKRAKEN_REPOSITORIOS\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\",
+      "BasePath": "_content/GT_RT_FrontEnd",
+      "RelativePath": "favicon1.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon1.ico"
     },
     {
       "Identity": "C:\\Users\\dioX2\\Desktop\\GITKRAKEN_REPOSITORIOS\\GT_RacingTeam\\GT_RT_FrontEnd\\wwwroot\\index.html",

@@ -83,6 +83,10 @@ else
                                 {
                                 <th class="vmr">@pontos </th>
                                 }
+                                else if (resultado.FirstOrDefault(r => r.Id_corrida == corrida.Id_corrida)?.pontosRemover > 0)
+                                {
+                                <td class="perdeuPontos">@pontos</td>
+                                }
                                 else
                                 {
                                     @pontos
