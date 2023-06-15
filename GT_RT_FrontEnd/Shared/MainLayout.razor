@@ -191,16 +191,31 @@
         "https://drive.google.com/uc?id=1cWMTxD1I6UEKHweYlPuJZl-o_TEue_iW",
         "https://drive.google.com/uc?id=1-IIkQ_uy-2am7EH36V86yW7dQpw2lwf4"
     };
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        var rand = new Random();
+    //        int index = rand.Next(imageUrls.Count);
+    //        randomImageUrl = imageUrls[index];
 
-    protected override void OnInitialized()
+            
+    //            user = await LocalStorage.GetStringAsync("user");
+    //            loggedIn = !string.IsNullOrEmpty(user);
+    //            StateHasChanged();
+            
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.WriteLine(ex);
+    //        throw;
+    //    }
+    //}
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         var rand = new Random();
         int index = rand.Next(imageUrls.Count);
         randomImageUrl = imageUrls[index];
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
 
         if (firstRender)
         {
